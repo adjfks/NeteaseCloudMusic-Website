@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import { createPinia } from 'pinia'
+import '@/styles/normalize.less'
 // 导入数据持久化插件
 import localStoragePlugin from '@/store/plugin/localStoragePlugin'
 
