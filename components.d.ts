@@ -5,9 +5,26 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ElAside: typeof import('element-plus/es')['ElAside']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElFooter: typeof import('element-plus/es')['ElFooter']
+    ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElMain: typeof import('element-plus/es')['ElMain']
+    Header: typeof import('./src/components/header.vue')['default']
+    ICarbonSearch: typeof import('~icons/carbon/search')['default']
+    IIcRoundKeyboardArrowLeft: typeof import('~icons/ic/round-keyboard-arrow-left')['default']
+    IIcRoundKeyboardArrowRight: typeof import('~icons/ic/round-keyboard-arrow-right')['default']
+    MusicHeader: typeof import('./src/components/MusicHeader.vue')['default']
+    PicText: typeof import('./src/components/library/PicText.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sidebar: typeof import('./src/components/Sidebar.vue')['default']
+    SideBar: typeof import('./src/components/SideBar.vue')['default']
+    Test: typeof import('./src/components/Test.vue')['default']
   }
 }
 

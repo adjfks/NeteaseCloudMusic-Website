@@ -7,7 +7,8 @@ interface LocalStoragePluginOptions {
 type WebStorage = WindowLocalStorage | WindowSessionStorage
 
 // 判断是否需要持久化
-function isInStores(storeIds: Array<string> | string , mutationId: string) {
+function isInStores(storeIds: Array<string> | string, mutationId: string) {
+  
   if (typeof storeIds === 'string') {
     return storeIds === mutationId
   } else {
@@ -16,9 +17,8 @@ function isInStores(storeIds: Array<string> | string , mutationId: string) {
 }
 
 // 持久化操作
-function setLocalStorage(mutationId: string, state: StateTree) {
+function setLocalStorage(mutationId: string, state: StateTree):Promise<string> {
   return new Promise((resolve, reject) => {
-    
     localStorage.setItem(mutationId, JSON.stringify(state))
     resolve('success')
   })
@@ -32,7 +32,9 @@ export default function localStoragePlugin(options: LocalStoragePluginOptions) {
     const store = ctx.store
     store.$subscribe((mutation, state) => {
       if (!isInStores(storeIds, mutation.storeId)) return
-      setLocalStorage(mutation.storeId , state)
+      setLocalStorage(mutation.storeId, state)
+      console.log(`store ${mutation.storeId} successfully`);
+      
     })
     
   }
