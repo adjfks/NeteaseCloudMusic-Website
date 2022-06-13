@@ -1,10 +1,22 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const Layout = () => import('@/views/Layout.vue')
+
+const Discover = () => import('@/views/discover/index.vue')
+const Recommend = () => import('@/views/discover/views/Recommend.vue')
 const routes = [
   {
     path: '/',
     component: Layout,
+    children: [
+      {path: '/' , redirect: '/discover'},
+      {
+        path: '/discover', component: Discover, children: [
+          { path: '/discover' , redirect: '/discover/recommend' },
+          { path: '/discover/recommend' , component: Recommend }
+        ]
+      }
+    ]
   }
 ]
 

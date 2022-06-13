@@ -9,7 +9,8 @@ const index = ref(0)
     <ul class="discover-menu">
       <li v-for="(item, idx) in discoverMenu" :key="item.title"
           @click="index = idx">
-        <router-link to="/" :class="{ active: idx === index }">{{ item.title }}
+        <router-link to="/discover/recommend"
+                     :class="{ active: idx === index }">{{ item.title }}
         </router-link>
       </li>
     </ul>
@@ -23,9 +24,11 @@ const index = ref(0)
   .discover-menu {
     display: flex;
     align-items: center;
+    height: 100%;
 
     &>li {
       margin: 10px;
+      height: 100%;
 
       a {
         display: block;

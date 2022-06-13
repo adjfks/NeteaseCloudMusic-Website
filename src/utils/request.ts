@@ -7,9 +7,16 @@ const instance = axios.create({
   timeout: 5000
 })
 
+// 响应拦截器
+instance.interceptors.response.use(
+  (res) => res.data,
+  (err) => {
+    return Promise.reject(err)
+  }
+)
 
 // 请求工具函数
-export default (url:string , method: Method , submitData?:any) => {
+export default (url:string , method: Method , submitData?:any):any => {
   return instance({
     url,
     method,

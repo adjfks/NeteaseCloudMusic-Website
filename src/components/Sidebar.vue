@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import sidebar from '@/api/constants/sidebar'
-import { SideBarItem } from '@/api/constants/sidebar'
 import { Ref } from 'vue';
 const index: Ref<number> = ref(0)
 
@@ -24,7 +23,7 @@ const index: Ref<number> = ref(0)
         </template>
         <li v-else class="sidebar-item" :class="{ active: idx === index }"
             @click="index = idx">
-          <router-link to="/">{{ item.title }}</router-link>
+          <router-link to="/discover">{{ item.title }}</router-link>
         </li>
       </template>
 

@@ -14,7 +14,7 @@ import Discover from '@/views/discover/index.vue'
         </el-aside>
         <el-container>
           <el-main>
-            <Discover />
+            <router-view></router-view>
           </el-main>
         </el-container>
       </el-container>
