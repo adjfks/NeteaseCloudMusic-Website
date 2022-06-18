@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import discoverMenu from '@/api/constants/discover'
 
+const props = defineProps<{
+  height?: string
+}>()
+
 const index = ref(0)
 </script>
 
@@ -19,7 +23,7 @@ const index = ref(0)
 
 <style lang="less" scoped>
 .discover-header {
-  height: 70px;
+  height: v-bind(height);
 
   .discover-menu {
     display: flex;
@@ -29,16 +33,16 @@ const index = ref(0)
     &>li {
       margin: 10px;
       height: 100%;
+      line-height: v-bind(height);
 
       a {
         display: block;
-        font-size: 18px;
-        padding-bottom: 5px;
+        font-size: 16px;
         transition: all .2s;
 
         &.active {
           border-bottom: 3px solid var(--theme-color);
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
         }
       }

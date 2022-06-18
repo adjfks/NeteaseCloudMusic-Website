@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import Discover from '@/views/discover/index.vue'
 </script>
 
 <template>
   <div class="common-layout">
     <el-container class="layout">
-      <el-header height="75px">
-        <MusicHeader />
+      <!-- 头部 -->
+      <el-header height="60px">
+        <MusicHeader height="60px" />
       </el-header>
+
+      <!-- 中间区域 -->
       <el-container class="main">
         <el-aside width="245px">
           <Sidebar />
         </el-aside>
-        <el-container>
-          <el-main>
-            <router-view></router-view>
-          </el-main>
-        </el-container>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
+
+      <!-- 底部footer -->
       <el-footer height="90px">
         <div>Footer</div>
       </el-footer>
@@ -28,7 +30,22 @@ import Discover from '@/views/discover/index.vue'
 <style lang="less" scoped>
 .common-layout {
   height: 100%;
-  display: flex;
+
+  .layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .el-container.main {
+      flex: 1;
+      height: 0;
+      overflow: hidden;
+
+      .el-main {
+        padding: 0;
+      }
+    }
+  }
 }
 
 .el-header {

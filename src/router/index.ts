@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const Layout = () => import('@/views/Layout.vue')
 
 const Discover = () => import('@/views/discover/index.vue')
-const Recommend = () => import('@/views/discover/views/Recommend.vue')
+const Recommend = () => import('@/views/discover/pages/Recommend.vue')
 const routes = [
   {
     path: '/',
