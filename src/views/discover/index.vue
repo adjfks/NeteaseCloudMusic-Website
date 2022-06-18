@@ -10,7 +10,7 @@ import DiscoverMenu from './components/DiscoverMenu.vue';
       <DiscoverMenu height="50px" />
     </nav>
     <main>
-      <el-scrollbar>
+      <el-scrollbar noresize>
         <router-view></router-view>
       </el-scrollbar>
     </main>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getBanner, getPlaylist, getNewSong } from '@/api/discover'
+import { getBanner, getPlaylist, getNewSong, getMv, getPrivateContent } from '@/api/discover'
 import transformList from '@/utils/transformList'
 import { Ref } from 'vue'
 
@@ -37,6 +37,17 @@ const newsonglist = computed(() => {
   return transformList(newitem.value, 4)
 })
 
+/* 推荐MV */
+const recommendMv: Ref<Array<any>> = ref([])
+getMv().then((res: any) => {
+  recommendMv.value = res.result
+})
+
+/* 独家放送 */
+const privateContent: Ref<Array<any>> = ref([])
+getPrivateContent().then((res: any) => {
+  privateContent.value = res.result
+})
 </script>
 
 
@@ -59,7 +70,7 @@ const newsonglist = computed(() => {
     <Panel title="推荐歌单">
       <el-row :gutter="20" v-for="row in recommendPlaylist">
         <el-col :span="4" v-for="item in row" :key="item.id">
-          <Card :playlist="item" />
+          <Card :content="item" />
         </el-col>
       </el-row>
     </Panel>
@@ -67,7 +78,23 @@ const newsonglist = computed(() => {
     <Panel title="最新音乐">
       <el-row :gutter="20" v-for="group in newsonglist">
         <el-col :span="8" v-for="item in group" :key="item.id">
-          <Card :song="item" horizontal />
+          <Card :content="item" horizontal hoverLayer />
+        </el-col>
+      </el-row>
+    </Panel>
+    <!-- 推荐MV -->
+    <Panel title="推荐MV">
+      <el-row :gutter="20">
+        <el-col :span="6" v-for="item in recommendMv" :key="item.id">
+          <Card :content="item" />
+        </el-col>
+      </el-row>
+    </Panel>
+    <!-- 独家放送 -->
+    <Panel title="独家放送">
+      <el-row :gutter="20">
+        <el-col :span="8" v-for="item in privateContent" :key="item.id">
+          <Card :content="item" />
         </el-col>
       </el-row>
     </Panel>

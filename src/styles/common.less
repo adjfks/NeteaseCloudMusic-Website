@@ -5,4 +5,32 @@ img {
   width: 100%;
 }
 
+/* hover遮罩 */
+.hover-up {
+  position: relative;
+  transition: all .2s;
+
+  &:hover{
+    transform: translateY(-2px);
+  }
+}
+
+.hover-layer {
+  &::before {
+    content: '';
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity .4s;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
 

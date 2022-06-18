@@ -20,7 +20,7 @@
       </el-container>
 
       <!-- 底部footer -->
-      <el-footer height="90px">
+      <el-footer height="60px">
         <div>Footer</div>
       </el-footer>
     </el-container>
@@ -50,9 +50,5 @@
 
 .el-header {
   padding: 0;
-}
-
-.el-footer {
-  height: 90px;
 }
 </style>

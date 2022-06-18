@@ -31,6 +31,7 @@ const props = defineProps<Props>()
     &>a {
       display: flex;
       align-items: center;
+      height: 100%;
 
       .panel-title {
         font-size: 18px;

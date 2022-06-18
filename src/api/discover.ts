@@ -26,3 +26,19 @@ export const getPlaylist = (limit?: number) => {
 export const getNewSong = (limit?: number) => {
   return request('personalized/newsong', 'get', { limit })
 }
+
+/**
+ * 获取推荐MV
+ * @returns 
+ */
+export const getMv = () => {
+  return request('personalized/mv', 'get')
+}
+
+/**
+ * 获取独家放送
+ * @returns 
+ */
+export const getPrivateContent = () => {
+  return request('personalized/privatecontent', 'get')
+}

@@ -1,26 +1,24 @@
 <script setup lang="ts">
 // 使用基于类型的props声明
 interface Props {
-  playlist?: any,
-  song?: any,
+  content: any,
+  hoverLayer?: boolean,
   horizontal?: boolean
 }
 const props = defineProps<Props>()
 
-const picUrl = props.horizontal ? props.song.picUrl : props.playlist.picUrl
-const title = props.horizontal ? props.song.name : props.playlist.name
-
 </script>
 
 <template>
-  <router-link to="/" class="card" :class="{ 'horizontal': horizontal }">
+  <router-link to="/" class="card hover-up"
+               :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
     <div class="picture">
-      <img :src="picUrl" alt="">
+      <img :src="content.picUrl" alt="">
     </div>
     <div class="description">
-      <p class="title">{{ title }}</p>
+      <p class="title">{{ content.name }}</p>
       <template v-if="horizontal">
-        <p class="artist">{{ song.song.artists[0].name }}</p>
+        <p class="artist">{{ content.song.artists[0].name }}</p>
       </template>
     </div>
   </router-link>
@@ -38,18 +36,6 @@ const title = props.horizontal ? props.song.name : props.playlist.name
     position: relative;
     margin-bottom: 5px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transition: opacity .4s;
-    }
-
     &::after {
       content: '';
       z-index: 2000;
@@ -65,7 +51,6 @@ const title = props.horizontal ? props.song.name : props.playlist.name
     }
 
     // 遮罩
-    &:hover::before,
     &:hover::after {
       opacity: 1;
     }
@@ -88,6 +73,9 @@ const title = props.horizontal ? props.song.name : props.playlist.name
     width: 60px;
     height: 60px;
     margin-right: 10px;
+    margin-bottom: 0;
+    border-radius: 5px;
+    overflow: hidden;
 
     &::after {
       right: 50%;
