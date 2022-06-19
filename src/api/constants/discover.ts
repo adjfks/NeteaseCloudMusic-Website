@@ -8,7 +8,7 @@ export type DiscoverMenu = Array<DiscoverMenuItem>
 export default <DiscoverMenu> [
   {
     title: '个性推荐',
-    link: '/'
+    link: '/discover/recommend'
   },
   {
     title: '专属定制',
@@ -16,7 +16,7 @@ export default <DiscoverMenu> [
   },
   {
     title: '歌单',
-    link: '/'
+    link: '/discover/playlist'
   },
   {
     title: '排行榜',

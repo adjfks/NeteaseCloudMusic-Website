@@ -4,6 +4,7 @@ const Layout = () => import('@/views/Layout.vue')
 
 const Discover = () => import('@/views/discover/index.vue')
 const Recommend = () => import('@/views/discover/pages/Recommend.vue')
+const Playlist = () => import('@/views/discover/pages/Playlist.vue')
 const routes = [
   {
     path: '/',
@@ -13,7 +14,8 @@ const routes = [
       {
         path: '/discover', component: Discover, children: [
           { path: '/discover' , redirect: '/discover/recommend' },
-          { path: '/discover/recommend' , component: Recommend }
+          { path: '/discover/recommend', component: Recommend },
+          { path: '/discover/playlist', component: Playlist }
         ]
       }
     ]

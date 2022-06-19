@@ -42,3 +42,38 @@ export const getMv = () => {
 export const getPrivateContent = () => {
   return request('personalized/privatecontent', 'get')
 }
+
+/**
+ * 获取歌单分类
+ * @returns 歌单分类列表
+ */
+export const getPlaylistCatgory = () => { 
+  return request('playlist/catlist', 'get')
+}
+
+/**
+ * 获取精品歌单
+ * @param limit 数量
+ * @param cat tag, 比如 " 华语 "、" 古风 " 、" 欧美 "、" 流行 ", 默认为 "全部",可从精品歌单标签列表接口获取/playlist/highquality/tags
+ * @param before 分页参数,取上一页最后一个歌单的 updateTime 获取下一页数据
+ * @returns 
+ */
+export const getHighQualityPlaylist = (limit?: number, cat?: string, before?: number) => {
+  return request('top/playlist/highquality', 'get', { limit, cat, before })
+}
+
+/**
+ * 获取热门歌单分类
+ * @returns 
+ */
+export const getHotCategory = () => { 
+  return request('playlist/hot' , 'get')
+}
+
+/**
+ * 获取全部歌单分类
+ * @returns 
+ */
+export const getAllCategory = () => { 
+  return request('playlist/catlist' , 'get')
+}

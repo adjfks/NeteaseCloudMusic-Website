@@ -34,3 +34,26 @@ img {
   }
 }
 
+// hover字体颜色
+.hover-font {
+  &:hover {
+    color: #fd726d;
+    cursor: pointer;
+  }
+}
+
+/* 滚动条样式 */
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #dedfe1;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 10px;
+  }
+}
