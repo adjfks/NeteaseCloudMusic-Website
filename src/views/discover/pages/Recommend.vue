@@ -52,53 +52,56 @@ getPrivateContent().then((res: any) => {
 
 
 <template>
-  <div class="recommend-container">
-    <!-- 轮播图 -->
-    <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item v-for="item in banners" :key="item.targetId">
-        <div class="carousel-picture">
-          <img :src="item.imageUrl" alt="">
-          <span class="type-label"
-                :style="{ backgroundColor: labelColor[item.titleColor] }">{{
-                    item.typeTitle
-                }}</span>
-        </div>
-      </el-carousel-item>
-    </el-carousel>
+  <el-scrollbar>
+    <div class="recommend-container">
+      <!-- 轮播图 -->
+      <el-carousel :interval="4000" type="card" height="200px">
+        <el-carousel-item v-for="item in banners" :key="item.targetId">
+          <div class="carousel-picture">
+            <img :src="item.imageUrl" alt="">
+            <span class="type-label"
+                  :style="{ backgroundColor: labelColor[item.titleColor] }">{{
+                      item.typeTitle
+                  }}</span>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
 
-    <!-- 推荐歌单 -->
-    <Panel title="推荐歌单">
-      <el-row :gutter="20" v-for="row in recommendPlaylist">
-        <el-col :span="4" v-for="item in row" :key="item.id">
-          <Card :content="item" />
-        </el-col>
-      </el-row>
-    </Panel>
-    <!-- 最新音乐 -->
-    <Panel title="最新音乐">
-      <el-row :gutter="20" v-for="group in newsonglist">
-        <el-col :span="8" v-for="item in group" :key="item.id">
-          <Card :content="item" horizontal hoverLayer />
-        </el-col>
-      </el-row>
-    </Panel>
-    <!-- 推荐MV -->
-    <Panel title="推荐MV">
-      <el-row :gutter="20">
-        <el-col :span="6" v-for="item in recommendMv" :key="item.id">
-          <Card :content="item" />
-        </el-col>
-      </el-row>
-    </Panel>
-    <!-- 独家放送 -->
-    <Panel title="独家放送">
-      <el-row :gutter="20">
-        <el-col :span="8" v-for="item in privateContent" :key="item.id">
-          <Card :content="item" />
-        </el-col>
-      </el-row>
-    </Panel>
-  </div>
+      <!-- 推荐歌单 -->
+      <Panel title="推荐歌单">
+        <el-row :gutter="20" v-for="row in recommendPlaylist">
+          <el-col :span="4" v-for="item in row" :key="item.id">
+            <Card :content="item" />
+          </el-col>
+        </el-row>
+      </Panel>
+      <!-- 最新音乐 -->
+      <Panel title="最新音乐">
+        <el-row :gutter="20" v-for="group in newsonglist">
+          <el-col :span="8" v-for="item in group" :key="item.id">
+            <Card :content="item" horizontal hoverLayer />
+          </el-col>
+        </el-row>
+      </Panel>
+      <!-- 推荐MV -->
+      <Panel title="推荐MV">
+        <el-row :gutter="20">
+          <el-col :span="6" v-for="item in recommendMv" :key="item.id">
+            <Card :content="item" />
+          </el-col>
+        </el-row>
+      </Panel>
+      <!-- 独家放送 -->
+      <Panel title="独家放送">
+        <el-row :gutter="20">
+          <el-col :span="8" v-for="item in privateContent" :key="item.id">
+            <Card :content="item" />
+          </el-col>
+        </el-row>
+      </Panel>
+    </div>
+  </el-scrollbar>
+
 </template>
 
 <style lang="less" scoped>

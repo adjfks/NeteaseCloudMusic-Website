@@ -3,7 +3,8 @@
 interface Props {
   content: any,
   hoverLayer?: boolean,
-  horizontal?: boolean
+  horizontal?: boolean,
+  coverImgUrl?: string
 }
 const props = defineProps<Props>()
 
@@ -13,7 +14,7 @@ const props = defineProps<Props>()
   <router-link to="/" class="card hover-up"
                :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
     <div class="picture">
-      <img :src="content.picUrl" alt="">
+      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="">
     </div>
     <div class="description">
       <p class="title">{{ content.name }}</p>
@@ -59,7 +60,7 @@ const props = defineProps<Props>()
   }
 
   .title {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.5em;
   }
 

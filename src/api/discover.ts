@@ -10,7 +10,7 @@ export const getBanner = (type?: number) => {
 }
 
 /**
- * 获取歌单
+ * 获取推荐歌单
  * @param limit 数量
  * @returns 
  */
@@ -76,4 +76,22 @@ export const getHotCategory = () => {
  */
 export const getAllCategory = () => { 
   return request('playlist/catlist' , 'get')
+}
+
+/**
+  *
+  *@param order 'new' | 'hot'
+  *@param cat 如'华语'、'古风',从getAllCategory获取
+  *@param limit 默认50
+  *@param offset 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*50, 其中 50 为 limit 的值
+  *@returns
+  */
+export interface GetPlaylistParams {
+  order?: 'new' | 'hot',
+  cat?: string,
+  limit?: number
+  offset?: number
+}
+export const getPlaylistByCat = (params: GetPlaylistParams) => {
+  return request('/top/playlist' , 'get' , params)
 }

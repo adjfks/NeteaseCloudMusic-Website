@@ -64,5 +64,8 @@ export default defineConfig({
     modules: {
       scopeBehaviour: 'local'
     }
+  },
+  define: {
+    __DEV__: true
   }
 })

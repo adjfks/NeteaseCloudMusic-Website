@@ -13,7 +13,7 @@ const index = ref(0)
     <ul class="discover-menu">
       <li v-for="(item, idx) in discoverMenu" :key="item.title"
           @click="index = idx">
-        <router-link :to="item.link" :class="{ active: idx === index }">{{
+        <router-link :to="item.link" active-class="active">{{
             item.title
         }}
         </router-link>
