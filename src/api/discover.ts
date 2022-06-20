@@ -95,3 +95,11 @@ export interface GetPlaylistParams {
 export const getPlaylistByCat = (params: GetPlaylistParams) => {
   return request('/top/playlist' , 'get' , params)
 }
+
+/**
+  * 获取排行榜
+  *@returns
+  */
+export const getToplist = () => {
+  return request('toplist' , 'get')
+}

@@ -10,7 +10,7 @@ img {
   position: relative;
   transition: all .2s;
 
-  &:hover{
+  &:hover {
     transform: translateY(-2px);
   }
 }
@@ -24,7 +24,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
     opacity: 0;
     transition: opacity .4s;
   }
@@ -48,10 +48,12 @@ img {
     width: 5px;
     height: 10px;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: #dedfe1;
     border-radius: 10px;
   }
+
   &::-webkit-scrollbar-track {
     background-color: #fff;
     border-radius: 10px;
@@ -62,4 +64,28 @@ img {
 /* el-row宽度超过容器问题 */
 .el-row {
   width: 100%;
+}
+
+/* hover播放图标 */
+.hover-play {
+  position: relative;
+
+  &::after {
+    content: '';
+    z-index: 2000;
+    position: absolute;
+    border: 1em solid transparent;
+    border-top-width: 0.5em;
+    border-bottom-width: 0.5em;
+    border-left-color: rgba(255, 255, 255, .7);
+    opacity: 0;
+    transition: opacity .4s;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(75%, 50%)
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
 }

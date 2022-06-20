@@ -10,6 +10,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import presetIcons from '@unocss/preset-icons'
 import presetUno from '@unocss/preset-uno'
+import presetAttributify from '@unocss/preset-attributify'
 
 
 // https://vitejs.dev/config/
@@ -61,7 +62,8 @@ export default defineConfig({
       presets: [
         presetIcons({ /* options */ }),
         // ...other presets
-        presetUno()
+        presetUno(),
+        presetAttributify()
       ],
      }),
   ],

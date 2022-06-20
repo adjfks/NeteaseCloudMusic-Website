@@ -1,18 +1,52 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import transformNumber from '@/utils/transformNumber'
+const props = defineProps<{
+  picUrl: string,
+  playCount: number,
+  round?: boolean
+}>()
+
+const playCountText = computed(() => {
+  return transformNumber(props.playCount)
+})
+</script>
 
 <template>
-  <div class="toplist-cover-container">
+  <div class="toplist-cover-container hover-layer hover-play"
+       :class="{ 'round': round }">
     <!-- 图片 -->
     <div class="picture-wrapper">
-      <img src="" alt="">
+      <img :src="picUrl" alt="">
+    </div>
+    <!-- 播放量 -->
+    <div class="playCount-container">
+      <i-carbon-play class="text-3" />
+      <div class="play-count" text="3 white">{{
+          playCountText
+      }}</div>
     </div>
   </div>
-  <!-- 播放量 -->
-  <div class="playCount-container">
-    <i-carbon-play class="text-4" /><span class="play-count">11231</span>
-  </div>
+
 </template>
 
 <style lang="less" scoped>
+.toplist-cover-container {
+  position: relative;
+
+  &.round {
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .playCount-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #fff;
+    text-align: middle;
+  }
+}
 </style>
 
