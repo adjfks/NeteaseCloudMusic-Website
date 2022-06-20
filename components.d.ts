@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./src/components/header.vue')['default']
+    ICarbonPlay: typeof import('~icons/carbon/play')['default']
     ICarbonSearch: typeof import('~icons/carbon/search')['default']
     IIcRoundKeyboardArrowLeft: typeof import('~icons/ic/round-keyboard-arrow-left')['default']
     IIcRoundKeyboardArrowRight: typeof import('~icons/ic/round-keyboard-arrow-right')['default']

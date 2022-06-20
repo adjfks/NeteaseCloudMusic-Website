@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import discoverRouter from './discover'
+import discoverRoute from './discover'
 
 const Layout = () => import('@/views/Layout.vue')
 const routes = [
@@ -8,7 +8,7 @@ const routes = [
     component: Layout,
     children: [
       { path: '/', redirect: '/discover' },
-      ...discoverRouter
+      ...discoverRoute
     ]
   }
 ]

@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ToplistCover } from '../components'
+</script>
 
 <template>
   <div class="toplist-container">
-    Toplist
+    <ToplistCover />
   </div>
 </template>
 

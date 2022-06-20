@@ -7,6 +7,9 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
+import presetIcons from '@unocss/preset-icons'
+import presetUno from '@unocss/preset-uno'
 
 
 // https://vitejs.dev/config/
@@ -53,7 +56,14 @@ export default defineConfig({
     Icons({
       autoInstall: true,
     }),
-    vueJsx()
+    vueJsx(),
+    Unocss({ 
+      presets: [
+        presetIcons({ /* options */ }),
+        // ...other presets
+        presetUno()
+      ],
+     }),
   ],
   resolve: {
     alias: {
