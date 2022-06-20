@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     ElPagination: typeof import('element-plus/es')['ElPagination']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRow: typeof import('element-plus/es')['ElRow']
+    ElScroll: typeof import('element-plus/es')['ElScroll']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./src/components/header.vue')['default']
@@ -36,6 +37,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/Sidebar.vue')['default']
     SideBar: typeof import('./src/components/SideBar.vue')['default']
+    SongItem: typeof import('./src/components/SongItem.vue')['default']
     SongList: typeof import('./src/components/SongList.vue')['default']
     Test: typeof import('./src/components/Test.vue')['default']
   }

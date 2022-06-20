@@ -103,3 +103,12 @@ export const getPlaylistByCat = (params: GetPlaylistParams) => {
 export const getToplist = () => {
   return request('toplist' , 'get')
 }
+
+/**
+  *获取歌单详情
+  *@param {string} id 排行榜id 或 歌单id
+  *@returns
+  */
+export const getSonglistDetail = (id: string | number) => { 
+  return request('/playlist/detail' , 'get' , { id })
+}
