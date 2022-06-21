@@ -2,12 +2,15 @@
 import transformNumber from '@/utils/transformNumber'
 const props = defineProps<{
   picUrl: string,
-  playCount: number,
+  playCount?: number,
   round?: boolean
 }>()
 
 const playCountText = computed(() => {
-  return transformNumber(props.playCount)
+  if (props.playCount)
+    return transformNumber(props.playCount)
+  else
+    return 0
 })
 </script>
 
@@ -19,7 +22,7 @@ const playCountText = computed(() => {
       <img :src="picUrl" alt="">
     </div>
     <!-- 播放量 -->
-    <div class="playCount-container">
+    <div class="playCount-container" v-if="playCount">
       <i-carbon-play class="text-3" />
       <div class="play-count" text="3 white">{{
           playCountText

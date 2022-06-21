@@ -112,3 +112,14 @@ export const getToplist = () => {
 export const getSonglistDetail = (id: string | number) => { 
   return request('/playlist/detail' , 'get' , { id })
 }
+
+/**
+  *
+  *@param area 语种 -1:全部 7华语 96:欧美 8:日本 16:韩国 0:其他
+  *@param type 分类 -1:全部 1:男歌手 2:女歌手 3:乐队
+  *@param initial 首字母 -1： 热门
+  *@returns
+  */
+export const getArtistList = (area: number | string, type: number | string, initial: number | string, offset: number = 30) => { 
+  return request('/artist/list' , 'get' , { area, type, initial, offset })
+}

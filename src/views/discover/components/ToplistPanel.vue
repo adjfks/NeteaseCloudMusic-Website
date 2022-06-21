@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ToplistCover } from '../components'
 
 const props = defineProps({
   list: {
@@ -13,8 +12,8 @@ const props = defineProps({
 <template>
   <div class="toplist-panel-container">
     <div class="cover-container">
-      <ToplistCover :picUrl="list.coverImgUrl" :playCount="list.playCount"
-                    v-if="list" round />
+      <Cover :picUrl="list.coverImgUrl" :playCount="list.playCount" v-if="list"
+             round />
     </div>
     <div class="songlist-container">
       <SongList :id="list.id" v-if="list"></SongList>

@@ -5,17 +5,13 @@ import { Ref } from 'vue'
 
 import Panel from '../components/Panel.vue'
 import Card from '@/components/Card.vue'
+import NetCarousel from '@/components/NetCarousel.vue'
 
 /* 轮播图 */
 const banners: Ref<Array<any>> = ref([])
-
 getBanner().then((res: { code: number, banners: Array<any> }) => {
   banners.value = res.banners
 })
-
-const labelColor: any = {
-  'red': '#cc4a4a'
-}
 
 /* 推荐歌单 */
 const playlist: Ref<Array<any>> = ref([])
@@ -48,6 +44,7 @@ const privateContent: Ref<Array<any>> = ref([])
 getPrivateContent().then((res: any) => {
   privateContent.value = res.result
 })
+
 </script>
 
 
@@ -55,17 +52,8 @@ getPrivateContent().then((res: any) => {
   <el-scrollbar>
     <div class="recommend-container">
       <!-- 轮播图 -->
-      <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in banners" :key="item.targetId">
-          <div class="carousel-picture">
-            <img :src="item.imageUrl" alt="">
-            <span class="type-label"
-                  :style="{ backgroundColor: labelColor[item.titleColor] }">{{
-                      item.typeTitle
-                  }}</span>
-          </div>
-        </el-carousel-item>
-      </el-carousel>
+      <NetCarousel :banners="banners" type="card" height="200px"
+                   :interval="3000" />
 
       <!-- 推荐歌单 -->
       <Panel title="推荐歌单">
@@ -108,31 +96,6 @@ getPrivateContent().then((res: any) => {
 .recommend-container {
   height: 100%;
   width: 100%;
-
-  // 轮播图
-  .el-carousel__item {
-    height: 100%;
-
-    .carousel-picture {
-      position: relative;
-      height: 100%;
-
-      img {
-        border-radius: 10px;
-        height: 100%;
-      }
-
-      .type-label {
-        position: absolute;
-        right: 0;
-        bottom: 3px;
-        padding: 5px;
-        border-radius: 10px 0 10px 0;
-        color: #fff;
-      }
-    }
-
-  }
 
   .el-row {
     width: 100%;

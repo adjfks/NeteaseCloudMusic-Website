@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Card: typeof import('./src/components/Card.vue')['default']
+    Cover: typeof import('./src/components/Cover.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -25,6 +26,7 @@ declare module '@vue/runtime-core' {
     ElScroll: typeof import('element-plus/es')['ElScroll']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElTag: typeof import('element-plus/es')['ElTag']
+    Filter: typeof import('./src/components/Filter.vue')['default']
     Header: typeof import('./src/components/header.vue')['default']
     ICarbonPlay: typeof import('~icons/carbon/play')['default']
     ICarbonSearch: typeof import('~icons/carbon/search')['default']
@@ -32,6 +34,7 @@ declare module '@vue/runtime-core' {
     IIcRoundKeyboardArrowRight: typeof import('~icons/ic/round-keyboard-arrow-right')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     MusicHeader: typeof import('./src/components/MusicHeader.vue')['default']
+    NetCarousel: typeof import('./src/components/NetCarousel.vue')['default']
     PicText: typeof import('./src/components/library/PicText.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

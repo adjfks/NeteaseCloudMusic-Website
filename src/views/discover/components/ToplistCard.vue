@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ToplistCover from './ToplistCover.vue';
 const props = defineProps({
   list: {
     type: Object,
@@ -12,8 +11,7 @@ const props = defineProps({
 <template>
   <div class="toplist-card-container hover-up h-cs">
     <div class="cover">
-      <ToplistCover :picUrl="list.coverImgUrl" :playCount="list.playCount"
-                    round />
+      <Cover :picUrl="list.coverImgUrl" :playCount="list.playCount" round />
     </div>
     <div class="title" text="3" m-t-2>{{ list.name }}</div>
   </div>

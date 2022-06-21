@@ -11,7 +11,7 @@ import DiscoverMenu from './components/DiscoverMenu.vue';
       <DiscoverMenu height="50px" />
     </nav>
     <main>
-        <router-view></router-view>
+      <router-view></router-view>
     </main>
   </div>
 </template>
@@ -28,9 +28,8 @@ import DiscoverMenu from './components/DiscoverMenu.vue';
   }
 
   main {
-    // display: flex;
     flex: 1;
-    height: 0;
+    min-height: 400px;
 
     .el-scrollbar {
       padding: 0 20px;

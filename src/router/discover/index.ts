@@ -17,8 +17,6 @@ export default [
   {
     path: '/discover', component: Discover, children: [
       { path: '/discover' , redirect: '/discover/recommend' },
-      // { path: '/discover/recommend', component: Recommend },
-      // { path: '/discover/playlist', component: Playlist }
       ...discoverChildren
     ]
   }
