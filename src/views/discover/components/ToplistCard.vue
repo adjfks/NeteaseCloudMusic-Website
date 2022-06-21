@@ -11,7 +11,8 @@ const props = defineProps({
 <template>
   <div class="toplist-card-container hover-up h-cs">
     <div class="cover">
-      <Cover :picUrl="list.coverImgUrl" :playCount="list.playCount" round />
+      <Cover :picUrl="list.coverImgUrl" :playCount="list.playCount" round
+             hoverLayer hoverPlay />
     </div>
     <div class="title" text="3" m-t-2>{{ list.name }}</div>
   </div>

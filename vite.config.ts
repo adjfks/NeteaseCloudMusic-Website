@@ -24,7 +24,7 @@ export default defineConfig({
         /\.vue$/, /\.vue\?vue/, // .vue
         /\.md$/, // .md
       ],
-      
+
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       imports: [
@@ -44,6 +44,10 @@ export default defineConfig({
         }),
       ],
 
+      dirs: [
+        './utils'
+      ],
+
       dts: true
     }),
     Components({
@@ -58,23 +62,36 @@ export default defineConfig({
       autoInstall: true,
     }),
     vueJsx(),
-    Unocss({ 
+    Unocss({
       presets: [
         presetIcons({ /* options */ }),
         // ...other presets
         presetUno(),
         presetAttributify()
       ],
-     }),
+    }),
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname , './src')
+      '@': resolve(__dirname, './src')
     }
   },
   css: {
     modules: {
       scopeBehaviour: 'local'
+    },
+    preprocessorOptions: {
+      // less: {
+      //   charset: false,
+      //   javascriptEnabled: true,
+      //   additionalData: `@import "${path.resolve(__dirname, './src/styles/variable.less')}";`,
+      // },
+      // less: {
+      //   modifyVars: {
+      //     hack: `true; @import "${path.resolve(__dirname, './src/styles/variable.less')}";`,
+      //   },
+      //   javascriptEnabled: true
+      // }
     }
   },
   define: {

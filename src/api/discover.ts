@@ -47,7 +47,7 @@ export const getPrivateContent = () => {
  * 获取歌单分类
  * @returns 歌单分类列表
  */
-export const getPlaylistCatgory = () => { 
+export const getPlaylistCatgory = () => {
   return request('playlist/catlist', 'get')
 }
 
@@ -66,16 +66,16 @@ export const getHighQualityPlaylist = (limit?: number, cat?: string, before?: nu
  * 获取热门歌单分类
  * @returns 
  */
-export const getHotCategory = () => { 
-  return request('playlist/hot' , 'get')
+export const getHotCategory = () => {
+  return request('playlist/hot', 'get')
 }
 
 /**
  * 获取全部歌单分类
  * @returns 
  */
-export const getAllCategory = () => { 
-  return request('playlist/catlist' , 'get')
+export const getAllCategory = () => {
+  return request('playlist/catlist', 'get')
 }
 
 /**
@@ -93,7 +93,7 @@ export interface GetPlaylistParams {
   offset?: number
 }
 export const getPlaylistByCat = (params: GetPlaylistParams) => {
-  return request('/top/playlist' , 'get' , params)
+  return request('/top/playlist', 'get', params)
 }
 
 /**
@@ -101,7 +101,7 @@ export const getPlaylistByCat = (params: GetPlaylistParams) => {
   *@returns
   */
 export const getToplist = () => {
-  return request('toplist' , 'get')
+  return request('toplist', 'get')
 }
 
 /**
@@ -109,8 +109,8 @@ export const getToplist = () => {
   *@param {string} id 排行榜id 或 歌单id
   *@returns
   */
-export const getSonglistDetail = (id: string | number) => { 
-  return request('/playlist/detail' , 'get' , { id })
+export const getSonglistDetail = (id: string | number) => {
+  return request('/playlist/detail', 'get', { id })
 }
 
 /**
@@ -120,6 +120,6 @@ export const getSonglistDetail = (id: string | number) => {
   *@param initial 首字母 -1： 热门
   *@returns
   */
-export const getArtistList = (area: number | string, type: number | string, initial: number | string, offset: number = 30) => { 
-  return request('/artist/list' , 'get' , { area, type, initial, offset })
+export const getArtistList = (area: number | string, type: number | string, initial: number | string, offset: number = 30) => {
+  return request('/artist/list', 'get', { area, type, initial, offset })
 }
