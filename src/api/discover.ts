@@ -120,6 +120,6 @@ export const getSonglistDetail = (id: string | number) => {
   *@param initial 首字母 -1： 热门
   *@returns
   */
-export const getArtistList = (area: number | string, type: number | string, initial: number | string, offset: number = 30) => {
-  return request('/artist/list', 'get', { area, type, initial, offset })
+export const getArtistList = (area: number | string, type: number | string, initial: number | string, limit: number = 30, offset: number = 0) => {
+  return request('/artist/list', 'get', { area, type, initial, limit, offset })
 }

@@ -8,8 +8,9 @@ const params = reactive({
   area: -1,
   type: -1,
   initial: -1,
-  limit: 30
+  limit: 30,
 })
+const offset = ref(0)
 
 const paramsChange = (val: { param: any, val: any }) => {
   params[val.param as keyof typeof params] = val.val
@@ -19,55 +20,60 @@ const paramsChange = (val: { param: any, val: any }) => {
 /* 展示歌手列表 */
 const artlist: Ref<any> = ref([])
 
-const triggerGetArtistList = () => {
-  getArtistList(params.area, params.type, params.initial, params.limit).then((res: any) => {
+
+/**
+  *触发请求歌手列表
+  *@param {Boolean} toogle 是否为参数变化触发，false为滚动触发
+  *@returns
+  */
+const triggerGetArtistList = (toogle?: boolean) => {
+  if (toogle) {
+    // 参数切换或第一次触发
+    artlist.value = []
+    offset.value = 0
+    console.log('参数改变获取数据', `offset: ${offset.value}`);
+
+  } else {
+    offset.value += params.limit
+    console.log('滚动获取数据==========>', `offset: ${offset.value}`);
+  }
+  getArtistList(params.area, params.type, params.initial, params.limit, offset.value).then((res: any) => {
     // 数据分组
     const list = transformList(res.artists, params.limit / 6)
     list.map(arr => {
       arr.forEach(item => item.loading = true)
     })
-    console.log(list);
     artlist.value.push(...list)
   })
 }
 
 watch(params, (newVal, oldVal) => {
-  console.log(newVal, oldVal);
-  triggerGetArtistList()
+  triggerGetArtistList(true)
 }, { immediate: true })
-
-const handleLoaded = (item: any) => {
-  item.loading = false
-}
 </script>
 
 <template>
   <el-scrollbar>
 
-    <div class="artlist-container">
+    <div class="artlist-container" v-infinite-scroll="triggerGetArtistList"
+         infinite-scroll-distance="100">
       <!-- 筛选组件 -->
       <div class="filter">
         <Filter :params="params" @change="paramsChange" />
       </div>
       <!-- 无限滚动歌手列表 -->
-      <div class="art-list" v-if="artlist.length">
+      <div class="art-list">
         <el-row :gutter="20" v-for="(row, idx) in artlist" :key="idx">
           <el-col :span="4" v-for="item in row" :key="item.accountId">
             <div class="card-wrapper">
-              <!-- 图片骨架屏 -->
-              <el-skeleton animated v-if="item.loading">
-                <template #template>
-                  <el-skeleton-item variant="image" style="height: 132px" />
-                </template>
-              </el-skeleton>
               <!-- 图片 -->
-              <Cover :picUrl="item.picUrl" v-show="!item.loading"
-                     @loaded="handleLoaded(item)"
-                     @error="item.loading = false" />
+              <Cover :picUrl="item.picUrl" skeleton="132px" />
+              <!-- 信息 -->
               <div class="msg">
                 <div class="name h-cs">{{ item.name }}</div>
                 <i-carbon-user-avatar-filled text="3" class="icon h-cs" />
               </div>
+
             </div>
           </el-col>
         </el-row>

@@ -5,10 +5,9 @@ const props = defineProps<{
   playCount?: number,
   round?: boolean,
   hoverLayer?: boolean,
-  hoverPlay?: boolean
+  hoverPlay?: boolean,
+  skeleton?: string
 }>()
-
-defineEmits(['loaded', 'error'])
 
 const playCountText = computed(() => {
   if (props.playCount)
@@ -16,14 +15,24 @@ const playCountText = computed(() => {
   else
     return 0
 })
+
+/* 图片骨架屏 */
+const loading = ref(true)
 </script>
 
 <template>
   <div class="toplist-cover-container "
        :class="{ 'round': round, 'hover-layer': hoverLayer, 'hover-play': hoverPlay }">
+    <!-- 图片骨架屏 -->
+    <el-skeleton animated v-if="loading" style="height: 100%;">
+      <template #template>
+        <el-skeleton-item variant="image"
+                          :style="{ height: `${skeleton}` || '100%', width: '100%' }" />
+      </template>
+    </el-skeleton>
     <!-- 图片 -->
-    <div class="picture-wrapper">
-      <img :src="picUrl" alt="" @load="$emit('loaded')" @error="$emit('error')">
+    <div class="picture-wrapper" v-show="!loading">
+      <img :src="picUrl" alt="" @load="loading = false" @error="">
     </div>
     <!-- 播放量 -->
     <div class="playCount-container" v-if="playCount">

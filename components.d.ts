@@ -35,6 +35,7 @@ declare module '@vue/runtime-core' {
     ICarbonUserAvatarFilled: typeof import('~icons/carbon/user-avatar-filled')['default']
     IIcRoundKeyboardArrowLeft: typeof import('~icons/ic/round-keyboard-arrow-left')['default']
     IIcRoundKeyboardArrowRight: typeof import('~icons/ic/round-keyboard-arrow-right')['default']
+    InfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     MusicHeader: typeof import('./src/components/MusicHeader.vue')['default']
     NetCarousel: typeof import('./src/components/NetCarousel.vue')['default']
