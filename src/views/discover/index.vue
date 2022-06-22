@@ -11,6 +11,7 @@ import DiscoverMenu from './components/DiscoverMenu.vue';
       <DiscoverMenu height="50px" />
     </nav>
     <main>
+      <!-- 三级路由 -->
       <router-view></router-view>
     </main>
   </div>

@@ -59,7 +59,9 @@ getPrivateContent().then((res: any) => {
       <Panel title="推荐歌单">
         <el-row :gutter="20" v-for="row in recommendPlaylist">
           <el-col :span="4" v-for="item in row" :key="item.id">
-            <Card :content="item" />
+
+            <Card :content="item" :to="`/playlist/${item.id}`" />
+
           </el-col>
         </el-row>
       </Panel>
