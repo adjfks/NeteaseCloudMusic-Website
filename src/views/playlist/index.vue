@@ -1,8 +1,10 @@
 <script setup lang = "ts">
 import { Ref } from 'vue'
 import { getPlaylistById } from '@/api/playlist'
+import { formatTime } from '@/utils/time'
+import transformNumber from '@/utils/transformNumber'
 
-const playlist: Ref<any> = ref({})
+const playlist: Ref<any> = ref(null)
 const route = useRoute()
 
 const id: string = route.params.id as string
@@ -14,21 +16,57 @@ getPlaylistById(id).then((res: any) => {
 </script>
 
 <template>
-  <div class="playlist-detail-container">
+  <div class="playlist-detail-container" v-if="playlist">
     <header>
       <div class="cover">
         <Cover :picUrl="playlist.coverImgUrl" round />
       </div>
       <div class="msg">
         <div class="title">
-          <span class="tag">歌单</span>
+          <span class="tag" mr-1>歌单</span>
           <h3 class="name">{{ playlist.name }}</h3>
         </div>
         <div class="creator-msg">
           <img class="creator-avatar" :src="playlist.creator.avatarUrl" alt="">
           <a href="javascript:;" class="nickname">{{ playlist.creator.nickname
           }}</a>
-          <span class="create-time">{{ playlist.createTime }}</span>
+          <span class="create-time">{{ formatTime(playlist.createTime)
+          }}创建</span>
+        </div>
+        <div class="button-container">
+          <NetButton mr-2>
+            <i-carbon-play pr-1 /><span>播放全部</span>
+          </NetButton>
+          <NetButton mr-2>
+            <i-carbon-add-alt pr-1 /><span>收藏({{
+                transformNumber(playlist.subscribedCount)
+            }})</span>
+          </NetButton>
+          <NetButton mr-2>
+            <i-carbon-share pr-1 /><span>分享({{
+                transformNumber(playlist.shareCount)
+            }})</span>
+          </NetButton>
+          <NetButton mr-2>
+            <i-carbon-download pr-1 /><span>下载全部</span>
+          </NetButton>
+        </div>
+        <div class="detail">
+          <div class="tag">
+            <span mr-1>标签：</span>
+            <span v-for="(item, idx) in playlist.tags" :key="item">{{ item }}{{
+                idx === playlist.tags.length - 1 ? '' : ' / '
+            }}</span>
+          </div>
+          <div class="song">
+            <span>歌曲：<span ml-1>{{ playlist.trackCount }}</span></span>
+            <span ml-3>播放：<span ml-1>{{
+                transformNumber(playlist.playCount)
+            }}</span></span>
+          </div>
+          <div class="description">
+            <p class="ellipsis">简介：{{ playlist.description }}</p>
+          </div>
         </div>
       </div>
     </header>
@@ -50,6 +88,7 @@ getPlaylistById(id).then((res: any) => {
 
     .msg {
       flex: 1;
+      min-width: 400px;
 
       .title {
         display: flex;
@@ -87,7 +126,32 @@ getPlaylistById(id).then((res: any) => {
           color: var(--blue-color);
         }
       }
+
+      .button-container {
+        margin: 25px 10px;
+      }
+
+      .detail {
+        font-size: 14px;
+
+        .tag {
+          margin: 10px 0;
+        }
+
+        .song {
+          margin: 10px 0;
+        }
+
+        .description {
+          margin-top: 10px;
+          width: 300px;
+          height: 20px;
+          line-height: 20px;
+        }
+      }
     }
+
+
   }
 }
 </style>
