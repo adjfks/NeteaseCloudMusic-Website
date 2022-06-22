@@ -8,6 +8,7 @@ import '@/styles/reset.less'
 import '@/styles/variable.less'
 // 导入数据持久化插件
 import localStoragePlugin from '@/store/plugin/localStoragePlugin'
+import 'uno.css'
 
 const pinia = createPinia()
 pinia.use(localStoragePlugin({

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import sidebar from '@/api/constants/sidebar'
-import { SideBarItem } from '@/api/constants/sidebar'
 import { Ref } from 'vue';
 const index: Ref<number> = ref(0)
 
@@ -24,7 +23,7 @@ const index: Ref<number> = ref(0)
         </template>
         <li v-else class="sidebar-item" :class="{ active: idx === index }"
             @click="index = idx">
-          <router-link to="/">{{ item.title }}</router-link>
+          <router-link to="/discover">{{ item.title }}</router-link>
         </li>
       </template>
 
@@ -38,21 +37,22 @@ const index: Ref<number> = ref(0)
   background-color: #fff;
   border-right: 1px solid var(--border-color);
   height: 100%;
+  --item-height: 40px;
 
   .sidebar {
     padding: 10px 5px;
 
 
     .sidebar-item {
-      height: 50px;
-      line-height: 50px;
+      height: var(--item-height);
+      line-height: var(--item-height);
 
       padding-left: 10px;
       cursor: pointer;
       transition: all .2s;
 
       .a {
-        font-size: 18px;
+        font-size: 16px;
       }
 
       &:hover:not(.item) {
@@ -63,12 +63,12 @@ const index: Ref<number> = ref(0)
       &.active {
         background-color: var(--active-color);
         border-radius: 10px;
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 700;
       }
 
       &.item a {
-        font-size: 16px;
+        font-size: 14px;
         color: rgb(188, 188, 188);
       }
     }

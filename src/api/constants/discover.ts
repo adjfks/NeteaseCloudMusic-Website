@@ -1,6 +1,7 @@
 export interface DiscoverMenuItem {
   title: string,
-  link?: string
+  link?: string,
+  component?: string,
 }
 
 export type DiscoverMenu = Array<DiscoverMenuItem>
@@ -8,26 +9,32 @@ export type DiscoverMenu = Array<DiscoverMenuItem>
 export default <DiscoverMenu> [
   {
     title: '个性推荐',
-    link: '/'
+    link: '/discover/recommend',
+    component: 'Recommend'
   },
   {
     title: '专属定制',
-    link: '/'
+    link: '/discover/custom',
+    component: 'Custom'
   },
   {
     title: '歌单',
-    link: '/'
+    link: '/discover/playlist',
+    component: 'Playlist'
   },
   {
     title: '排行榜',
-    link: '/'
+    link: '/discover/toplist',
+    component: 'Toplist'
   },
   {
     title: '歌手',
-    link: '/'
+    link: '/discover/artlist',
+    component: 'Artlist'
   },
   {
     title: '最新音乐',
-    link: '/'
+    link: '/discover/song',
+    component: 'Song'
   },
 ]
