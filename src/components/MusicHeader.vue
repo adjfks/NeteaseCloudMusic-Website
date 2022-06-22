@@ -17,11 +17,11 @@ const props = defineProps<{
       <div class="header-middle">
         <!-- 箭头 -->
         <div class="arrow-box">
-          <div class="icon-wrapper">
+          <div class="icon-wrapper h-cs" @click="$router.back()">
             <i-ic-round-keyboard-arrow-left
                                             style="font-size: 1.5em; color: #fff;" />
           </div>
-          <div class="icon-wrapper">
+          <div class="icon-wrapper h-cs" @click="$router.forward()">
             <i-ic-round-keyboard-arrow-right
                                              style="font-size: 1.5em; color: #ccc;" />
           </div>

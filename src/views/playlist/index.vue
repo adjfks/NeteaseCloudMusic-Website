@@ -13,64 +13,79 @@ getPlaylistById(id).then((res: any) => {
   playlist.value = res.playlist
 })
 
+const activeName = ref('song')
+const handleClick = (tab: string) => {
+  activeName.value = tab
+}
 </script>
 
 <template>
-  <div class="playlist-detail-container" v-if="playlist">
-    <header>
-      <div class="cover">
-        <Cover :picUrl="playlist.coverImgUrl" round />
-      </div>
-      <div class="msg">
-        <div class="title">
-          <span class="tag" mr-1>歌单</span>
-          <h3 class="name">{{ playlist.name }}</h3>
+  <el-scrollbar>
+    <div class="playlist-detail-container" v-if="playlist">
+      <!-- 头部歌单信息模块 -->
+      <header>
+        <div class="cover">
+          <Cover :picUrl="playlist.coverImgUrl" round />
         </div>
-        <div class="creator-msg">
-          <img class="creator-avatar" :src="playlist.creator.avatarUrl" alt="">
-          <a href="javascript:;" class="nickname">{{ playlist.creator.nickname
-          }}</a>
-          <span class="create-time">{{ formatTime(playlist.createTime)
-          }}创建</span>
-        </div>
-        <div class="button-container">
-          <NetButton mr-2>
-            <i-carbon-play pr-1 /><span>播放全部</span>
-          </NetButton>
-          <NetButton mr-2>
-            <i-carbon-add-alt pr-1 /><span>收藏({{
-                transformNumber(playlist.subscribedCount)
-            }})</span>
-          </NetButton>
-          <NetButton mr-2>
-            <i-carbon-share pr-1 /><span>分享({{
-                transformNumber(playlist.shareCount)
-            }})</span>
-          </NetButton>
-          <NetButton mr-2>
-            <i-carbon-download pr-1 /><span>下载全部</span>
-          </NetButton>
-        </div>
-        <div class="detail">
-          <div class="tag">
-            <span mr-1>标签：</span>
-            <span v-for="(item, idx) in playlist.tags" :key="item">{{ item }}{{
-                idx === playlist.tags.length - 1 ? '' : ' / '
-            }}</span>
+        <div class="msg">
+          <div class="title">
+            <span class="tag" mr-1>歌单</span>
+            <h3 class="name">{{ playlist.name }}</h3>
           </div>
-          <div class="song">
-            <span>歌曲：<span ml-1>{{ playlist.trackCount }}</span></span>
-            <span ml-3>播放：<span ml-1>{{
-                transformNumber(playlist.playCount)
-            }}</span></span>
+          <div class="creator-msg">
+            <img class="creator-avatar" :src="playlist.creator.avatarUrl"
+                 alt="">
+            <a href="javascript:;" class="nickname">{{ playlist.creator.nickname
+            }}</a>
+            <span class="create-time">{{ formatTime(playlist.createTime)
+            }}创建</span>
           </div>
-          <div class="description">
-            <p class="ellipsis">简介：{{ playlist.description }}</p>
+          <div class="button-container">
+            <NetButton mr-2>
+              <i-carbon-play pr-1 /><span>播放全部</span>
+            </NetButton>
+            <NetButton mr-2>
+              <i-carbon-add-alt pr-1 /><span>收藏({{
+                  transformNumber(playlist.subscribedCount)
+              }})</span>
+            </NetButton>
+            <NetButton mr-2>
+              <i-carbon-share pr-1 /><span>分享({{
+                  transformNumber(playlist.shareCount)
+              }})</span>
+            </NetButton>
+            <NetButton mr-2>
+              <i-carbon-download pr-1 /><span>下载全部</span>
+            </NetButton>
+          </div>
+          <div class="detail">
+            <div class="tag">
+              <span mr-1>标签：</span>
+              <span v-for="(item, idx) in playlist.tags" :key="item">{{ item
+              }}{{
+    idx === playlist.tags.length - 1 ? '' : ' / '
+}}</span>
+            </div>
+            <div class="song">
+              <span>歌曲：<span ml-1>{{ playlist.trackCount }}</span></span>
+              <span ml-3>播放：<span ml-1>{{
+                  transformNumber(playlist.playCount)
+              }}</span></span>
+            </div>
+            <div class="description">
+              <p class="ellipsis">简介：{{ playlist.description }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
-  </div>
+      </header>
+      <!-- 歌曲列表 -->
+      <NetTab v-model="activeName" @tab-click="handleClick">
+        <NetTabPanel label="歌曲列表" name="song" />
+        <NetTabPanel label="评论" name="comment" />
+      </NetTab>
+    </div>
+  </el-scrollbar>
+
 </template>
 
 <style lang = "less" scoped >
