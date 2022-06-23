@@ -94,14 +94,14 @@ const handleClick = (tab: 'song' | 'comment') => {
           <NetTabPanel label="歌曲列表" name="song">
             <!-- 歌单表格 -->
             <NetTable v-if="songs.length" :data="songs" stripe>
-              <NetTableColumn type="index"
-                              :index="(idx: number | string) => String(idx).padStart(2, '0')" />
+              <NetTableColumn type="index" />
               <NetTableColumn label="操作"><button>收藏</button><button>下载</button>
               </NetTableColumn>
               <NetTableColumn label="标题" prop="name" />
               <NetTableColumn label="歌手" prop="ar[0].name" />
               <NetTableColumn label="专辑" prop="al.name" />
-              <NetTableColumn label="时间" prop="dt" />
+              <NetTableColumn label="时间" prop="dt"
+                              :filter="(val: any) => formatTime(val, 'mm:ss')" />
             </NetTable>
           </NetTabPanel>
           <NetTabPanel label="评论" name="comment" />

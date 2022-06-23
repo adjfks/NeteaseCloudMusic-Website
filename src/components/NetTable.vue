@@ -27,14 +27,14 @@ const showData = computed(() => {
     const prop = (slots as any).default().map((slot: any) => {
       // type='index' :index="indexMthod"
       if (slot.props.type === 'index') {
-        const fn = slot.props.index || ((idx: number | string) => idx)
+        const fn = slot.props.index || ((idx: number | string) => String(idx).padStart(2, '0'))
         return fn
       }
       return slot.props.prop
     })
 
     // 获得data上相应属性的值数组 prop: [ undefined , 'name' , 'ar.name' , 'al[0].name' , 'dt']
-    const valueArr = prop.map((p: string | undefined | Function) => {
+    const valueArr = prop.map((p: string | undefined | Function, j: number) => {
 
       if (p === undefined) return
 
@@ -51,6 +51,12 @@ const showData = computed(() => {
           else val = (val as any)[parseInt(s)]
         })
       })
+
+      // 检查是否有filter
+      const filter = (slots as any).default()[j].props.filter
+      if (typeof filter === 'function') {
+        val = filter(val)
+      }
 
       return val
     })

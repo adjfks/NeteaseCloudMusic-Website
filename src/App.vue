@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { useUser } from '@/store/user';
+
+const user = useUser()
+user.setVisitor()
+console.log(user.visitor);
 
 </script>
 
