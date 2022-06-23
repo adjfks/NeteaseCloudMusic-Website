@@ -94,6 +94,8 @@ const handleClick = (tab: 'song' | 'comment') => {
           <NetTabPanel label="歌曲列表" name="song">
             <!-- 歌单表格 -->
             <NetTable v-if="songs.length" :data="songs" stripe>
+              <NetTableColumn type="index"
+                              :index="(idx: number | string) => String(idx).padStart(2, '0')" />
               <NetTableColumn label="操作"><button>收藏</button><button>下载</button>
               </NetTableColumn>
               <NetTableColumn label="标题" prop="name" />

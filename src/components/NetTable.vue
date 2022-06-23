@@ -21,13 +21,26 @@ const slots = useSlots()
 // showData: [ ['xxx' , 'xxx' , 'xxx'] , ... ]
 const showData = computed(() => {
   const res: Array<Array<string>> = []
-  props.data.forEach(item => {
+  props.data.forEach((item, idx) => {
+
     // 通过插槽获得需要访问的data的属性
-    const prop = (slots as any).default().map((slot: any) => slot.props.prop)
+    const prop = (slots as any).default().map((slot: any) => {
+      // type='index' :index="indexMthod"
+      if (slot.props.type === 'index') {
+        const fn = slot.props.index || ((idx: number | string) => idx)
+        return fn
+      }
+      return slot.props.prop
+    })
 
     // 获得data上相应属性的值数组 prop: [ undefined , 'name' , 'ar.name' , 'al[0].name' , 'dt']
-    const valueArr = prop.map((p: string | undefined) => {
+    const valueArr = prop.map((p: string | undefined | Function) => {
+
       if (p === undefined) return
+
+      // type='index'的情况prop: [fn , undefined , 'name' , ...]
+      if (typeof p === 'function') return p(idx)
+
       // 处理链式的属性
       let val = item
       p.split('.').forEach(t => {
@@ -105,7 +118,7 @@ const showData = computed(() => {
 
       tr {
         display: flex;
-
+        padding: 0 10px;
 
         td {
           flex: 1;
