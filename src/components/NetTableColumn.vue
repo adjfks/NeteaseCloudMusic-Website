@@ -1,12 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Column {
+  label?: string,
+  prop?: string,
+  type?: 'index',
+  width?: string,
+  filter?: (val: any) => typeof val,
+  item?: any
+}
+
+const props = defineProps<Column>()
+
+</script>
 
 <template>
-  <div class="net-table-column">
-    <!-- 操作 -->
-    <slot />
-  </div>
+  <slot />
 </template>
 
 <style lang="less" scoped>
-.net-table-column {}
 </style>

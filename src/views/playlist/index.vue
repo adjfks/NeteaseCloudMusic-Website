@@ -94,14 +94,19 @@ const handleClick = (tab: 'song' | 'comment') => {
           <NetTabPanel label="歌曲列表" name="song">
             <!-- 歌单表格 -->
             <NetTable v-if="songs.length" :data="songs" stripe>
-              <NetTableColumn type="index" />
-              <NetTableColumn label="操作"><button>收藏</button><button>下载</button>
+              <NetTableColumn type="index" width="50px" />
+              <NetTableColumn label="操作" width="50px">
+                <template #default>
+                  <i-carbon-favorite text-3 mr-2 />
+                  <i-carbon-download text-3 />
+                </template>
               </NetTableColumn>
               <NetTableColumn label="标题" prop="name" />
-              <NetTableColumn label="歌手" prop="ar[0].name" />
-              <NetTableColumn label="专辑" prop="al.name" />
+              <NetTableColumn label="歌手" prop="ar[0].name" width="200px" />
+              <NetTableColumn label="专辑" prop="al.name" width="200px" />
               <NetTableColumn label="时间" prop="dt"
-                              :filter="(val: any) => formatTime(val, 'mm:ss')" />
+                              :filter="(val: any) => formatTime(val, 'mm:ss')"
+                              width="90px" />
             </NetTable>
           </NetTabPanel>
           <NetTabPanel label="评论" name="comment" />

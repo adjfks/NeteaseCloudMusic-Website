@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-interface Data {
+type S = {
   id: string | number
 }
 const props = defineProps({
@@ -27,7 +27,7 @@ const showData = computed(() => {
     const prop = (slots as any).default().map((slot: any) => {
       // type='index' :index="indexMthod"
       if (slot.props.type === 'index') {
-        const fn = slot.props.index || ((idx: number | string) => String(idx).padStart(2, '0'))
+        const fn = slot.props.index || ((idx: S) => String(idx).padStart(2, '0'))
         return fn
       }
       return slot.props.prop
@@ -67,36 +67,38 @@ const showData = computed(() => {
   return res
 })
 
-
-
 </script>
 
 <template>
   <div class="net-table">
-    <slot />
-
     <div class="table-container">
       <table>
         <thead>
-          <tr>
+          <tr class="row">
             <td v-for="item in ($slots as any).default().map((slot: any) => slot.props)"
-                :key="item.label">
+                :key="item.label"
+                :style="{ width: item.width || '0', flex: item.width ? 'initial' : 1 }"
+                class="col ellipsis">
               {{ item.label }}
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, idx) in showData" :key="idx"
+          <tr class="row" v-for="(row, idx) in showData" :key="idx"
               :class="{ 'stripe': stripe && idx % 2 === 0 }">
-            <td v-for="(item, i) in row" :key="i" class="ellipsis">
-              {{ item }}
+            <td v-for="(item, i) in row" :key="i" class="col ellipsis"
+                :style="{ width: ($slots as any).default()[i].props.width || '0', flex: ($slots as any).default()[i].props.width ? 'initial' : 1 }">
+              <template v-if="item">
+                {{ item }}
+              </template>
+              <template v-else>
+                <slot />
+              </template>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <pre>{{ ($slots as any).default() }}</pre>
   </div>
 </template>
 
@@ -123,12 +125,10 @@ const showData = computed(() => {
       }
 
       tr {
-        display: flex;
         padding: 0 10px;
+        display: flex;
 
         td {
-          flex: 1;
-          min-width: 0px;
           padding: 10px 0;
         }
 
