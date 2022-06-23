@@ -2,7 +2,8 @@
 
 <template>
   <div class="net-table-column">
-
+    <!-- 操作 -->
+    <slot />
   </div>
 </template>
 

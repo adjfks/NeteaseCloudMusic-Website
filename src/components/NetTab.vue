@@ -28,7 +28,6 @@ provide('activeName', activeName)
 
 <style lang="less" scoped>
 .net-tab {
-  padding: 0 20px;
 
   .tab-header {
     margin-bottom: 10px;

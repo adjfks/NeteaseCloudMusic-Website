@@ -1,22 +1,32 @@
 <script setup lang = "ts">
 import { Ref } from 'vue'
-import { getPlaylistById } from '@/api/playlist'
+import { getPlaylistById, getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
 import transformNumber from '@/utils/transformNumber'
 
-const playlist: Ref<any> = ref(null)
 const route = useRoute()
 
+/* 获取歌单列表数据 */
 const id: string = route.params.id as string
+const playlist = ref()
+const songs = ref([])
+async function getData() {
+  playlist.value = (await getPlaylistById(id)).playlist
 
-getPlaylistById(id).then((res: any) => {
-  playlist.value = res.playlist
-})
+  const ids = playlist.value.trackIds.map((item: any) => item.id).join(',')
 
-const activeName = ref('song')
-const handleClick = (tab: string) => {
+  songs.value = (await getSongsByIds(ids)).songs
+}
+getData()
+
+
+
+/* tab切换 */
+const activeName: Ref<'song' | 'comment'> = ref('song')
+const handleClick = (tab: 'song' | 'comment') => {
   activeName.value = tab
 }
+
 </script>
 
 <template>
@@ -79,15 +89,23 @@ const handleClick = (tab: string) => {
         </div>
       </header>
       <!-- 歌曲列表 -->
-      <NetTab v-model="activeName" @tab-click="handleClick">
-        <NetTabPanel label="歌曲列表" name="song">
-          <!-- 歌单表格 -->
-          <NetTable>
-            表格
-          </NetTable>
-        </NetTabPanel>
-        <NetTabPanel label="评论" name="comment" />
-      </NetTab>
+      <main>
+        <NetTab v-model="activeName" @tab-click="handleClick">
+          <NetTabPanel label="歌曲列表" name="song">
+            <!-- 歌单表格 -->
+            <NetTable v-if="songs.length" :data="songs" stripe>
+              <NetTableColumn label="操作"><button>收藏</button><button>下载</button>
+              </NetTableColumn>
+              <NetTableColumn label="标题" prop="name" />
+              <NetTableColumn label="歌手" prop="ar[0].name" />
+              <NetTableColumn label="专辑" prop="al.name" />
+              <NetTableColumn label="时间" prop="dt" />
+            </NetTable>
+          </NetTabPanel>
+          <NetTabPanel label="评论" name="comment" />
+        </NetTab>
+      </main>
+
     </div>
   </el-scrollbar>
 
@@ -172,6 +190,10 @@ const handleClick = (tab: string) => {
     }
 
 
+  }
+
+  main {
+    padding: 0 20px;
   }
 }
 </style>
