@@ -48,6 +48,8 @@ declare module '@vue/runtime-core' {
     NetButton: typeof import('./src/components/NetButton.vue')['default']
     NetCarousel: typeof import('./src/components/NetCarousel.vue')['default']
     NetTab: typeof import('./src/components/NetTab.vue')['default']
+    NetTable: typeof import('./src/components/NetTable.vue')['default']
+    NetTableColumn: typeof import('./src/components/NetTableColumn.vue')['default']
     NetTabPanel: typeof import('./src/components/NetTabPanel.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

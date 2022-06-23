@@ -17,7 +17,7 @@ provide('activeName', activeName)
     <div class="tab-header">
       <a :class="{ active: activeName === tab.props.name }" class="tab"
          href="javascript:;" v-for="tab in ($slots as any).default()"
-         :key="tab.props.label" @click="emit('tab-click', tab.props.name)">{{
+         :key="tab.props.label" @click="activeName = tab.props.name">{{
              tab.props.label
          }}</a>
     </div>
@@ -32,6 +32,7 @@ provide('activeName', activeName)
 
   .tab-header {
     margin-bottom: 10px;
+    min-height: 35px;
 
     .tab {
       display: inline-block;

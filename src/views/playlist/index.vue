@@ -80,7 +80,12 @@ const handleClick = (tab: string) => {
       </header>
       <!-- 歌曲列表 -->
       <NetTab v-model="activeName" @tab-click="handleClick">
-        <NetTabPanel label="歌曲列表" name="song" />
+        <NetTabPanel label="歌曲列表" name="song">
+          <!-- 歌单表格 -->
+          <NetTable>
+            表格
+          </NetTable>
+        </NetTabPanel>
         <NetTabPanel label="评论" name="comment" />
       </NetTab>
     </div>

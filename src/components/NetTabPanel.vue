@@ -15,7 +15,7 @@ const activeName = inject('activeName')
 
 <template>
   <div class="net-tab-panel" v-if="activeName === $props.name">
-    {{ label }}
+    <slot />
   </div>
 </template>
 
