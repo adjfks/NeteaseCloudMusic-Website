@@ -4,14 +4,15 @@ interface Props {
   content: any,
   hoverLayer?: boolean,
   horizontal?: boolean,
-  coverImgUrl?: string
+  coverImgUrl?: string,
+  to?: string
 }
 const props = defineProps<Props>()
 
 </script>
 
 <template>
-  <router-link to="/" class="card hover-up"
+  <router-link v-if="to" :to="to" class="card hover-up"
                :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
     <div class="picture">
       <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="">
@@ -23,6 +24,18 @@ const props = defineProps<Props>()
       </template>
     </div>
   </router-link>
+  <div v-else class="card hover-up"
+       :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
+    <div class="picture">
+      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="">
+    </div>
+    <div class="description">
+      <p class="title">{{ content.name }}</p>
+      <template v-if="horizontal">
+        <p class="artist">{{ content.song.artists[0].name }}</p>
+      </template>
+    </div>
+  </div>
 </template>
 
 <style lang="less" scoped>

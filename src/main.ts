@@ -12,7 +12,7 @@ import 'uno.css'
 
 const pinia = createPinia()
 pinia.use(localStoragePlugin({
-  storeIds: []
+  storeIds: ['user']
 }))
 
 const app = createApp(App)

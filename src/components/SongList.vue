@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Ref } from 'vue'
 import { getSonglistDetail } from '@/api/discover'
-import { useElementBounding } from '@vueuse/core'
 const props = defineProps({
   id: {
     type: [Number, String],

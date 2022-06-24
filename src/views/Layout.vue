@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
@@ -15,6 +16,7 @@
           <Sidebar />
         </el-aside>
         <el-main>
+          <!-- 二级路由 -->
           <router-view></router-view>
         </el-main>
       </el-container>
