@@ -109,7 +109,13 @@ const handleClick = (tab: 'song' | 'comment') => {
                               width="90px" />
             </NetTable>
           </NetTabPanel>
-          <NetTabPanel label="评论" name="comment" />
+          <NetTabPanel :label="`评论(${playlist.commentCount})`" name="comment">
+            <!-- 评论输入框组件 -->
+            <CommentInput />
+            <div class="comment-container">
+              <CommentList :id="id" />
+            </div>
+          </NetTabPanel>
         </NetTab>
       </main>
 
