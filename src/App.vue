@@ -3,7 +3,6 @@ import { useUser } from '@/store/user';
 
 const user = useUser()
 user.setVisitor()
-console.log(user.visitor);
 
 </script>
 
@@ -32,12 +31,14 @@ console.log(user.visitor);
     position: relative;
     overflow: hidden;
     min-width: 1200px;
-    width: calc(100vw - 120px);
     min-height: 600px;
+    width: calc(100vw - 120px);
     height: calc(100vh - 60px);
     margin: 30px;
+    // width: 100vw;
+    // height: 100vh;
     box-sizing: border-box;
-    border: 1px solid rgba(203, 201, 201, .6);
+    // border: 1px solid rgba(203, 201, 201, .6);
     border-radius: 8px;
     box-shadow: 20px 0 20px 2px #e6e6e6, -20px 0 20px 2px #e6e6e6, 0 20px 20px 2px #e6e6e6;
   }

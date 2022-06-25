@@ -67,6 +67,13 @@ const showData = computed(() => {
   return res
 })
 
+// 获取该列宽度值
+const getWidth = (idx: number) => {
+  return (slots as any).default()[idx].props.width
+}
+
+// 自定义事件
+const emits = defineEmits(['dblclick'])
 </script>
 
 <template>
@@ -85,11 +92,16 @@ const showData = computed(() => {
         </thead>
         <tbody>
           <tr class="row" v-for="(row, idx) in showData" :key="idx"
-              :class="{ 'stripe': stripe && idx % 2 === 0 }">
+              :class="{ 'stripe': stripe && idx % 2 === 0 }"
+              @dblclick="$emit('dblclick', { data: data, idx: idx })">
             <td v-for="(item, i) in row" :key="i" class="col ellipsis"
-                :style="{ width: ($slots as any).default()[i].props.width || '0', flex: ($slots as any).default()[i].props.width ? 'initial' : 1 }">
+                :style="{ width: getWidth(i) || '0', flex: getWidth(i) ? 'initial' : 1 }">
               <template v-if="item">
-                {{ item }}
+                <span class="ellipsis">{{ item }}</span>
+                <div class="tags" v-if="i === 2">
+                  <NetTag text="VIP" v-if="(data[idx] as any).fee === 1" />
+                  <NetTag text="试听" mr-1 v-if="(data[idx] as any).fee === 1" />
+                </div>
               </template>
               <template v-else>
                 <slot />
@@ -130,6 +142,21 @@ const showData = computed(() => {
 
         td {
           padding: 10px 0;
+        }
+
+        td:nth-child(3) {
+          display: flex;
+          align-items: center;
+
+          span {
+            min-width: 0;
+            padding: 2px;
+          }
+
+          .tags {
+            min-width: max-content;
+          }
+
         }
 
         &.stripe {

@@ -4,3 +4,5 @@ export type Method = 'get' | 'GET'
   | 'delete' | 'DELETE'
   | 'head' | 'HEAD'
   | 'options' | 'OPTIONS'
+
+export type Id = string | number
