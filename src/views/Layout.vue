@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import Footer from './footer/index.vue'
 </script>
 
 <template>
@@ -23,7 +23,7 @@
 
       <!-- 底部footer -->
       <el-footer height="60px">
-        <div>Footer</div>
+        <Footer />
       </el-footer>
     </el-container>
   </div>
@@ -46,6 +46,10 @@
       .el-main {
         padding: 0;
       }
+    }
+
+    .el-footer {
+      border-top: 1px solid var(--border-color);
     }
   }
 }
