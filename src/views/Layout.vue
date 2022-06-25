@@ -22,7 +22,7 @@ import Footer from './footer/index.vue'
       </el-container>
 
       <!-- 底部footer -->
-      <el-footer height="60px">
+      <el-footer height="70px">
         <Footer />
       </el-footer>
     </el-container>
@@ -32,6 +32,7 @@ import Footer from './footer/index.vue'
 <style lang="less" scoped>
 .common-layout {
   height: 100%;
+  box-sizing: border-box;
 
   .layout {
     height: 100%;
@@ -49,6 +50,7 @@ import Footer from './footer/index.vue'
     }
 
     .el-footer {
+      box-sizing: border-box;
       border-top: 1px solid var(--border-color);
     }
   }

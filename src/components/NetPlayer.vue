@@ -24,6 +24,7 @@
   width: 100%;
   height: 100%;
 
+
   .controller {
     display: flex;
     justify-content: space-around;
@@ -31,8 +32,7 @@
     width: 80%;
     font-size: 14px;
     color: #313131;
-    margin: 0 auto;
-    margin-top: 15px;
+    margin: 10px auto 0;
 
     .play-icon {
       display: flex;
@@ -58,7 +58,6 @@
 
     .el-slider {
       margin: 0 10px;
-      height: 100%;
 
       :deep(.el-slider__button) {
         width: 8px;
@@ -67,6 +66,14 @@
         border: none;
         opacity: 0;
       }
+
+      :deep(.el-slider__button-wrapper) {
+        width: 8px;
+        height: 8px;
+        top: -2px;
+        transform: translate(-50%, -50%);
+      }
+
     }
 
 
