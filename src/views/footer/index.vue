@@ -1,22 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { usePlayer } from '@/store/player'
+const player = usePlayer()
+const currentMusic = computed(() => {
+  return player.playlist[player.currentIdx]
+})
+
+
+
+</script>
 
 <template>
   <div class="net-footer">
-    <div class="song-msg">
-      <div class="picture-wrapper"><img src="../../assets/logo.png" alt="">
+    <div class="song-msg" v-if="currentMusic">
+      <div class="picture-wrapper"><img :src="currentMusic.al.picUrl" alt="">
       </div>
       <div class="msg-box" ml-2>
-        <p class="song-name">SWEET BABY</p>
-        <p class="song-art" mt-1>西徒XT</p>
+        <p class="song-name">{{ currentMusic.name }}</p>
+        <p class="song-art" mt-1>{{ currentMusic.ar[0].name }}</p>
       </div>
       <div class="icon">
         <i-carbon-favorite mt-2 text-4 v-if="true" />
         <i-carbon-favorite-filled v-else />
       </div>
     </div>
+    <div v-else></div>
     <!-- 音乐播放器 -->
     <div class="music-player">
-      <NetPlayer />
+      <NetPlayer :disabled="!currentMusic" />
     </div>
 
     <div class="footer-right">
@@ -44,7 +54,6 @@
       height: 45px;
       overflow: hidden;
       border-radius: 10px;
-      border: 1px solid #000;
     }
 
     .msg-box {

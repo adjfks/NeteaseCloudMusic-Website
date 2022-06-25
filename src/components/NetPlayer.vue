@@ -2,18 +2,25 @@
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/time'
 
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+})
+
 
 const player = usePlayer()
 const handleChange = (val: number) => {
+  if (props.disabled) return
   player.changeCurrentTime(val)
 }
-const currentMusic = player.playlist[player.currentIdx]
 
 </script>
 
 <template>
-  <div class="net-player">
-    <div class="controller">
+  <div class="net-player" :class="{ 'disabled': disabled }">
+    <div class="controller" :class="{ 'active': !disabled }">
       <i-ri-order-play-line />
       <i-carbon-skip-back-filled />
       <i class="play-icon">
@@ -43,6 +50,9 @@ const currentMusic = player.playlist[player.currentIdx]
   height: 100%;
   user-select: none;
 
+  &.disabled .controller {
+    color: #a6a6a6;
+  }
 
   .controller {
     display: flex;
@@ -62,13 +72,9 @@ const currentMusic = player.playlist[player.currentIdx]
       background-color: #f4f4f4;
       border-radius: 50%;
     }
-
-    svg:hover,
-    a:hover {
-      color: var(--theme-color);
-      cursor: pointer;
-    }
   }
+
+
 
   .range {
     display: flex;
@@ -92,6 +98,15 @@ const currentMusic = player.playlist[player.currentIdx]
         transform: translate(-50%, -50%);
       }
 
+    }
+  }
+
+  .active {
+
+    svg:hover,
+    a:hover {
+      color: var(--theme-color);
+      cursor: pointer;
     }
   }
 }
