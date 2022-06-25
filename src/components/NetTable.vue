@@ -67,6 +67,11 @@ const showData = computed(() => {
   return res
 })
 
+// 获取该列宽度值
+const getWidth = (idx: number) => {
+  return (slots as any).default()[idx].props.width
+}
+
 </script>
 
 <template>
@@ -87,7 +92,7 @@ const showData = computed(() => {
           <tr class="row" v-for="(row, idx) in showData" :key="idx"
               :class="{ 'stripe': stripe && idx % 2 === 0 }">
             <td v-for="(item, i) in row" :key="i" class="col ellipsis"
-                :style="{ width: ($slots as any).default()[i].props.width || '0', flex: ($slots as any).default()[i].props.width ? 'initial' : 1 }">
+                :style="{ width: getWidth(i) || '0', flex: getWidth(i) ? 'initial' : 1 }">
               <template v-if="item">
                 {{ item }}
               </template>

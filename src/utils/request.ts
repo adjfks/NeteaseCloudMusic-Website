@@ -4,7 +4,8 @@ import { Method } from '@/type'
 const baseURL = 'http://localhost:4000/'
 const instance = axios.create({
   baseURL,
-  timeout: 5000
+  timeout: 5000,
+  withCredentials: true,
 })
 
 // 响应拦截器
@@ -16,7 +17,7 @@ instance.interceptors.response.use(
 )
 
 // 请求工具函数
-export default (url:string , method: Method , submitData?:any):any => {
+export default (url: string, method: Method, submitData?: any): any => {
   return instance({
     url,
     method,
