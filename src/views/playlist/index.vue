@@ -3,6 +3,8 @@ import { Ref } from 'vue'
 import { getPlaylistById, getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
 import transformNumber from '@/utils/transformNumber'
+import { usePlayer } from '@/store/player'
+
 
 const route = useRoute()
 
@@ -25,6 +27,12 @@ getData()
 const activeName: Ref<'song' | 'comment'> = ref('song')
 const handleClick = (tab: 'song' | 'comment') => {
   activeName.value = tab
+}
+
+// 双击击播放
+const player = usePlayer()
+const handleDblclick = async (val: { data: any, idx: number }) => {
+  player.replacePlaylist(val.data, val.idx)
 }
 
 </script>
@@ -93,7 +101,8 @@ const handleClick = (tab: 'song' | 'comment') => {
         <NetTab v-model="activeName" @tab-click="handleClick">
           <NetTabPanel label="歌曲列表" name="song">
             <!-- 歌单表格 -->
-            <NetTable v-if="songs.length" :data="songs" stripe>
+            <NetTable v-if="songs.length" :data="songs" stripe
+                      @dblclick="handleDblclick">
               <NetTableColumn type="index" width="50px" />
               <NetTableColumn label="操作" width="50px">
                 <template #default>

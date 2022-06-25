@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { usePlayer } from '@/store/player'
+const player = usePlayer()
+</script>
 
 <template>
   <div class="net-player">
@@ -6,7 +9,9 @@
       <i-ri-order-play-line />
       <i-carbon-skip-back-filled />
       <i class="play-icon">
-        <i-carbon-play-filled-alt text="4" />
+        <i-carbon-play-filled-alt text="4" v-if="!player.music.playing"
+                                  @click="player.play()" />
+        <i-carbon-pause-filled v-else text="4" @click="player.pause()" />
       </i>
       <i-carbon-skip-forward-filled />
       <a href="javascript">词</a>

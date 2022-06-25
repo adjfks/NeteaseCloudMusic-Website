@@ -72,6 +72,8 @@ const getWidth = (idx: number) => {
   return (slots as any).default()[idx].props.width
 }
 
+// 自定义事件
+const emits = defineEmits(['dblclick'])
 </script>
 
 <template>
@@ -90,7 +92,8 @@ const getWidth = (idx: number) => {
         </thead>
         <tbody>
           <tr class="row" v-for="(row, idx) in showData" :key="idx"
-              :class="{ 'stripe': stripe && idx % 2 === 0 }">
+              :class="{ 'stripe': stripe && idx % 2 === 0 }"
+              @dblclick="$emit('dblclick', { data: data, idx: idx })">
             <td v-for="(item, i) in row" :key="i" class="col ellipsis"
                 :style="{ width: getWidth(i) || '0', flex: getWidth(i) ? 'initial' : 1 }">
               <template v-if="item">

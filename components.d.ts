@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     ICarbonDownload: typeof import('~icons/carbon/download')['default']
     ICarbonFavorite: typeof import('~icons/carbon/favorite')['default']
     ICarbonFavoriteFilled: typeof import('~icons/carbon/favorite-filled')['default']
+    ICarbonPauseFilled: typeof import('~icons/carbon/pause-filled')['default']
     ICarbonPlay: typeof import('~icons/carbon/play')['default']
     ICarbonPlayFilled: typeof import('~icons/carbon/play-filled')['default']
     ICarbonPlayFilledAlt: typeof import('~icons/carbon/play-filled-alt')['default']
