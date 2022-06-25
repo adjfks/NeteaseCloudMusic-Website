@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { getMusicUrl } from '@/api/player'
+import { throttle } from 'lodash'
 
 export interface Music {
   playing: boolean,
@@ -85,11 +86,11 @@ export const usePlayer = defineStore('player', {
     },
     // 实时更新当前播放时间
     updateCurrentTime() {
-      if (!this.audioEl) return console.log('audioEl not found');
-      this.audioEl.ontimeupdate = (event) => {
+      if (!this.audioEl) return console.log('audioEl not found')
+      this.audioEl.ontimeupdate = throttle((event) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
-      }
+      }, 500)
     },
     // 拖拽进度条
     changeCurrentTime(time: number) {

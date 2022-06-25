@@ -7,7 +7,7 @@ const player = usePlayer()
 const handleChange = (val: number) => {
   player.changeCurrentTime(val)
 }
-
+const currentMusic = player.playlist[player.currentIdx]
 
 </script>
 
