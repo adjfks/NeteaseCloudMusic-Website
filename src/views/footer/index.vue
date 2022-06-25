@@ -15,7 +15,9 @@
       </div>
     </div>
     <!-- 音乐播放器 -->
-    <div class="music-player">player</div>
+    <div class="music-player">
+      <NetPlayer />
+    </div>
 
     <div class="footer-right">
       <i-carbon-volume-down v-if="true" />
@@ -53,6 +55,11 @@
         font-weight: 700;
       }
     }
+  }
+
+  .music-player {
+    width: 40%;
+    height: 100%;
   }
 
   .footer-right {
