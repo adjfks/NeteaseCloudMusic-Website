@@ -95,6 +95,12 @@ export const usePlayer = defineStore('player', {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
       }
+    },
+    // 拖拽进度条
+    changeCurrentTime(time: number) {
+      this.music.currentTime = time
+      if (this.music.audioEl)
+        this.music.audioEl.currentTime = time
     }
   }
 })

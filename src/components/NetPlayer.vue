@@ -2,6 +2,9 @@
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/time'
 const player = usePlayer()
+const handleChange = (val: number) => {
+  player.changeCurrentTime(val)
+}
 </script>
 
 <template>
@@ -22,7 +25,7 @@ const player = usePlayer()
           'mm:ss')
       }}</span>
       <el-slider :show-tooltip="false" v-model="player.music.currentTime"
-                 :max="player.music.totalTime" />
+                 :max="player.music.totalTime" @change="handleChange" />
       <span class="total-time">{{ formatTime(player.music.totalTime * 1000,
           'mm:ss')
       }}</span>
