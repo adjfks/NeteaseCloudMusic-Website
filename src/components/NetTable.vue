@@ -97,7 +97,11 @@ const emits = defineEmits(['dblclick'])
             <td v-for="(item, i) in row" :key="i" class="col ellipsis"
                 :style="{ width: getWidth(i) || '0', flex: getWidth(i) ? 'initial' : 1 }">
               <template v-if="item">
-                {{ item }}
+                <span class="ellipsis">{{ item }}</span>
+                <div class="tags" v-if="i === 2">
+                  <NetTag text="VIP" v-if="(data[idx] as any).fee === 1" />
+                  <NetTag text="试听" mr-1 v-if="(data[idx] as any).fee === 1" />
+                </div>
               </template>
               <template v-else>
                 <slot />
@@ -138,6 +142,21 @@ const emits = defineEmits(['dblclick'])
 
         td {
           padding: 10px 0;
+        }
+
+        td:nth-child(3) {
+          display: flex;
+          align-items: center;
+
+          span {
+            min-width: 0;
+            padding: 2px;
+          }
+
+          .tags {
+            min-width: max-content;
+          }
+
         }
 
         &.stripe {

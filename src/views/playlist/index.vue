@@ -136,6 +136,7 @@ const handleDblclick = async (val: { data: any, idx: number }) => {
 <style lang = "less" scoped >
 .playlist-detail-container {
 
+
   header {
     display: flex;
     padding: 20px 20px;

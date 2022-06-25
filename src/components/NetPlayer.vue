@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { usePlayer } from '@/store/player'
+import { formatTime } from '@/utils/time'
 const player = usePlayer()
 </script>
 
@@ -17,9 +18,14 @@ const player = usePlayer()
       <a href="javascript">词</a>
     </div>
     <div class="range">
-      <span class="cur-time">1:00</span>
-      <el-slider :show-tooltip="false" />
-      <span class="total-time">2:50</span>
+      <span class="cur-time">{{ formatTime(player.music.currentTime * 1000,
+          'mm:ss')
+      }}</span>
+      <el-slider :show-tooltip="false" v-model="player.music.currentTime"
+                 :max="player.music.totalTime" />
+      <span class="total-time">{{ formatTime(player.music.totalTime * 1000,
+          'mm:ss')
+      }}</span>
     </div>
   </div>
 </template>
@@ -28,6 +34,7 @@ const player = usePlayer()
 .net-player {
   width: 100%;
   height: 100%;
+  user-select: none;
 
 
   .controller {
@@ -69,7 +76,6 @@ const player = usePlayer()
         height: 8px;
         background-color: var(--theme-color);
         border: none;
-        opacity: 0;
       }
 
       :deep(.el-slider__button-wrapper) {
@@ -79,12 +85,6 @@ const player = usePlayer()
         transform: translate(-50%, -50%);
       }
 
-    }
-
-
-
-    &:hover :deep(.el-slider__button) {
-      opacity: 1;
     }
   }
 }
