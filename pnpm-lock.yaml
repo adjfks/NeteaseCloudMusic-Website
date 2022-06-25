@@ -16,6 +16,7 @@ specifiers:
   dayjs: ^1.11.3
   element-plus: ^2.2.4
   less: ^4.1.2
+  lodash: ^4.17.21
   pinia: ^2.0.14
   postcss-html: ^1.4.1
   typescript: ^4.5.4
@@ -35,6 +36,7 @@ dependencies:
   axios: 0.27.2
   dayjs: 1.11.3
   element-plus: 2.2.4_vue@3.2.36
+  lodash: 4.17.21
   pinia: 2.0.14_hxrfy3rdja4lhsamokddlc63fi
   vue: 3.2.36
   vue-router: 4.0.15_vue@3.2.36

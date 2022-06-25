@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { usePlayer } from '@/store/player'
 import { formatTime } from '@/utils/time'
+
+
 const player = usePlayer()
 const handleChange = (val: number) => {
   player.changeCurrentTime(val)
 }
+
+
 </script>
 
 <template>
