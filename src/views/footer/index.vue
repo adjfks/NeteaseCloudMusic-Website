@@ -48,6 +48,7 @@ const currentMusic = computed(() => {
 
   .song-msg {
     display: flex;
+    width: 25%;
 
     .picture-wrapper {
       width: 45px;
@@ -59,6 +60,7 @@ const currentMusic = computed(() => {
     .msg-box {
       align-self: center;
       padding: 0 5px;
+      max-width: 200px;
 
       .song-name {
         font-weight: 700;
@@ -72,7 +74,10 @@ const currentMusic = computed(() => {
   }
 
   .footer-right {
+    width: 25%;
     font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
 
     svg {
       padding: 0 10px;

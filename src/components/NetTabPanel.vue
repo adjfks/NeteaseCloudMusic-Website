@@ -20,5 +20,8 @@ const activeName = inject('activeName')
 </template>
 
 <style lang="less" scoped>
+.net-tab-panel {
+  height: 100%;
+}
 </style>
 

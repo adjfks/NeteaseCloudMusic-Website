@@ -22,13 +22,13 @@ const handleChange = (val: number) => {
   <div class="net-player" :class="{ 'disabled': disabled }">
     <div class="controller" :class="{ 'active': !disabled }">
       <i-ri-order-play-line />
-      <i-carbon-skip-back-filled />
+      <i-carbon-skip-back-filled @click="player.goMusic(-1)" />
       <i class="play-icon">
         <i-carbon-play-filled-alt text="4" v-if="!player.music.playing"
                                   @click="player.play()" />
         <i-carbon-pause-filled v-else text="4" @click="player.pause()" />
       </i>
-      <i-carbon-skip-forward-filled />
+      <i-carbon-skip-forward-filled @click="player.goMusic(1)" />
       <a href="javascript">词</a>
     </div>
     <div class="range">
