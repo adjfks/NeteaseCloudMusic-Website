@@ -49,6 +49,7 @@ const props = defineProps<Props>()
   .picture {
     position: relative;
     margin-bottom: 5px;
+    height: 100%;
 
     &::after {
       content: '';
@@ -73,6 +74,7 @@ const props = defineProps<Props>()
   }
 
   .title {
+    min-height: 36px;
     font-size: 12px;
     line-height: 1.5em;
   }

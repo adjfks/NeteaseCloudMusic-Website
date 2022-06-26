@@ -53,6 +53,7 @@ const playlistGroups = computed(() => {
   return transformList(pager.playlist, 10)
 })
 
+const router = useRouter()
 </script>
 
 <template>
@@ -60,7 +61,8 @@ const playlistGroups = computed(() => {
     <div class="playlist-container">
       <!-- 精品歌单 -->
       <BoutiquePlaylistPanel :title="highQualityPlaylist.name"
-                             :picUrl="highQualityPlaylist.coverImgUrl" />
+                             :picUrl="highQualityPlaylist.coverImgUrl"
+                             @click="() => { router.push(`/playlist/${highQualityPlaylist.id}`) }" />
       <!-- 分类面板 -->
       <div class="category-panel-contanier">
         <CategoryPanel />
@@ -71,7 +73,8 @@ const playlistGroups = computed(() => {
         <el-row :gutter="20" v-for="row in playlistGroups"
                 v-if="pager.playlist.length">
           <el-col :span="4" v-for="item in row" :key="item.id">
-            <Card :content="item" :coverImgUrl="item.coverImgUrl" />
+            <Card :content="item" :coverImgUrl="item.coverImgUrl"
+                  :to="`/playlist/${item.id}`" />
           </el-col>
         </el-row>
       </div>
