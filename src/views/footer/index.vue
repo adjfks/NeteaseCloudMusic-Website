@@ -29,11 +29,12 @@ const currentMusic = computed(() => {
       <NetPlayer :disabled="!currentMusic" />
     </div>
 
-    <div class="footer-right">
+    <div class="footer-right" v-if="currentMusic">
       <i-carbon-volume-down v-if="true" />
       <i-carbon-volume-mute v-else />
       <i-carbon-playlist />
     </div>
+    <div v-else></div>
   </div>
 </template>
 
