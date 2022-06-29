@@ -1,8 +1,26 @@
 <script setup lang="ts">
-
+import { useUser } from '@/store/user'
 const props = defineProps<{
   height?: string
 }>()
+
+const route = useRoute()
+const router = useRouter()
+const user = useUser()
+// 点击登录
+const goLogin = () => {
+  user.setRedirectUrl(route.path)
+  router.push('/login')
+}
+
+// 用户信息弹出
+const profileVisible = ref(false)
+
+// 退出登录
+const quickLogin = () => {
+  user.removeLogin()
+  profileVisible.value = false
+}
 </script>
 
 <template>
@@ -37,14 +55,31 @@ const props = defineProps<{
     <!-- 右侧区域 -->
     <div class="header-right">
       <div class="avatar-box">
-        <el-avatar
-                   src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                   v-if="!user.isLogin" />
+        <el-avatar :src="user.profile.avatarUrl" v-else />
+
         <span class="username">
-          <template v-if="true">登录</template>
+          <span v-if="user.isLogin" text="3"
+                @click="profileVisible = !profileVisible">{{
+                    user.profile.nickname
+                }}</span>
+          <a href="javascript:;" @click="goLogin" v-else>登录</a>
+          <div class="drop-layer" v-if="user.isLogin && profileVisible">
+            <ul>
+              <li @click="quickLogin" class="h-cs">
+                <NetAlign>
+                  <i-carbon-power text="3 #303031" />
+                  <span ml-2 text="3 #303031"> 退出登录</span>
+                </NetAlign>
+              </li>
+            </ul>
+          </div>
         </span>
       </div>
     </div>
   </div>
+
 </template>
 
 <style lang="less" scoped>
@@ -136,7 +171,19 @@ const props = defineProps<{
       margin-left: 20px;
 
       .username {
+        position: relative;
         margin-left: 5px;
+
+        // 弹层
+        .drop-layer {
+          position: absolute;
+          top: 38px;
+          right: -20px;
+          width: 200px;
+          padding: 30px 10px;
+          border-radius: 10px;
+          box-shadow: 0 10px 40px -10px rgba(0, 64, 128, .2);
+        }
       }
     }
   }
