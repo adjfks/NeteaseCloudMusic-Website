@@ -59,8 +59,9 @@ const handleDblclick = async (val: { data: any, idx: number }) => {
             }}创建</span>
           </div>
           <div class="button-container">
-            <NetButton mr-2>
-              <i-carbon-play pr-1 /><span>播放全部</span>
+            <NetButton mr-2 @click="handleDblclick({ data: songs, idx: 0 })">
+              <i-carbon-play pr-1 />
+              <span>播放全部</span>
             </NetButton>
             <NetButton mr-2>
               <i-carbon-add-alt pr-1 /><span>收藏({{

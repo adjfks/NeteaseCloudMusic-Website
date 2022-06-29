@@ -11,7 +11,7 @@ const props = defineProps({
 
 
 const player = usePlayer()
-const handleChange = (val: number) => {
+const handleChange = (val: any) => {
   if (props.disabled) return
   player.changeCurrentTime(val)
 }
@@ -25,15 +25,16 @@ const handleChange = (val: number) => {
       <i-carbon-skip-back-filled @click="player.goMusic(-1)" />
       <i class="play-icon">
         <i-carbon-play-filled-alt text="4" v-if="!player.music.playing"
-                                  @click="player.play()" />
+                                  @click="!disabled && player.play()" />
         <i-carbon-pause-filled v-else text="4" @click="player.pause()" />
       </i>
       <i-carbon-skip-forward-filled @click="player.goMusic(1)" />
       <a href="javascript">词</a>
     </div>
     <div class="range">
-      <span class="cur-time">{{ formatTime(player.music.currentTime * 1000,
-          'mm:ss')
+      <span class="cur-time">{{ disabled ? '00:00' :
+          formatTime(player.music.currentTime * 1000,
+            'mm:ss')
       }}</span>
       <el-slider :show-tooltip="false" v-model="player.music.currentTime"
                  :max="player.music.totalTime" @change="handleChange" />
