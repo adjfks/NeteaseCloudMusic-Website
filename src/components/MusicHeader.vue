@@ -39,7 +39,9 @@ const props = defineProps<{
       <div class="avatar-box">
         <el-avatar
                    src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
-        <span class="username">用户名称</span>
+        <span class="username">
+          <template v-if="true">登录</template>
+        </span>
       </div>
     </div>
   </div>
