@@ -3,7 +3,6 @@ import { useUser } from '@/store/user';
 
 const user = useUser()
 user.setVisitor()
-
 </script>
 
 <template>

@@ -27,7 +27,7 @@ function setLocalStorage(mutationId: string, state: StateTree): Promise<string> 
 
 // 获取本地持久化数据
 function getLocalStorage(storeId: string) {
-  return localStorage.getItem(storeId)
+  return JSON.parse(localStorage.getItem(storeId) || '')
 }
 
 export default function localStoragePlugin(options: LocalStoragePluginOptions) {
@@ -36,13 +36,13 @@ export default function localStoragePlugin(options: LocalStoragePluginOptions) {
 
   return (ctx: PiniaPluginContext) => {
     const store = ctx.store
-    // const localState = getLocalStorage(store.$id)
-    // if (localState) {
-    //   ctx.options.state = () => {
-    //     return JSON.parse(localState)
-    //   }
-    // }
-    // console.log(store);
+    // need to stored ?
+    if (isInStores(storeIds, store.$id)) {
+      try {
+        const localState = getLocalStorage(store.$id)
+        if (localState) store.$patch(localState)
+      } catch (e) { }
+    }
 
 
     store.$subscribe(throttle((mutation, state) => {
