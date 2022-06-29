@@ -1,6 +1,113 @@
 img {
   font-size: 16px;
   color: none;
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: var(--color-black);
+}
+
+/* hover遮罩 */
+.hover-up {
+  position: relative;
+  transition: all .2s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.hover-layer {
+  &::before {
+    content: '';
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity .4s;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// hover字体颜色
+.hover-font {
+  &:hover {
+    color: #fd726d;
+    cursor: pointer;
+  }
+}
+
+/* 滚动条样式 */
+.scrollbar {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #dedfe1;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 10px;
+  }
 }
 
 
+/* el-row宽度超过容器问题 */
+.el-row {
+  width: 100%;
+}
+
+/* hover播放图标 */
+.hover-play {
+  position: relative;
+
+  &::after {
+    content: '';
+    z-index: 2000;
+    position: absolute;
+    border: 1em solid transparent;
+    border-top-width: 0.5em;
+    border-bottom-width: 0.5em;
+    border-left-color: rgba(255, 255, 255, .7);
+    opacity: 0;
+    transition: opacity .4s;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(75%, 50%)
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* 主体字体颜色 */
+.theme-color {
+  color: var(--theme-color);
+}
+
+/* cursor */
+.h-cs {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

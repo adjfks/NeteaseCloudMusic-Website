@@ -1,4 +1,8 @@
 <script setup lang="ts">
+
+const props = defineProps<{
+  height?: string
+}>()
 </script>
 
 <template>
@@ -13,11 +17,11 @@
       <div class="header-middle">
         <!-- 箭头 -->
         <div class="arrow-box">
-          <div class="icon-wrapper">
+          <div class="icon-wrapper h-cs" @click="$router.back()">
             <i-ic-round-keyboard-arrow-left
                                             style="font-size: 1.5em; color: #fff;" />
           </div>
-          <div class="icon-wrapper">
+          <div class="icon-wrapper h-cs" @click="$router.forward()">
             <i-ic-round-keyboard-arrow-right
                                              style="font-size: 1.5em; color: #ccc;" />
           </div>
@@ -43,7 +47,7 @@
 
 <style lang="less" scoped>
 .music-header {
-  min-height: 60px;
+  min-height: 50px;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -63,13 +67,14 @@
       .logo-image {
         float: left;
         height: 100%;
+        width: auto;
       }
 
       .logo-text {
         display: flow-root;
-        line-height: 75px;
+        line-height: v-bind(height);
         color: #fff;
-        font-size: 24px;
+        font-size: 20px;
       }
     }
 
