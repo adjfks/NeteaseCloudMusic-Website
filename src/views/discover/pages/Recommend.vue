@@ -76,7 +76,8 @@ getPrivateContent().then((res: any) => {
       <!-- 推荐MV -->
       <Panel title="推荐MV">
         <el-row :gutter="20">
-          <el-col :span="6" v-for="item in recommendMv" :key="item.id">
+          <el-col :span="6" v-for="item in recommendMv" :key="item.id"
+                  :style="{ height: '120px' }">
             <Card :content="item" />
           </el-col>
         </el-row>
@@ -84,7 +85,8 @@ getPrivateContent().then((res: any) => {
       <!-- 独家放送 -->
       <Panel title="独家放送">
         <el-row :gutter="20">
-          <el-col :span="8" v-for="item in privateContent" :key="item.id">
+          <el-col :span="8" v-for="item in privateContent" :key="item.id"
+                  :style="{ height: '120px' }">
             <Card :content="item" />
           </el-col>
         </el-row>

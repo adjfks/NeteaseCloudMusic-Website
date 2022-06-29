@@ -7,11 +7,14 @@ const props = defineProps({
     required: true
   }
 })
+
+const router = useRouter()
 </script>
 
 <template>
   <div class="toplist-panel-container">
-    <div class="cover-container">
+    <div class="cover-container"
+         @click="() => { router.push(`/playlist/${list.id}`) }">
       <Cover :picUrl="list.coverImgUrl" :playCount="list.playCount" v-if="list"
              round />
     </div>

@@ -20,6 +20,7 @@ const cardList = computed(() => {
   return transformList(temp, Math.ceil(temp.length / 6))
 })
 
+const router = useRouter()
 </script>
 
 <template>
@@ -38,7 +39,8 @@ const cardList = computed(() => {
         <el-row :gutter="20" v-for="(list, idx) in cardList" :key="idx"
                 v-if="cardList.length" ma-4>
           <el-col :span="4" v-for="item in list" :key="(item as any).id">
-            <ToplistCard :list="item" />
+            <ToplistCard :list="item"
+                         @click="() => { router.push(`/playlist/${item.id}`) }" />
           </el-col>
         </el-row>
       </div>

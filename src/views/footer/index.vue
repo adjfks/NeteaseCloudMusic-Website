@@ -29,11 +29,12 @@ const currentMusic = computed(() => {
       <NetPlayer :disabled="!currentMusic" />
     </div>
 
-    <div class="footer-right">
+    <div class="footer-right" v-if="currentMusic">
       <i-carbon-volume-down v-if="true" />
       <i-carbon-volume-mute v-else />
       <i-carbon-playlist />
     </div>
+    <div v-else></div>
   </div>
 </template>
 
@@ -48,6 +49,7 @@ const currentMusic = computed(() => {
 
   .song-msg {
     display: flex;
+    width: 25%;
 
     .picture-wrapper {
       width: 45px;
@@ -59,6 +61,7 @@ const currentMusic = computed(() => {
     .msg-box {
       align-self: center;
       padding: 0 5px;
+      max-width: 200px;
 
       .song-name {
         font-weight: 700;
@@ -72,7 +75,10 @@ const currentMusic = computed(() => {
   }
 
   .footer-right {
+    width: 25%;
     font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
 
     svg {
       padding: 0 10px;

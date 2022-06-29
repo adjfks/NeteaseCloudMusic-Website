@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+
 const props = defineProps({
   rank: {
     type: Number,
@@ -21,6 +23,7 @@ const props = defineProps({
     default: '40px'
   }
 })
+
 
 
 </script>

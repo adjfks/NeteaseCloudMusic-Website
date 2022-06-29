@@ -110,6 +110,17 @@ export const usePlayer = defineStore('player', {
           // 更新音乐信息
           this.updateMusic()
         }
+    },
+    // 上一曲或下一曲
+    goMusic(step: -1 | 1) {
+      if (step < 0 && this.currentIdx > 0) {
+        this.currentIdx += step
+        this.autoPlay()
+      }
+      if (step > 0 && this.currentIdx < this.playlist.length - 1) {
+        this.currentIdx += step
+        this.autoPlay()
+      }
     }
   }
 })
