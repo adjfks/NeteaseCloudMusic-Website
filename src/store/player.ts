@@ -12,8 +12,7 @@ export interface Music {
 export interface Player {
   playlist: any[],
   currentIdx: number,
-  music: Music,
-  audioEl: HTMLAudioElement
+  music: Music
 }
 
 
@@ -33,8 +32,7 @@ export const usePlayer = defineStore('player', {
         url: '',
         totalTime: 0,
         currentTime: 0
-      },
-      audioEl: audioEl,
+      }
     } as Player
   },
   getters: {
@@ -59,6 +57,7 @@ export const usePlayer = defineStore('player', {
     updateMusic() {
       getMusicUrl(this.currentId).then((res: any) => {
         const url = res.data[0].url
+
         this.music.url = url
 
         this.music.playing = false
@@ -66,14 +65,14 @@ export const usePlayer = defineStore('player', {
         this.music.totalTime = Math.floor(this.playlist[this.currentIdx].dt / 1000)
         this.music.currentTime = 0
 
-        this.audioEl.src = this.music.url
+        audioEl.src = this.music.url
         this.play()
       })
     },
     // 播放
     play() {
       if (this.music.playing) return
-      this.audioEl.play()
+      audioEl.play()
       this.music.playing = true
       // 进度条
       this.updateCurrentTime()
@@ -81,13 +80,13 @@ export const usePlayer = defineStore('player', {
     // 暂停
     pause() {
       if (!this.music.playing) return
-      this.audioEl.pause()
+      audioEl.pause()
       this.music.playing = false
     },
     // 实时更新当前播放时间
     updateCurrentTime() {
-      if (!this.audioEl) return console.log('audioEl not found')
-      this.audioEl.ontimeupdate = throttle((event) => {
+      if (!audioEl) return console.log('audioEl not found')
+      audioEl.ontimeupdate = throttle((event) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
       }, 500)
@@ -95,15 +94,15 @@ export const usePlayer = defineStore('player', {
     // 拖拽进度条
     changeCurrentTime(time: number) {
       this.music.currentTime = time
-      if (this.audioEl)
-        this.audioEl.currentTime = time
+      if (audioEl)
+        audioEl.currentTime = time
     },
     // 自动播放下一首
     autoPlay() {
       this.updateMusic()
       // 监听ended事件
-      if (this.audioEl)
-        this.audioEl.onended = () => {
+      if (audioEl)
+        audioEl.onended = () => {
           // 下一首
           if (this.currentIdx === this.length - 1) return
           this.currentIdx++
