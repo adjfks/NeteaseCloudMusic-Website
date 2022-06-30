@@ -29,6 +29,8 @@ watch(() => player.currentIdx, () => {
   })
 
 /* 歌词滚动功能 */
+// 滚动条DOM
+const scrollbar = ref()
 
 // 获取激活歌词索引
 const activeIndex = ref(0)
@@ -38,6 +40,8 @@ watch(() => player.music.currentTime, (newVal, oldVal) => {
   if (Math.floor(newVal) < time) return
   activeIndex.value++
   console.log('激活歌词更新了----->', activeIndex.value);
+  // 设置滚动条位置
+  scrollbar.value.setScrollTop(activeIndex.value * 58)
 })
 
 // 歌词容器
@@ -48,6 +52,9 @@ onMounted(() => {
   const { y, bottom } = lyricContainer.value.getBoundingClientRect()
   halfHeight = Math.floor((bottom - y) / 2)
   console.log(halfHeight);
+  // 设置容器上padding使第一句歌词居中
+  const view = document.querySelector('.el-scrollbar__view') as HTMLElement
+  view.style.paddingTop = `${halfHeight - 7}px`
 })
 
 // 激活对应歌词
@@ -103,8 +110,9 @@ function parseLrc(lrc: string): LyricItem[] {
         </div>
         <!-- 歌词列表 -->
         <ul class="lyric" ref="lyricContainer">
-          <el-scrollbar @scroll="handleScroll">
-            <li class="lyric-item" v-for="item in lyric">{{ item.text }}</li>
+          <el-scrollbar @scroll="handleScroll" ref="scrollbar">
+            <li class="lyric-item" v-for="(item, idx) in lyric"
+                :class="{ 'active': activeIndex === idx }">{{ item.text }}</li>
           </el-scrollbar>
         </ul>
       </div>
@@ -223,16 +231,19 @@ function parseLrc(lrc: string): LyricItem[] {
       .lyric {
         flex: 1;
         min-height: 0;
+        transition: all .5s;
 
         .lyric-item {
           text-align: center;
           color: #646261;
           font-size: 14px;
-          margin: 40px 0;
+          margin-bottom: 40px;
+          transition: all .7s;
 
           &.active {
             color: #000000;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 700;
           }
         }
       }
