@@ -51,12 +51,11 @@ export const usePlayer = defineStore('player', {
       this.playlist.splice(0, this.length)
       this.playlist.push(...list)
       this.currentIdx = idx
-      // 自动播放
-      this.autoPlay()
+      this.updateMusic()
     },
-    // 更新当前音乐信息
-    updateMusic() {
-      getMusicUrl(this.currentId).then((res: any) => {
+    // 更新当前音乐信息之后自动播放
+    async updateMusic() {
+      await getMusicUrl(this.currentId).then((res: any) => {
         const url = res.data[0].url
 
         this.music.url = url
@@ -67,16 +66,22 @@ export const usePlayer = defineStore('player', {
         this.music.currentTime = 0
 
         audioEl.src = this.music.url
+
+        console.log('更新音乐信息成功');
         this.play()
       })
     },
-    // 播放
+    // 直接自动播放播放
     play() {
       if (this.music.playing) return
+      console.log('开始play');
+
       audioEl.play()
       this.music.playing = true
       // 进度条
       this.updateCurrentTime()
+      // 播放完后自动播放
+      this.autoPlay()
     },
     // 暂停
     pause() {
@@ -100,26 +105,32 @@ export const usePlayer = defineStore('player', {
     },
     // 自动播放下一首
     autoPlay() {
-      this.updateMusic()
+      if (this.currentIdx === -1) this.updateMusic()
       // 监听ended事件
       if (audioEl)
         audioEl.onended = () => {
+          // 下一首前先暂停
+          this.music.playing = false
           // 下一首
           if (this.currentIdx === this.length - 1) return
           this.currentIdx++
+          console.log(this.currentIdx);
           // 更新音乐信息
           this.updateMusic()
+
         }
     },
     // 上一曲或下一曲
     goMusic(step: -1 | 1) {
       if (step < 0 && this.currentIdx > 0) {
         this.currentIdx += step
-        this.autoPlay()
+        this.updateMusic()
+
       }
       if (step > 0 && this.currentIdx < this.playlist.length - 1) {
         this.currentIdx += step
-        this.autoPlay()
+        this.updateMusic()
+
       }
     },
     // 初始化

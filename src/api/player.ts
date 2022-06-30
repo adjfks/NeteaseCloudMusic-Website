@@ -9,3 +9,12 @@ import { Id } from '@/type'
 export const getMusicUrl = (id: Id, br: number = 999000) => {
   return request('song/url', 'get', { id, br })
 }
+
+/**
+  *获取歌词
+  *@param {Id} 歌曲id
+  *@returns
+  */
+export const getLyric = (id: Id) => {
+  return request('lyric', 'get', { id })
+}

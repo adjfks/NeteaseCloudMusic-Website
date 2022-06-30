@@ -18,7 +18,7 @@ const routes = [
     meta: { transition: 'slide-up' }
   },
   {
-    path: '/song/detail/:id',
+    path: '/song/detail',
     component: DetailDrawer,
     meta: { transition: 'slide-up' }
   }

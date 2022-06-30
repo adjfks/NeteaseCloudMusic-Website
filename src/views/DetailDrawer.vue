@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { getSongsByIds } from '@/api/playlist'
 import { usePlayer } from '@/store/player'
 
-const song = ref(undefined)
-const route = useRoute()
-console.log(route.params.id);
 
-getSongsByIds(route.params.id as string).then((res: any) => {
-  song.value = res.songs[0]
-})
+const song = ref(undefined)
 
 const player = usePlayer()
+watch(() => player.currentIdx, () => {
+  song.value = player.playlist[player.currentIdx]
+},
+  {
+    immediate: true
+  })
 
 
 </script>
@@ -32,7 +32,7 @@ const player = usePlayer()
         <div class="record-play" :class="{ 'play': player.music.playing }">
           <img src="@/assets/record.png" alt="">
         </div>
-        <div class="record" :class="{ 'play': player.music.playing }">
+        <div class="record" :class="{ 'pause': !player.music.playing }">
           <img :src="(song as any).al.picUrl" alt="">
         </div>
 
@@ -72,7 +72,7 @@ const player = usePlayer()
 
       .record-play {
         position: absolute;
-        top: 8px;
+        top: 28px;
         left: 175px;
         z-index: 500;
         transform-origin: 0% 0%;
@@ -92,6 +92,7 @@ const player = usePlayer()
         border-radius: 50%;
         // overflow: hidden;
         border: 40px solid #191a1b;
+        animation: play 3s linear infinite 0.2s;
 
         img {
           border-radius: 50%;
@@ -111,9 +112,11 @@ const player = usePlayer()
           border-radius: 50%;
         }
 
-        &.play {
-          animation: play 3s linear infinite 0.2s;
+
+        &.pause {
+          animation-play-state: paused;
         }
+
       }
 
 

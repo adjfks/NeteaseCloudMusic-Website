@@ -10,7 +10,7 @@ const route = useRoute()
 const handleRouter = () => {
   const path = route.path
   if (path.startsWith('/song/detail')) router.back()
-  else router.push(`/song/detail/${currentMusic.value.id}`)
+  else router.push(`/song/detail`)
 }
 </script>
 
