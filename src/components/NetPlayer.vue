@@ -16,6 +16,8 @@ const handleChange = (val: any) => {
   player.changeCurrentTime(val)
 }
 
+// 初始化播放器
+player.initMusic()
 </script>
 
 <template>

@@ -18,6 +18,7 @@ export interface Player {
 
 const audioEl = document.createElement('audio')
 audioEl.style.display = 'none'
+audioEl.setAttribute('use-credentials', 'true')
 document.body.appendChild(audioEl)
 
 export const usePlayer = defineStore('player', {
@@ -119,6 +120,14 @@ export const usePlayer = defineStore('player', {
       if (step > 0 && this.currentIdx < this.playlist.length - 1) {
         this.currentIdx += step
         this.autoPlay()
+      }
+    },
+    // 初始化
+    initMusic() {
+      this.music.playing = false
+      if (this.music.url) {
+        audioEl.src = this.music.url
+        audioEl.currentTime = this.music.currentTime
       }
     }
   }

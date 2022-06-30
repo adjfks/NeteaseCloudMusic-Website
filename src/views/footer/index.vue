@@ -12,7 +12,8 @@ const currentMusic = computed(() => {
 <template>
   <div class="net-footer">
     <div class="song-msg" v-if="currentMusic">
-      <div class="picture-wrapper"><img :src="currentMusic.al.picUrl" alt="">
+      <div class="picture-wrapper hover-layer">
+        <img :src="currentMusic.al.picUrl" alt="">
       </div>
       <div class="msg-box" ml-2>
         <p class="song-name">{{ currentMusic.name }}</p>
@@ -52,6 +53,7 @@ const currentMusic = computed(() => {
     width: 25%;
 
     .picture-wrapper {
+      position: relative;
       width: 45px;
       height: 45px;
       overflow: hidden;
