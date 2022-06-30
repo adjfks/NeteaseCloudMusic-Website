@@ -1,17 +1,49 @@
 <script setup lang="ts">
 import { usePlayer } from '@/store/player'
+import { getLyric } from '@/api/player'
+import { Ref } from 'vue'
+import parseRawTime from '@/utils/parseRawTime'
+interface LyricItem {
+  time: number,
+  rawTime: string,
+  text: string,
+}
 
-
-const song = ref(undefined)
+const song = ref(undefined) as any
+const lyric: Ref<LyricItem[]> = ref([])
 
 const player = usePlayer()
 watch(() => player.currentIdx, () => {
   song.value = player.playlist[player.currentIdx]
+
+  song.value && getLyric(song.value.id).then((res: any) => {
+    console.log(res);
+    if (res.uncollected) return console.log('没有歌词');
+    lyric.value = parseLrc(res.lrc.lyric)
+    console.log(lyric.value);
+
+  })
 },
   {
     immediate: true
   })
 
+// 解析歌词
+function parseLrc(lrc: string): LyricItem[] {
+  const lrcArr = lrc.trim().split('\n');
+  const result: LyricItem[] = []
+
+  lrcArr.forEach(str => {
+    const arr = str.trim().split(']').map(item => item.trim())  // '[00:00:000' , '歌词'
+    const lyricItem = {} as LyricItem
+    lyricItem.rawTime = arr[0].slice(1, -3)
+    lyricItem.text = arr[1]
+    console.log(arr);
+    lyricItem.time = parseRawTime(lyricItem.rawTime)
+    result.push(lyricItem)
+  })
+  return result
+}
 
 </script>
 

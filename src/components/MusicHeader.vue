@@ -18,6 +18,7 @@ const profileVisible = ref(false)
 
 // 退出登录
 const quickLogin = () => {
+  console.log('退出登录');
   user.removeLogin()
   profileVisible.value = false
 }
@@ -177,6 +178,7 @@ const quickLogin = () => {
         // 弹层
         .drop-layer {
           position: absolute;
+          z-index: 10000;
           top: 38px;
           right: -20px;
           width: 200px;

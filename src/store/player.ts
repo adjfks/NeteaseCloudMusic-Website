@@ -32,7 +32,7 @@ export const usePlayer = defineStore('player', {
         playing: false,
         url: '',
         totalTime: 0,
-        currentTime: 0
+        currentTime: 0  // 以秒为单位
       }
     } as Player
   },
