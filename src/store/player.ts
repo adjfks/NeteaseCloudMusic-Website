@@ -56,7 +56,7 @@ export const usePlayer = defineStore('player', {
     // 更新当前音乐信息之后自动播放
     async updateMusic() {
       await getMusicUrl(this.currentId).then((res: any) => {
-        const url = res.data[0].url
+        const url = `https://music.163.com/song/media/outer/url?id=${this.currentId}.mp3`
 
         this.music.url = url
 
@@ -95,7 +95,7 @@ export const usePlayer = defineStore('player', {
       audioEl.ontimeupdate = throttle((event) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
-      }, 500)
+      }, 1000)
     },
     // 拖拽进度条
     changeCurrentTime(time: number) {
@@ -143,3 +143,8 @@ export const usePlayer = defineStore('player', {
     }
   }
 })
+
+
+/* 
+http://m7.music.126.net/20220630211607/b14eafd305e2a91abd324b3f25a148fb/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/14051778144/74f5/2c66/b400/eab29fb52cac07613ee2f7b978c49ce2.mp3
+*/

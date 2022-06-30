@@ -28,6 +28,31 @@ watch(() => player.currentIdx, () => {
     immediate: true
   })
 
+/* 歌词滚动功能 */
+
+// 获取激活歌词索引
+const activeIndex = ref(0)
+// 更新激活歌词索引
+watch(() => player.music.currentTime, (newVal, oldVal) => {
+  const time = lyric.value[activeIndex.value + 1].time
+  if (Math.floor(newVal) < time) return
+  activeIndex.value++
+  console.log('激活歌词更新了----->', activeIndex.value);
+})
+
+// 歌词容器
+const lyricContainer = ref()
+let halfHeight
+onMounted(() => {
+  // 歌词容器高度的一半
+  const { y, bottom } = lyricContainer.value.getBoundingClientRect()
+  halfHeight = Math.floor((bottom - y) / 2)
+  console.log(halfHeight);
+})
+
+// 激活对应歌词
+const handleScroll = (val: any) => { console.log(val.scrollTop) }
+
 // 解析歌词
 function parseLrc(lrc: string): LyricItem[] {
   const lrcArr = lrc.trim().split('\n');
@@ -44,6 +69,7 @@ function parseLrc(lrc: string): LyricItem[] {
   })
   return result
 }
+
 
 </script>
 
@@ -76,8 +102,8 @@ function parseLrc(lrc: string): LyricItem[] {
           <p class="song-author">{{ song.ar[0].name }}</p>
         </div>
         <!-- 歌词列表 -->
-        <ul class="lyric">
-          <el-scrollbar>
+        <ul class="lyric" ref="lyricContainer">
+          <el-scrollbar @scroll="handleScroll">
             <li class="lyric-item" v-for="item in lyric">{{ item.text }}</li>
           </el-scrollbar>
         </ul>
@@ -109,7 +135,7 @@ function parseLrc(lrc: string): LyricItem[] {
     flex: 1;
     height: 100%;
     box-sizing: border-box;
-    padding-bottom: 30px;
+    padding-bottom: 50px;
 
     .main-left {
       position: relative;
@@ -126,7 +152,7 @@ function parseLrc(lrc: string): LyricItem[] {
         transition: transform .5s;
 
         &.play {
-          transform: rotate(34deg);
+          transform: rotate(28deg);
         }
       }
 
@@ -139,7 +165,7 @@ function parseLrc(lrc: string): LyricItem[] {
         border-radius: 50%;
         // overflow: hidden;
         border: 40px solid #191a1b;
-        animation: play 3s linear infinite 0.2s;
+        animation: play 10s linear infinite 0.2s;
 
         img {
           border-radius: 50%;
@@ -202,7 +228,7 @@ function parseLrc(lrc: string): LyricItem[] {
           text-align: center;
           color: #646261;
           font-size: 14px;
-          margin: 30px 0;
+          margin: 40px 0;
 
           &.active {
             color: #000000;
