@@ -69,7 +69,19 @@ function parseLrc(lrc: string): LyricItem[] {
         </div>
 
       </div>
-      <div class="main-lyric"></div>
+      <div class="main-lyric">
+        <!-- 歌曲名称 -->
+        <div class="title">
+          <h3 class="song-title">{{ song.name }}</h3>
+          <p class="song-author">{{ song.ar[0].name }}</p>
+        </div>
+        <!-- 歌词列表 -->
+        <ul class="lyric">
+          <el-scrollbar>
+            <li class="lyric-item" v-for="item in lyric">{{ item.text }}</li>
+          </el-scrollbar>
+        </ul>
+      </div>
       <div class="main-right"></div>
     </main>
   </div>
@@ -95,6 +107,9 @@ function parseLrc(lrc: string): LyricItem[] {
   main {
     display: flex;
     flex: 1;
+    height: 100%;
+    box-sizing: border-box;
+    padding-bottom: 30px;
 
     .main-left {
       position: relative;
@@ -155,8 +170,46 @@ function parseLrc(lrc: string): LyricItem[] {
     }
 
     .main-lyric {
+      height: 100%;
       min-width: 0;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+
+
+      .title {
+        padding: 0 0 20px 0;
+        text-align: center;
+
+        .song-title {
+          font-size: 24px;
+          font-weight: 600;
+          color: #353232;
+        }
+
+        .song-author {
+          font-size: 18px;
+          padding: 10px 0;
+          color: #999291;
+        }
+      }
+
+      .lyric {
+        flex: 1;
+        min-height: 0;
+
+        .lyric-item {
+          text-align: center;
+          color: #646261;
+          font-size: 14px;
+          margin: 30px 0;
+
+          &.active {
+            color: #000000;
+            font-size: 16px;
+          }
+        }
+      }
     }
 
     .main-right {
