@@ -11,6 +11,7 @@ interface LyricItem {
 
 const song = ref(undefined) as any
 const lyric: Ref<LyricItem[]> = ref([])
+const lyricLength = computed(() => lyric.value.length)
 
 const player = usePlayer()
 watch(() => player.currentIdx, () => {
@@ -21,7 +22,8 @@ watch(() => player.currentIdx, () => {
     if (res.uncollected) return console.log('没有歌词');
     lyric.value = parseLrc(res.lrc.lyric)
     console.log(lyric.value);
-
+    // 初始化索引
+    activeIndex.value = initActiveIndex()
   })
 },
   {
@@ -34,19 +36,35 @@ const scrollbar = ref()
 
 // 获取激活歌词索引
 const activeIndex = ref(0)
+// 激活索引对应歌词时间值
+const preTime = computed(() => lyric.value[activeIndex.value - 1]?.time)
+const time = computed(() => lyric.value[activeIndex.value]?.time)
+const nextTime = computed(() => lyric.value[activeIndex.value + 1]?.time)
+
+
 // 更新激活歌词索引
 watch(() => player.music.currentTime, (newVal, oldVal) => {
-  const time = lyric.value[activeIndex.value + 1].time
-  if (Math.floor(newVal) < time) return
-  activeIndex.value++
+  if (time.value < newVal) {
+    while (nextTime.value < newVal) {
+      if (activeIndex.value < lyric.value.length)
+        activeIndex.value++
+    }
+  } else if (time.value >= newVal) {
+    while (preTime.value >= newVal) {
+      if (activeIndex.value > 0)
+        activeIndex.value--
+    }
+  }
   console.log('激活歌词更新了----->', activeIndex.value);
+
   // 设置滚动条位置
-  scrollbar.value.setScrollTop(activeIndex.value * 58)
+  scrollbar.value.setScrollTop(activeIndex.value * 54)
 })
 
 // 歌词容器
 const lyricContainer = ref()
-let halfHeight
+let halfHeight = 0
+let scrollStep = 0
 onMounted(() => {
   // 歌词容器高度的一半
   const { y, bottom } = lyricContainer.value.getBoundingClientRect()
@@ -54,11 +72,11 @@ onMounted(() => {
   console.log(halfHeight);
   // 设置容器上padding使第一句歌词居中
   const view = document.querySelector('.el-scrollbar__view') as HTMLElement
-  view.style.paddingTop = `${halfHeight - 7}px`
+  view.style.paddingTop = `${halfHeight - 54}px`
 })
 
 // 激活对应歌词
-const handleScroll = (val: any) => { console.log(val.scrollTop) }
+// const handleScroll = (val: any) => { console.log(val.scrollTop) }
 
 // 解析歌词
 function parseLrc(lrc: string): LyricItem[] {
@@ -77,7 +95,39 @@ function parseLrc(lrc: string): LyricItem[] {
   return result
 }
 
+// 初始化索引
+function initActiveIndex() {
 
+  const time = Math.floor(player.music.currentTime)
+  console.log(time);
+
+  let index
+  for (let i = 0; i < lyric.value.length; i++) {
+    if (time < lyric.value[i].time) {
+      index = i - 1
+      break
+    }
+  }
+  console.log(index);
+
+  return index || lyric.value.length - 1
+}
+
+// 获取currentTime在歌词时间中的位置 小于currentTime的最大值的索引
+// function getCurrentTimePosition() {
+//   const currentTime = Math.floor(player.music.currentTime)
+//   // 用二分查找优化一下
+//   let l = 0, r = lyric.value.length - 1
+//   while (l < r) {
+//     const mid = Math.floor((r - l) / 2)
+//     if (lyric.value[mid].time >= currentTime) {
+//       r = mid - 1
+//     } else {
+//       l = mid + 1
+//     }
+//   }
+//   return l
+// }
 </script>
 
 <template>
@@ -110,7 +160,7 @@ function parseLrc(lrc: string): LyricItem[] {
         </div>
         <!-- 歌词列表 -->
         <ul class="lyric" ref="lyricContainer">
-          <el-scrollbar @scroll="handleScroll" ref="scrollbar">
+          <el-scrollbar ref="scrollbar">
             <li class="lyric-item" v-for="(item, idx) in lyric"
                 :class="{ 'active': activeIndex === idx }">{{ item.text }}</li>
           </el-scrollbar>
@@ -173,7 +223,7 @@ function parseLrc(lrc: string): LyricItem[] {
         border-radius: 50%;
         // overflow: hidden;
         border: 40px solid #191a1b;
-        animation: play 10s linear infinite 0.2s;
+        animation: play 15s linear infinite 0.2s;
 
         img {
           border-radius: 50%;
@@ -234,10 +284,12 @@ function parseLrc(lrc: string): LyricItem[] {
         transition: all .5s;
 
         .lyric-item {
+          box-sizing: border-box;
+          height: 54px;
+          line-height: 54px;
           text-align: center;
           color: #646261;
           font-size: 14px;
-          margin-bottom: 40px;
           transition: all .7s;
 
           &.active {

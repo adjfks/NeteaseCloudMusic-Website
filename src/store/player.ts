@@ -95,7 +95,7 @@ export const usePlayer = defineStore('player', {
       audioEl.ontimeupdate = throttle((event) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
-      }, 1000)
+      }, 500)
     },
     // 拖拽进度条
     changeCurrentTime(time: number) {
