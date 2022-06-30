@@ -7,5 +7,9 @@
 </template>
 
 <style lang="less" scoped>
+.detail-drawer {
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+}
 </style>
 

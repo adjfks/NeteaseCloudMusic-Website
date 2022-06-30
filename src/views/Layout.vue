@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import Footer from './footer/index.vue'
-import DetailDrawer from './components/DetailDrawer.vue';
 
-
-// drawer
-const drawerVisible = ref(false)
 </script>
 
 <template>
@@ -25,11 +20,6 @@ const drawerVisible = ref(false)
           <router-view></router-view>
         </el-main>
       </el-container>
-
-      <!-- 底部footer -->
-      <el-footer height="70px">
-        <Footer v-model="drawerVisible" />
-      </el-footer>
     </el-container>
   </div>
 </template>
@@ -53,11 +43,6 @@ const drawerVisible = ref(false)
       .el-main {
         padding: 0;
       }
-    }
-
-    .el-footer {
-      box-sizing: border-box;
-      border-top: 1px solid var(--border-color);
     }
   }
 }

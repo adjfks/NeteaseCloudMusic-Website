@@ -4,6 +4,7 @@ import playlistRoute from './playlist'
 
 const Layout = () => import('@/views/Layout.vue')
 const Login = () => import('@/views/Login.vue')
+const DetailDrawer = () => import('@/views/DetailDrawer.vue')
 const routes = [
   {
     path: '/',
@@ -13,7 +14,13 @@ const routes = [
       { path: '/login', component: Login },
       ...discoverRoute,
       ...playlistRoute
-    ]
+    ],
+    meta: { transition: 'slide-up' }
+  },
+  {
+    path: '/song/detail/:id',
+    component: DetailDrawer,
+    meta: { transition: 'slide-up' }
   }
 ]
 

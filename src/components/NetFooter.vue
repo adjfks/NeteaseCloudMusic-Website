@@ -1,27 +1,23 @@
 <script setup lang="ts">
 import { usePlayer } from '@/store/player'
-import useVModel from '@/hooks/useVModel'
 const player = usePlayer()
 const currentMusic = computed(() => {
   return player.playlist[player.currentIdx]
 })
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false
-  }
-})
-
-const emit = defineEmits(['update:modelValue'])
-
-const drawerVisible = useVModel(props, 'modelValue', emit)
+const router = useRouter()
+const route = useRoute()
+const handleRouter = () => {
+  const path = route.path
+  if (path.startsWith('/song/detail')) router.back()
+  else router.push(`/song/detail/${currentMusic.value.id}`)
+}
 </script>
 
 <template>
   <div class="net-footer">
-    <div class="song-msg" v-if="currentMusic">
-      <div class="picture-wrapper" @click="drawerVisible = !drawerVisible">
+    <div class="song-msg" v-if="currentMusic" @click="handleRouter">
+      <div class="picture-wrapper">
         <img :src="currentMusic.al.picUrl" alt="">
         <span class="layer">
           <i-carbon-chevron-up text="4 #fff " />
