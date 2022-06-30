@@ -1,19 +1,31 @@
 <script setup lang="ts">
 import { usePlayer } from '@/store/player'
+import useVModel from '@/hooks/useVModel'
 const player = usePlayer()
 const currentMusic = computed(() => {
   return player.playlist[player.currentIdx]
 })
 
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false
+  }
+})
 
+const emit = defineEmits(['update:modelValue'])
 
+const drawerVisible = useVModel(props, 'modelValue', emit)
 </script>
 
 <template>
   <div class="net-footer">
     <div class="song-msg" v-if="currentMusic">
-      <div class="picture-wrapper hover-layer">
+      <div class="picture-wrapper" @click="drawerVisible = !drawerVisible">
         <img :src="currentMusic.al.picUrl" alt="">
+        <span class="layer">
+          <i-carbon-chevron-up text="4 #fff " />
+        </span>
       </div>
       <div class="msg-box" ml-2>
         <p class="song-name">{{ currentMusic.name }}</p>
@@ -58,6 +70,25 @@ const currentMusic = computed(() => {
       height: 45px;
       overflow: hidden;
       border-radius: 10px;
+
+      .layer {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity .4s;
+
+        &:hover {
+          opacity: 1;
+          cursor: pointer;
+        }
+      }
     }
 
     .msg-box {

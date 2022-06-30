@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import Footer from './footer/index.vue'
+import DetailDrawer from './components/DetailDrawer.vue';
+
+
+// drawer
+const drawerVisible = ref(false)
 </script>
 
 <template>
@@ -23,7 +28,7 @@ import Footer from './footer/index.vue'
 
       <!-- 底部footer -->
       <el-footer height="70px">
-        <Footer />
+        <Footer v-model="drawerVisible" />
       </el-footer>
     </el-container>
   </div>
@@ -35,6 +40,7 @@ import Footer from './footer/index.vue'
   box-sizing: border-box;
 
   .layout {
+    position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
