@@ -111,3 +111,15 @@ a {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+
+/* transition组件过渡动画 */
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(100%);
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all .5s ease;
+}

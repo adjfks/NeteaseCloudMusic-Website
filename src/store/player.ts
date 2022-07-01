@@ -12,13 +12,13 @@ export interface Music {
 export interface Player {
   playlist: any[],
   currentIdx: number,
-  music: Music,
-  audioEl: HTMLAudioElement
+  music: Music
 }
 
 
 const audioEl = document.createElement('audio')
 audioEl.style.display = 'none'
+audioEl.setAttribute('use-credentials', 'true')
 document.body.appendChild(audioEl)
 
 export const usePlayer = defineStore('player', {
@@ -32,9 +32,8 @@ export const usePlayer = defineStore('player', {
         playing: false,
         url: '',
         totalTime: 0,
-        currentTime: 0
-      },
-      audioEl: audioEl,
+        currentTime: 0  // 以秒为单位
+      }
     } as Player
   },
   getters: {
@@ -52,13 +51,13 @@ export const usePlayer = defineStore('player', {
       this.playlist.splice(0, this.length)
       this.playlist.push(...list)
       this.currentIdx = idx
-      // 自动播放
-      this.autoPlay()
+      this.updateMusic()
     },
-    // 更新当前音乐信息
-    updateMusic() {
-      getMusicUrl(this.currentId).then((res: any) => {
-        const url = res.data[0].url
+    // 更新当前音乐信息之后自动播放
+    async updateMusic() {
+      await getMusicUrl(this.currentId).then((res: any) => {
+        const url = `https://music.163.com/song/media/outer/url?id=${this.currentId}.mp3`
+
         this.music.url = url
 
         this.music.playing = false
@@ -66,28 +65,34 @@ export const usePlayer = defineStore('player', {
         this.music.totalTime = Math.floor(this.playlist[this.currentIdx].dt / 1000)
         this.music.currentTime = 0
 
-        this.audioEl.src = this.music.url
+        audioEl.src = this.music.url
+
+        console.log('更新音乐信息成功');
         this.play()
       })
     },
-    // 播放
+    // 直接自动播放播放
     play() {
       if (this.music.playing) return
-      this.audioEl.play()
+      console.log('开始play');
+
+      audioEl.play()
       this.music.playing = true
       // 进度条
       this.updateCurrentTime()
+      // 播放完后自动播放
+      this.autoPlay()
     },
     // 暂停
     pause() {
       if (!this.music.playing) return
-      this.audioEl.pause()
+      audioEl.pause()
       this.music.playing = false
     },
     // 实时更新当前播放时间
     updateCurrentTime() {
-      if (!this.audioEl) return console.log('audioEl not found')
-      this.audioEl.ontimeupdate = throttle((event) => {
+      if (!audioEl) return console.log('audioEl not found')
+      audioEl.ontimeupdate = throttle((event) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
       }, 500)
@@ -95,32 +100,51 @@ export const usePlayer = defineStore('player', {
     // 拖拽进度条
     changeCurrentTime(time: number) {
       this.music.currentTime = time
-      if (this.audioEl)
-        this.audioEl.currentTime = time
+      if (audioEl)
+        audioEl.currentTime = time
     },
     // 自动播放下一首
     autoPlay() {
-      this.updateMusic()
+      if (this.currentIdx === -1) this.updateMusic()
       // 监听ended事件
-      if (this.audioEl)
-        this.audioEl.onended = () => {
+      if (audioEl)
+        audioEl.onended = () => {
+          // 下一首前先暂停
+          this.music.playing = false
           // 下一首
           if (this.currentIdx === this.length - 1) return
           this.currentIdx++
+          console.log(this.currentIdx);
           // 更新音乐信息
           this.updateMusic()
+
         }
     },
     // 上一曲或下一曲
     goMusic(step: -1 | 1) {
       if (step < 0 && this.currentIdx > 0) {
         this.currentIdx += step
-        this.autoPlay()
+        this.updateMusic()
+
       }
       if (step > 0 && this.currentIdx < this.playlist.length - 1) {
         this.currentIdx += step
-        this.autoPlay()
+        this.updateMusic()
+
+      }
+    },
+    // 初始化
+    initMusic() {
+      this.music.playing = false
+      if (this.music.url) {
+        audioEl.src = this.music.url
+        audioEl.currentTime = this.music.currentTime
       }
     }
   }
 })
+
+
+/* 
+http://m7.music.126.net/20220630211607/b14eafd305e2a91abd324b3f25a148fb/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/14051778144/74f5/2c66/b400/eab29fb52cac07613ee2f7b978c49ce2.mp3
+*/

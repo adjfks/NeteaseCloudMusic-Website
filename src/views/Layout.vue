@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Footer from './footer/index.vue'
+
 </script>
 
 <template>
@@ -20,11 +20,6 @@ import Footer from './footer/index.vue'
           <router-view></router-view>
         </el-main>
       </el-container>
-
-      <!-- 底部footer -->
-      <el-footer height="70px">
-        <Footer />
-      </el-footer>
     </el-container>
   </div>
 </template>
@@ -35,6 +30,7 @@ import Footer from './footer/index.vue'
   box-sizing: border-box;
 
   .layout {
+    position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -47,11 +43,6 @@ import Footer from './footer/index.vue'
       .el-main {
         padding: 0;
       }
-    }
-
-    .el-footer {
-      box-sizing: border-box;
-      border-top: 1px solid var(--border-color);
     }
   }
 }
