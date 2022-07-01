@@ -204,8 +204,8 @@ function initActiveIndex() {
 
       .record-play {
         position: absolute;
-        top: 28px;
-        left: 175px;
+        top: 0%;
+        left: 50%;
         z-index: 500;
         transform-origin: 0% 0%;
         transition: transform .5s;
@@ -220,7 +220,8 @@ function initActiveIndex() {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 40%;
+        width: 230px;
+        height: 230px;
         border-radius: 50%;
         // overflow: hidden;
         border: 40px solid #191a1b;
@@ -233,12 +234,12 @@ function initActiveIndex() {
         &::after {
           content: '';
           position: absolute;
-          width: 150%;
-          height: 150%;
+          width: 310px;
+          height: 310px;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          z-index: 1;
+          z-index: -1;
           background-color: transparent;
           border: 10px solid #d3d3d3;
           border-radius: 50%;

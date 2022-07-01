@@ -99,5 +99,7 @@ export default defineConfig({
   },
   server: {
     port: 4001
-  }
+  },
+  // 部署时设置
+  // base: '/NeteaseCloudMusic-Website/'
 })

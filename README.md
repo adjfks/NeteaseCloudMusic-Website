@@ -1,16 +1,81 @@
-# Vue 3 + TypeScript + Vite
+# 仿网易云音乐Web App
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<br>
+<p align="center">
+<a href="http://adjfks.github.io/NeteaseCloudMusic-Website/" target="_blank">
+<img src="./src/assets/logo.png" alt="Slidev" height="250" width="250"/>
+</a>
+</p>
 
-## Recommended IDE Setup
+<p align="center">
+仿 <b>网易云音乐</b><b>Web</b>App
+</p>
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+<p align="center">
+<a href="https://github.com/adjfks/NeteaseCloudMusic-Website" target="__blank"><img alt="GitHub stars" src="https://img.shields.io/github/stars/adjfks/NeteaseCloudMusic-Website?style=social"></a>
+</p>
 
-## Type Support For `.vue` Imports in TS
+<p align="center">
+  <a href="https://twitter.com/antfu7/status/1389604687502995457">在线网站</a>
+</p>
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+<p align="center">
+ <p align="center">首页展示</p>
+ <img src="./ui-home.png" alt="首页"/>
+ <p align="center">歌曲播放页展示</p>
+ <img src="./ui-song-detail.png" alt="歌曲播放页"/>
+</p>
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+## 技术栈
+- Vue3
+- Vue-Router
+- Pinia
+- Unocss
+- Less
+- TypeScript
+- Vite
+- VueUse
+- Unplugin-auto-import
+- pnpm
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+
+
+## 目标功能
+- 个性音乐页面✅
+- 歌单详情页✅
+- 歌手详情页✅
+- 排行榜✅
+- 播放器✅
+- 歌曲详情页✅
+- 歌词滚动✅
+- 歌词与播放器联动✅
+- 上一曲下一曲✅
+- 离线播放✅
+- 扫码登录✅
+- 随机播放顺序播放
+- 播放列表
+- 手机号密码登录
+- 邮箱登录
+- 歌手详情页
+- MV播放
+- ......
+
+## Getting Started
+
+需要先克隆[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)到本地，然后进入该项目文件夹运行一下命令启动后台服务
+```
+node app.js
+```
+克隆本仓库到本地
+
+安装依赖
+```
+pnpm install
+```
+启动开发环境
+```
+pnpm run dev
+```
+
+## 感谢
+[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)提供Api接口服务
