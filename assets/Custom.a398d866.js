@@ -1,0 +1,1 @@
+import{y as e,o as c,j as o}from"./index.641e1eda.js";const t={},s={class:"custom-container"};function r(n,a){return c(),o("div",s," \u4E13\u5C5E\u5B9A\u5236 ")}var f=e(t,[["render",r]]);export{f as default};
