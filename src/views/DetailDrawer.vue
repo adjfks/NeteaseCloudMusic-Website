@@ -85,6 +85,7 @@ function parseLrc(lrc: string): LyricItem[] {
 
   lrcArr.forEach(str => {
     const arr = str.trim().split(']').map(item => item.trim())  // '[00:00:000' , '歌词'
+    if (!arr[1].trim()) return
     const lyricItem = {} as LyricItem
     lyricItem.rawTime = arr[0].slice(1, -3)
     lyricItem.text = arr[1]
