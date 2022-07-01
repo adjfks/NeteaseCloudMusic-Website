@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://twitter.com/antfu7/status/1389604687502995457">在线网站</a>
+  <a href="http://adjfks.github.io/NeteaseCloudMusic-Website/">在线网站</a>
 </p>
 
 <p align="center">
