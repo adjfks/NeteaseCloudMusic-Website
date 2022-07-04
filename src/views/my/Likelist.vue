@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { getLikeIds } from '@/api/my'
+import { useUser } from '@/store/user'
+import { getSongsByIds } from '@/api/playlist'
+const user = useUser()
+
+// 喜欢歌曲id列表
+const ids = await getLikeIds(user.profile.userId, user.cookie)
+console.log(ids)
+</script>
 
 <template>
   <el-scrollbar>

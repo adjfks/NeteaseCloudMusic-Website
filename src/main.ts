@@ -11,9 +11,11 @@ import localStoragePlugin from '@/store/plugin/localStoragePlugin'
 import 'uno.css'
 
 const pinia = createPinia()
-pinia.use(localStoragePlugin({
-  storeIds: ['user', 'player']
-}))
+pinia.use(
+  localStoragePlugin({
+    storeIds: ['user', 'player'],
+  })
+)
 
 const app = createApp(App)
-app.use(router).use(pinia).mount('#app')
+app.use(pinia).use(router).mount('#app')

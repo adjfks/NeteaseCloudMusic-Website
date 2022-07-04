@@ -46,11 +46,12 @@ function check(key: string) {
         console.log(success.data)
 
         console.log('登录成功')
-        router.push('/')
+        router.push(user.redirectUrl)
       }
     }
   }, 1000)
 }
+
 const qrCodeLogin = async () => {
   const res = await getQrKey()
   const key = res.data.unikey
