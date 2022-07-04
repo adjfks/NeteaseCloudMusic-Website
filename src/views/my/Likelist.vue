@@ -5,8 +5,17 @@ import { getSongsByIds } from '@/api/playlist'
 const user = useUser()
 
 // 喜欢歌曲id列表
-const ids = await getLikeIds(user.profile.userId, user.cookie)
-console.log(ids)
+const ids = (await getLikeIds(user.profile.userId, user.cookie)).ids
+
+const songs = ref([])
+
+getSongsByIds(ids.join(',')).then((res: any) => {
+  console.log(res)
+  if (res.code === 200) songs.value = res.songs
+  else {
+    alert('获取喜欢歌曲失败！')
+  }
+})
 </script>
 
 <template>
