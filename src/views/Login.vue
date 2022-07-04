@@ -3,7 +3,6 @@ import { useUser } from '@/store/user'
 import { getQrKey, getQrCode, checkQrCode, getLoginStatus } from '@/api/login'
 const user = useUser()
 const router = useRouter()
-const route = useRoute()
 
 // 组件销毁时清除定时器
 onUnmounted(() => {
@@ -14,7 +13,7 @@ const current = ref('code')
 const form = reactive({
   mobile: '',
   password: '',
-  autoLogin: true
+  autoLogin: true,
 })
 
 /* 二维码登录 */
@@ -24,7 +23,7 @@ let timer = null as any
 function check(key: string) {
   timer = setInterval(async () => {
     const res = await checkQrCode(key)
-    console.log(res);
+    console.log(res)
 
     const status = res.code
 
@@ -35,13 +34,16 @@ function check(key: string) {
     // 登录成功
     if (status === 803) {
       const success = await getLoginStatus(res.cookie)
-      console.log(success);
+      console.log(success)
 
       if (success.data.code === 200) {
         timer && clearInterval(timer)
+        console.log(res.cookie)
+
+        user.setCookie(res.cookie)
         user.setProfile(success.data.profile)
         user.setAccount(success.data.account)
-        console.log(success.data);
+        console.log(success.data)
 
         console.log('登录成功')
         router.push('/')
@@ -53,46 +55,46 @@ const qrCodeLogin = async () => {
   const res = await getQrKey()
   const key = res.data.unikey
   const base64 = (await getQrCode(key, true)).data.qrimg
-  if (qrCodeImg.value)
-    qrCodeImg.value.src = base64
-  console.log(key);
-  console.log(base64);
+  if (qrCodeImg.value) qrCodeImg.value.src = base64
+  console.log(key)
+  console.log(base64)
   check(key)
 }
-watch(current, () => {
-  if (current.value === 'code') {
-    qrCodeLogin()
+watch(
+  current,
+  () => {
+    if (current.value === 'code') {
+      qrCodeLogin()
+    }
+  },
+  {
+    immediate: true,
   }
-}, {
-  immediate: true
-})
+)
 
 const toggleToMobile = () => {
   timer && clearInterval(timer)
   current.value = 'mobile'
 }
-
 </script>
 
 <template>
   <div class="login">
     <div class="login-form-container">
       <div class="go-code" v-if="current !== 'code'" @click="current = 'code'">
-        <img src="@/assets/code.png" alt="">
+        <img src="@/assets/code.png" alt="" />
       </div>
       <!-- 二维码登录 -->
       <div class="code-container" v-if="current === 'code'">
         <h3>扫码登录</h3>
-        <img src="" alt="" ref="qrCodeImg">
-        <a href="javascript:;" @click="toggleToMobile">
-          使用手机号登录
-        </a>
+        <img src="" alt="" ref="qrCodeImg" />
+        <a href="javascript:;" @click="toggleToMobile"> 使用手机号登录 </a>
       </div>
 
       <!-- 手机号密码登录 -->
       <div class="mobile-container" v-if="current === 'mobile'">
         <div class="logo" v-if="true">
-          <img src="@/assets/logo.png" alt="">
+          <img src="@/assets/logo.png" alt="" />
         </div>
         <!-- 表单 -->
         <el-form :model="form">
@@ -104,8 +106,7 @@ const toggleToMobile = () => {
             <el-input v-model="form.password" placeholder="请输入密码" />
           </el-form-item>
           <div class="tool">
-            <el-checkbox v-model="form.autoLogin">自动登录
-            </el-checkbox>
+            <el-checkbox v-model="form.autoLogin">自动登录 </el-checkbox>
             <a class="forgot" href="javascript:;">忘记密码</a>
           </div>
           <a href="javascript:;" class="login-btn">登录</a>
@@ -118,10 +119,10 @@ const toggleToMobile = () => {
       <!-- 邮箱登录 -->
       <div class="email-container" v-if="false">
         <div class="logo" v-if="false">
-          <img src="" alt="">
+          <img src="" alt="" />
         </div>
-        <input type="number">
-        <input type="password">
+        <input type="number" />
+        <input type="password" />
         <div class="tool">
           <a href="javascript:;">忘记密码</a>
         </div>
@@ -141,7 +142,6 @@ const toggleToMobile = () => {
   height: 100%;
   background-color: #fafafa;
 
-
   .login-form-container {
     position: relative;
     width: 300px;
@@ -149,7 +149,7 @@ const toggleToMobile = () => {
     box-shadow: rgba(0, 0, 0, 0.02) 0px 5px 15px;
     border-radius: 10px;
 
-    // 
+    //
     .go-code {
       position: absolute;
       top: 0;
@@ -224,11 +224,10 @@ const toggleToMobile = () => {
         color: #666;
         margin: 10px 0;
 
-        .register-btn {}
+        .register-btn {
+        }
       }
-
     }
   }
 }
 </style>
-
