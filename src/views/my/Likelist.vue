@@ -1,89 +1,90 @@
 <script setup lang="ts">
 import { getLikeIds } from '@/api/my'
 import { useUser } from '@/store/user'
+import { usePlayer } from '@/store/player'
 import { getSongsByIds } from '@/api/playlist'
+import { formatTime } from '@/utils/time'
 const user = useUser()
 
 // 喜欢歌曲id列表
-const ids = (await getLikeIds(user.profile.userId, user.cookie)).ids
-
+const ids = ref()
 const songs = ref([])
 
-getSongsByIds(ids.join(',')).then((res: any) => {
-  console.log(res)
-  if (res.code === 200) songs.value = res.songs
-  else {
-    alert('获取喜欢歌曲失败！')
-  }
+getLikeIds(user.profile.userId, user.cookie).then(async (res: any) => {
+  ids.value = res.ids
+  const result = await getSongsByIds(ids.value.join(','))
+  if (result.code === 200) songs.value = result.songs
+  else console.log('获取歌曲列表数据失败')
+  console.log(songs.value)
 })
+
+// 双击击播放
+const player = usePlayer()
+const handleDblclick = async (val: { data: any; idx: number }) => {
+  player.replacePlaylist(val.data, val.idx)
+}
+
+// tab切换
+const activeName = ref('song')
+const handleClick = (tab: 'song' | 'comment') => {
+  activeName.value = tab
+}
 </script>
 
 <template>
   <el-scrollbar>
-    <div class="playlist-detail-container" v-if="playlist">
+    <div class="playlist-detail-container" v-if="songs && songs.length">
       <!-- 头部歌单信息模块 -->
       <header>
         <div class="cover">
-          <Cover :picUrl="playlist.coverImgUrl" round />
+          <img src="@/assets/like.png" />
         </div>
         <div class="msg">
           <div class="title">
             <span class="tag" mr-1>歌单</span>
-            <h3 class="name">{{ playlist.name }}</h3>
+            <h3 class="name">我喜欢的音乐</h3>
           </div>
           <div class="creator-msg">
-            <img
-              class="creator-avatar"
-              :src="playlist.creator.avatarUrl"
-              alt=""
-            />
+            <img class="creator-avatar" :src="user.profile.avatarUrl" alt="" />
             <a href="javascript:;" class="nickname">{{
-              playlist.creator.nickname
+              user.profile.nickname
             }}</a>
-            <span class="create-time"
-              >{{ formatTime(playlist.createTime) }}创建</span
-            >
+            <span class="create-time">2019.06.07 创建</span>
           </div>
           <div class="button-container">
             <NetButton mr-2 @click="handleDblclick({ data: songs, idx: 0 })">
               <i-carbon-play pr-1 />
               <span>播放全部</span>
             </NetButton>
-            <NetButton mr-2>
+            <!-- <NetButton mr-2 >
               <i-carbon-add-alt pr-1 /><span
                 >收藏({{ transformNumber(playlist.subscribedCount) }})</span
               >
-            </NetButton>
+            </NetButton> -->
             <NetButton mr-2>
-              <i-carbon-share pr-1 /><span
-                >分享({{ transformNumber(playlist.shareCount) }})</span
-              >
+              <i-carbon-share pr-1 /><span>分享(0)</span>
             </NetButton>
             <NetButton mr-2>
               <i-carbon-download pr-1 /><span>下载全部</span>
             </NetButton>
           </div>
           <div class="detail">
-            <div class="tag">
+            <!-- <div class="tag">
               <span mr-1>标签：</span>
               <span v-for="(item, idx) in playlist.tags" :key="item"
                 >{{ item
                 }}{{ idx === playlist.tags.length - 1 ? '' : ' / ' }}</span
               >
-            </div>
+            </div> -->
             <div class="song">
               <span
-                >歌曲：<span ml-1>{{ playlist.trackCount }}</span></span
+                >歌曲：<span ml-1>{{ songs.length }}</span></span
               >
-              <span ml-3
-                >播放：<span ml-1>{{
-                  transformNumber(playlist.playCount)
-                }}</span></span
-              >
+              <span ml-3>播放：<span ml-1>99999999</span></span>
             </div>
-            <div class="description">
+            <!-- <div class="description">
               <p class="ellipsis">简介：{{ playlist.description }}</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </header>
@@ -116,11 +117,11 @@ getSongsByIds(ids.join(',')).then((res: any) => {
               />
             </NetTable>
           </NetTabPanel>
-          <NetTabPanel :label="`评论(${playlist.commentCount})`" name="comment">
+          <NetTabPanel :label="`评论(0)`" name="comment">
             <!-- 评论输入框组件 -->
             <CommentInput />
             <div class="comment-container">
-              <CommentList :id="id" />
+              <CommentList id="" />
             </div>
           </NetTabPanel>
         </NetTab>

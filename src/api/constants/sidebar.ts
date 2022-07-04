@@ -43,10 +43,6 @@ export default <SideBar>[
         link: '/',
       },
       {
-        title: '我的音乐云盘',
-        link: '/',
-      },
-      {
         title: '我的播客',
         link: '/',
       },
