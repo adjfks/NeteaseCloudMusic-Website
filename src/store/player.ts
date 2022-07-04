@@ -3,18 +3,17 @@ import { getMusicUrl } from '@/api/player'
 import { throttle } from 'lodash'
 
 export interface Music {
-  playing: boolean,
-  url: string,
-  totalTime: number,
-  currentTime: number,
+  playing: boolean
+  url: string
+  totalTime: number
+  currentTime: number
 }
 
 export interface Player {
-  playlist: any[],
-  currentIdx: number,
+  playlist: any[]
+  currentIdx: number
   music: Music
 }
-
 
 const audioEl = document.createElement('audio')
 audioEl.style.display = 'none'
@@ -32,8 +31,8 @@ export const usePlayer = defineStore('player', {
         playing: false,
         url: '',
         totalTime: 0,
-        currentTime: 0  // 以秒为单位
-      }
+        currentTime: 0, // 以秒为单位
+      },
     } as Player
   },
   getters: {
@@ -42,7 +41,7 @@ export const usePlayer = defineStore('player', {
     },
     currentId: (state) => {
       return state.playlist[state.currentIdx].id
-    }
+    },
   },
   actions: {
     // 替换播放列表
@@ -62,19 +61,21 @@ export const usePlayer = defineStore('player', {
 
         this.music.playing = false
 
-        this.music.totalTime = Math.floor(this.playlist[this.currentIdx].dt / 1000)
+        this.music.totalTime = Math.floor(
+          this.playlist[this.currentIdx].dt / 1000
+        )
         this.music.currentTime = 0
 
         audioEl.src = this.music.url
 
-        console.log('更新音乐信息成功');
+        console.log('更新音乐信息成功')
         this.play()
       })
     },
     // 直接自动播放播放
     play() {
       if (this.music.playing) return
-      console.log('开始play');
+      console.log('开始play')
 
       audioEl.play()
       this.music.playing = true
@@ -92,7 +93,7 @@ export const usePlayer = defineStore('player', {
     // 实时更新当前播放时间
     updateCurrentTime() {
       if (!audioEl) return console.log('audioEl not found')
-      audioEl.ontimeupdate = throttle((event) => {
+      audioEl.ontimeupdate = throttle((event: any) => {
         if (event.target === null) return
         this.music.currentTime = (event.target as any).currentTime
       }, 500)
@@ -100,8 +101,7 @@ export const usePlayer = defineStore('player', {
     // 拖拽进度条
     changeCurrentTime(time: number) {
       this.music.currentTime = time
-      if (audioEl)
-        audioEl.currentTime = time
+      if (audioEl) audioEl.currentTime = time
     },
     // 自动播放下一首
     autoPlay() {
@@ -114,10 +114,9 @@ export const usePlayer = defineStore('player', {
           // 下一首
           if (this.currentIdx === this.length - 1) return
           this.currentIdx++
-          console.log(this.currentIdx);
+          console.log(this.currentIdx)
           // 更新音乐信息
           this.updateMusic()
-
         }
     },
     // 上一曲或下一曲
@@ -125,12 +124,10 @@ export const usePlayer = defineStore('player', {
       if (step < 0 && this.currentIdx > 0) {
         this.currentIdx += step
         this.updateMusic()
-
       }
       if (step > 0 && this.currentIdx < this.playlist.length - 1) {
         this.currentIdx += step
         this.updateMusic()
-
       }
     },
     // 初始化
@@ -140,10 +137,9 @@ export const usePlayer = defineStore('player', {
         audioEl.src = this.music.url
         audioEl.currentTime = this.music.currentTime
       }
-    }
-  }
+    },
+  },
 })
-
 
 /* 
 http://m7.music.126.net/20220630211607/b14eafd305e2a91abd324b3f25a148fb/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/14051778144/74f5/2c66/b400/eab29fb52cac07613ee2f7b978c49ce2.mp3

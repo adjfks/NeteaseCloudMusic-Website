@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-npm run build
+npm run deploy
 
 # 进入构建文件夹
 cd dist
@@ -13,7 +13,7 @@ cd dist
 # echo 'www.example.com' > CNAME
 
 git init
-git checkout -b main
+git checkout main
 git add -A
 git commit -m 'deploy'
 

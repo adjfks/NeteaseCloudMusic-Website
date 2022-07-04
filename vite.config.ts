@@ -12,7 +12,6 @@ import presetIcons from '@unocss/preset-icons'
 import presetUno from '@unocss/preset-uno'
 import presetAttributify from '@unocss/preset-attributify'
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -21,16 +20,14 @@ export default defineConfig({
       // targets to transform
       include: [
         /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-        /\.vue$/, /\.vue\?vue/, // .vue
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
         /\.md$/, // .md
       ],
 
       // Auto import functions from Vue, e.g. ref, reactive, toRef...
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-      imports: [
-        'vue',
-        'vue-router',
-      ],
+      imports: ['vue', 'vue-router'],
 
       // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
       // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
@@ -44,11 +41,9 @@ export default defineConfig({
         }),
       ],
 
-      dirs: [
-        './utils'
-      ],
+      dirs: ['./utils'],
 
-      dts: true
+      dts: true,
     }),
     Components({
       resolvers: [
@@ -56,7 +51,7 @@ export default defineConfig({
         // Auto register icon components
         // 自动注册图标组件
         IconsResolver(),
-      ]
+      ],
     }),
     Icons({
       autoInstall: true,
@@ -64,21 +59,23 @@ export default defineConfig({
     vueJsx(),
     Unocss({
       presets: [
-        presetIcons({ /* options */ }),
+        presetIcons({
+          /* options */
+        }),
         // ...other presets
         presetUno(),
-        presetAttributify()
+        presetAttributify(),
       ],
     }),
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src')
-    }
+      '@': resolve(__dirname, './src'),
+    },
   },
   css: {
     modules: {
-      scopeBehaviour: 'local'
+      scopeBehaviour: 'local',
     },
     preprocessorOptions: {
       // less: {
@@ -92,13 +89,13 @@ export default defineConfig({
       //   },
       //   javascriptEnabled: true
       // }
-    }
+    },
   },
   define: {
-    __DEV__: true
+    __DEV__: true,
   },
   server: {
-    port: 4001
+    port: 4001,
   },
   // 部署时设置
   // base: '/NeteaseCloudMusic-Website/'
