@@ -5,3 +5,5 @@ export default [
     path: '/playlist/:id', component: Playlist
   }
 ]
+
+

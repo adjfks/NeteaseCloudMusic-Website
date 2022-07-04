@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import sidebar from '@/api/constants/sidebar'
-import { Ref } from 'vue';
+import { Ref } from 'vue'
 const index: Ref<number> = ref(0)
-
 </script>
-
 
 <template>
   <div class="sidebar-container">
@@ -14,23 +12,28 @@ const index: Ref<number> = ref(0)
           <li class="sidebar-item item">
             <router-link to="/">{{ item.title }}</router-link>
           </li>
-          <li v-for="(sub, idx) in item.items" :key="sub.title"
-              class="sidebar-item"
-              :class="{ active: idx + sidebar.length === index }"
-              @click="index = idx + sidebar.length">
-            <router-link to="/">{{ sub.title }}</router-link>
+          <li
+            v-for="(sub, idx) in item.items"
+            :key="sub.title"
+            class="sidebar-item"
+            :class="{ active: idx + sidebar.length === index }"
+            @click="index = idx + sidebar.length"
+          >
+            <router-link :to="sub.link">{{ sub.title }}</router-link>
           </li>
         </template>
-        <li v-else class="sidebar-item" :class="{ active: idx === index }"
-            @click="index = idx">
+        <li
+          v-else
+          class="sidebar-item"
+          :class="{ active: idx === index }"
+          @click="index = idx"
+        >
           <router-link to="/discover">{{ item.title }}</router-link>
         </li>
       </template>
-
     </ul>
   </div>
 </template>
-
 
 <style scoped lang="less">
 .sidebar-container {
@@ -42,14 +45,13 @@ const index: Ref<number> = ref(0)
   .sidebar {
     padding: 10px 5px;
 
-
     .sidebar-item {
       height: var(--item-height);
       line-height: var(--item-height);
 
       padding-left: 10px;
       cursor: pointer;
-      transition: all .2s;
+      transition: all 0.2s;
 
       .a {
         font-size: 16px;

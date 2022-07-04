@@ -1,59 +1,59 @@
 export interface SideBarItem {
-  title: string,
-  link?: string,
+  title: string
+  link: string
   items?: Array<SideBarItem>
 }
 
 export type SideBar = Array<SideBarItem>
 
-export default <SideBar> [
+export default <SideBar>[
   {
     title: '发现音乐',
-    link: '/discover'
+    link: '/discover',
   },
   {
     title: '播客',
-    link: '/'
+    link: '/',
   },
   {
     title: '视频',
-    link: '/'
+    link: '/',
   },
   {
     title: '关注',
-    link: '/'
+    link: '/',
   },
   {
     title: '直播',
-    link: '/'
+    link: '/',
   },
   {
     title: '私人FM',
-    link: '/'
+    link: '/',
   },
   {
     title: '我的音乐',
     items: [
       {
-        title: '本地与下载',
-        link: '/'
+        title: '我喜欢的音乐',
+        link: '/my/likelist',
       },
       {
         title: '最近播放',
-        link: '/'
+        link: '/',
       },
       {
         title: '我的音乐云盘',
-        link: '/'
+        link: '/',
       },
       {
         title: '我的播客',
-        link: '/'
+        link: '/',
       },
       {
         title: '我的收藏',
-        link: '/'
+        link: '/',
       },
-    ]
-  }
+    ],
+  },
 ]

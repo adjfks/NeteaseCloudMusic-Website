@@ -92,7 +92,7 @@ export default defineConfig({
     },
   },
   define: {
-    __DEV__: true,
+    __DEV__: false,
   },
   server: {
     port: 4001,

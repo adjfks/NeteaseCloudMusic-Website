@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { Method } from '@/type'
 
-const baseURL = __DEV__ ? 'http://localhost:4000/' : 'http://120.25.153.83/4000'
+const baseURL = __DEV__
+  ? 'http://localhost:4000/'
+  : 'http://120.25.153.83:4000/'
 const instance = axios.create({
   baseURL,
   timeout: 5000,
