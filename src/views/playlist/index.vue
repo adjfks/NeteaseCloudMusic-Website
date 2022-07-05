@@ -4,6 +4,7 @@ import { getPlaylistById, getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
 import transformNumber from '@/utils/transformNumber'
 import useDbPlay from '@/composable/dbPlay'
+import useToggleTab from '@/composable/useToggleTab'
 
 // 双击击播放
 const { player, handleDblclick } = useDbPlay()
@@ -24,10 +25,7 @@ async function getData() {
 getData()
 
 /* tab切换 */
-const activeName: Ref<'song' | 'comment'> = ref('song')
-const handleClick = (tab: 'song' | 'comment') => {
-  activeName.value = tab
-}
+const { activeName, handleClick } = useToggleTab()
 </script>
 
 <template>
