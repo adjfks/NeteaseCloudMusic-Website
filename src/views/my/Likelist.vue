@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { getLikeIds } from '@/api/my'
 import { useUser } from '@/store/user'
-import { usePlayer } from '@/store/player'
 import { getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
+import useDbPlay from '@/composable/dbPlay'
 const user = useUser()
 
 // 喜欢歌曲id列表
@@ -18,11 +18,8 @@ getLikeIds(user.profile.userId, user.cookie).then(async (res: any) => {
   console.log(songs.value)
 })
 
-// 双击击播放
-const player = usePlayer()
-const handleDblclick = async (val: { data: any; idx: number }) => {
-  player.replacePlaylist(val.data, val.idx)
-}
+// 双击播放
+const { player, handleDblclick } = useDbPlay()
 
 // tab切换
 const activeName = ref('song')
