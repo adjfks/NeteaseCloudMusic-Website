@@ -3,7 +3,7 @@ import { getLikeIds } from '@/api/my'
 import { useUser } from '@/store/user'
 import { getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
-import useDbPlay from '@/composable/dbPlay'
+import useDbPlay from '@/composable/useDbPlay'
 import useToggleTab from '@/composable/useToggleTab'
 const user = useUser()
 
@@ -22,7 +22,7 @@ getLikeIds(user.profile.userId, user.cookie).then(async (res: any) => {
 // 双击播放
 const { player, handleDblclick } = useDbPlay()
 // tab切换
-const { activeName, handleClick } = useToggleTab()
+const { activeName, handleClick } = useToggleTab('song', 'comment')
 </script>
 
 <template>

@@ -105,7 +105,6 @@ player.initMusic()
   }
 
   .active {
-
     svg:hover,
     a:hover {
       color: var(--theme-color);

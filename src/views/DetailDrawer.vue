@@ -4,9 +4,9 @@ import { getLyric } from '@/api/player'
 import { Ref } from 'vue'
 import parseRawTime from '@/utils/parseRawTime'
 interface LyricItem {
-  time: number,
-  rawTime: string,
-  text: string,
+  time: number
+  rawTime: string
+  text: string
 }
 
 const song = ref(undefined) as any
@@ -14,21 +14,25 @@ const lyric: Ref<LyricItem[]> = ref([])
 const lyricLength = computed(() => lyric.value.length)
 
 const player = usePlayer()
-watch(() => player.currentIdx, () => {
-  song.value = player.playlist[player.currentIdx]
+watch(
+  () => player.currentIdx,
+  () => {
+    song.value = player.playlist[player.currentIdx]
 
-  song.value && getLyric(song.value.id).then((res: any) => {
-    console.log(res);
-    if (res.uncollected) return console.log('没有歌词');
-    lyric.value = parseLrc(res.lrc.lyric)
-    console.log(lyric.value);
-    // 初始化索引
-    activeIndex.value = initActiveIndex()
-  })
-},
+    song.value &&
+      getLyric(song.value.id).then((res: any) => {
+        console.log(res)
+        if (res.uncollected) return console.log('没有歌词')
+        lyric.value = parseLrc(res.lrc.lyric)
+        console.log(lyric.value)
+        // 初始化索引
+        activeIndex.value = initActiveIndex()
+      })
+  },
   {
-    immediate: true
-  })
+    immediate: true,
+  }
+)
 
 /* 歌词滚动功能 */
 // 滚动条DOM
@@ -41,25 +45,25 @@ const preTime = computed(() => lyric.value[activeIndex.value - 1]?.time)
 const time = computed(() => lyric.value[activeIndex.value]?.time)
 const nextTime = computed(() => lyric.value[activeIndex.value + 1]?.time)
 
-
 // 更新激活歌词索引
-watch(() => player.music.currentTime, (newVal, oldVal) => {
-  if (time.value < newVal) {
-    while (nextTime.value < newVal) {
-      if (activeIndex.value < lyric.value.length)
-        activeIndex.value++
+watch(
+  () => player.music.currentTime,
+  (newVal, oldVal) => {
+    if (time.value < newVal) {
+      while (nextTime.value < newVal) {
+        if (activeIndex.value < lyric.value.length) activeIndex.value++
+      }
+    } else if (time.value >= newVal) {
+      while (preTime.value >= newVal) {
+        if (activeIndex.value > 0) activeIndex.value--
+      }
     }
-  } else if (time.value >= newVal) {
-    while (preTime.value >= newVal) {
-      if (activeIndex.value > 0)
-        activeIndex.value--
-    }
-  }
-  console.log('激活歌词更新了----->', activeIndex.value);
+    console.log('激活歌词更新了----->', activeIndex.value)
 
-  // 设置滚动条位置
-  scrollbar.value.setScrollTop(activeIndex.value * 54)
-})
+    // 设置滚动条位置
+    scrollbar.value.setScrollTop(activeIndex.value * 54)
+  }
+)
 
 // 歌词容器
 const lyricContainer = ref()
@@ -69,7 +73,7 @@ onMounted(() => {
   // 歌词容器高度的一半
   const { y, bottom } = lyricContainer.value.getBoundingClientRect()
   halfHeight = Math.floor((bottom - y) / 2)
-  console.log(halfHeight);
+  console.log(halfHeight)
   // 设置容器上padding使第一句歌词居中
   const view = document.querySelector('.el-scrollbar__view') as HTMLElement
   view.style.paddingTop = `${halfHeight - 54}px`
@@ -80,16 +84,19 @@ onMounted(() => {
 
 // 解析歌词
 function parseLrc(lrc: string): LyricItem[] {
-  const lrcArr = lrc.trim().split('\n');
+  const lrcArr = lrc.trim().split('\n')
   const result: LyricItem[] = []
 
-  lrcArr.forEach(str => {
-    const arr = str.trim().split(']').map(item => item.trim())  // '[00:00:000' , '歌词'
+  lrcArr.forEach((str) => {
+    const arr = str
+      .trim()
+      .split(']')
+      .map((item) => item.trim()) // '[00:00:000' , '歌词'
     if (!arr[1].trim()) return
     const lyricItem = {} as LyricItem
     lyricItem.rawTime = arr[0].slice(1, -3)
     lyricItem.text = arr[1]
-    console.log(arr);
+    console.log(arr)
     lyricItem.time = parseRawTime(lyricItem.rawTime)
     result.push(lyricItem)
   })
@@ -98,9 +105,8 @@ function parseLrc(lrc: string): LyricItem[] {
 
 // 初始化索引
 function initActiveIndex() {
-
   const time = Math.floor(player.music.currentTime)
-  console.log(time);
+  console.log(time)
 
   let index
   for (let i = 0; i < lyric.value.length; i++) {
@@ -109,26 +115,10 @@ function initActiveIndex() {
       break
     }
   }
-  console.log(index);
+  console.log(index)
 
   return index || lyric.value.length - 1
 }
-
-// 获取currentTime在歌词时间中的位置 小于currentTime的最大值的索引
-// function getCurrentTimePosition() {
-//   const currentTime = Math.floor(player.music.currentTime)
-//   // 用二分查找优化一下
-//   let l = 0, r = lyric.value.length - 1
-//   while (l < r) {
-//     const mid = Math.floor((r - l) / 2)
-//     if (lyric.value[mid].time >= currentTime) {
-//       r = mid - 1
-//     } else {
-//       l = mid + 1
-//     }
-//   }
-//   return l
-// }
 </script>
 
 <template>
@@ -138,20 +128,18 @@ function initActiveIndex() {
       <div class="back">
         <i-carbon-chevron-down text="8 #fff" />
       </div>
-      <div class=" right">
-      </div>
+      <div class="right"></div>
     </header>
 
     <!-- 主体区域 -->
     <main v-if="song">
       <div class="main-left">
-        <div class="record-play" :class="{ 'play': player.music.playing }">
-          <img src="@/assets/record.png" alt="">
+        <div class="record-play" :class="{ play: player.music.playing }">
+          <img src="@/assets/record.png" alt="" />
         </div>
-        <div class="record" :class="{ 'pause': !player.music.playing }">
-          <img :src="(song as any).al.picUrl" alt="">
+        <div class="record" :class="{ pause: !player.music.playing }">
+          <img :src="(song as any).al.picUrl" alt="" />
         </div>
-
       </div>
       <div class="main-lyric">
         <!-- 歌曲名称 -->
@@ -162,8 +150,13 @@ function initActiveIndex() {
         <!-- 歌词列表 -->
         <ul class="lyric" ref="lyricContainer">
           <el-scrollbar ref="scrollbar">
-            <li class="lyric-item" v-for="(item, idx) in lyric"
-                :class="{ 'active': activeIndex === idx }">{{ item.text }}</li>
+            <li
+              class="lyric-item"
+              v-for="(item, idx) in lyric"
+              :class="{ active: activeIndex === idx }"
+            >
+              {{ item.text }}
+            </li>
           </el-scrollbar>
         </ul>
       </div>
@@ -178,8 +171,12 @@ function initActiveIndex() {
   display: flex;
   flex-direction: column;
   padding-bottom: 70px;
-  background-image: linear-gradient(to top, rgb(255, 255, 255), #f3f3f3, rgb(207, 208, 207));
-
+  background-image: linear-gradient(
+    to top,
+    rgb(255, 255, 255),
+    #f3f3f3,
+    rgb(207, 208, 207)
+  );
 
   header {
     display: flex;
@@ -201,14 +198,13 @@ function initActiveIndex() {
       min-width: 0;
       flex: 1;
 
-
       .record-play {
         position: absolute;
         top: 0%;
         left: 50%;
         z-index: 500;
         transform-origin: 0% 0%;
-        transition: transform .5s;
+        transition: transform 0.5s;
 
         &.play {
           transform: rotate(28deg);
@@ -245,14 +241,10 @@ function initActiveIndex() {
           border-radius: 50%;
         }
 
-
         &.pause {
           animation-play-state: paused;
         }
-
       }
-
-
     }
 
     .main-lyric {
@@ -261,7 +253,6 @@ function initActiveIndex() {
       flex: 1;
       display: flex;
       flex-direction: column;
-
 
       .title {
         padding: 0 0 20px 0;
@@ -283,7 +274,7 @@ function initActiveIndex() {
       .lyric {
         flex: 1;
         min-height: 0;
-        transition: all .5s;
+        transition: all 0.5s;
 
         .lyric-item {
           box-sizing: border-box;
@@ -292,7 +283,7 @@ function initActiveIndex() {
           text-align: center;
           color: #646261;
           font-size: 14px;
-          transition: all .7s;
+          transition: all 0.7s;
 
           &.active {
             color: #000000;
@@ -312,14 +303,11 @@ function initActiveIndex() {
 
 @keyframes play {
   from {
-
     transform: translate(-50%, -50%) rotate(0);
   }
 
   to {
-
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 </style>
-

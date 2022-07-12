@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { Ref } from 'vue'
 import { getPlaylistById, getSongsByIds } from '@/api/playlist'
 import { formatTime } from '@/utils/time'
 import transformNumber from '@/utils/transformNumber'
-import useDbPlay from '@/composable/dbPlay'
+import useDbPlay from '@/composable/useDbPlay'
 import useToggleTab from '@/composable/useToggleTab'
 
 // 双击击播放

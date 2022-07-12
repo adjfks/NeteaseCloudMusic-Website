@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "sl": "npx stylelint src/**/*.{vue,less}",
+    "stylelint": "npx stylelint src/**/*.{vue,less}",
     "deploy": "vite build --base=/NeteaseCloudMusic-Website/",
     "preinstall": "npx only-allow pnpm"
   },

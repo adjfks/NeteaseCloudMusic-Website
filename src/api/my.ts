@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+const requestWithCookie = () => {}
 /**
  *
  *@param {Number} uid 用户id
