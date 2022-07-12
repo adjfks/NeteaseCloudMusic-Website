@@ -1,21 +1,25 @@
 <script setup lang="ts">
 // 使用基于类型的props声明
 interface Props {
-  content: any,
-  hoverLayer?: boolean,
-  horizontal?: boolean,
-  coverImgUrl?: string,
+  content: any
+  hoverLayer?: boolean
+  horizontal?: boolean
+  coverImgUrl?: string
   to?: string
 }
 const props = defineProps<Props>()
-
 </script>
 
 <template>
-  <router-link v-if="to" :to="to" class="card hover-up"
-               :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
+  <!-- 可点击方形卡片 -->
+  <router-link
+    v-if="to"
+    :to="to"
+    class="card hover-up"
+    :class="{ horizontal: horizontal, 'hover-layer': hoverLayer }"
+  >
     <div class="picture">
-      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="">
+      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="" />
     </div>
     <div class="description">
       <p class="title">{{ content.name }}</p>
@@ -24,10 +28,15 @@ const props = defineProps<Props>()
       </template>
     </div>
   </router-link>
-  <div v-else class="card hover-up"
-       :class="{ 'horizontal': horizontal, 'hover-layer': hoverLayer }">
+
+  <!-- 水平卡片 -->
+  <div
+    v-else
+    class="card hover-up"
+    :class="{ horizontal: horizontal, 'hover-layer': hoverLayer }"
+  >
     <div class="picture">
-      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="">
+      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="" />
     </div>
     <div class="description">
       <p class="title">{{ content.name }}</p>
@@ -62,15 +71,13 @@ const props = defineProps<Props>()
       border-bottom-width: 0.5em;
       border-left-color: rgba(255, 255, 255, 0.7);
       opacity: 0;
-      transition: opacity .4s;
+      transition: opacity 0.4s;
     }
 
     // 遮罩
     &:hover::after {
       opacity: 1;
     }
-
-
   }
 
   .title {
@@ -78,8 +85,6 @@ const props = defineProps<Props>()
     font-size: 12px;
     line-height: 1.5em;
   }
-
-
 }
 
 .card.horizontal {
@@ -96,7 +101,7 @@ const props = defineProps<Props>()
     &::after {
       right: 50%;
       bottom: 50%;
-      transform: translate(75%, 50%)
+      transform: translate(75%, 50%);
     }
   }
 
