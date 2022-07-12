@@ -5,10 +5,9 @@ import { formatTime } from '@/utils/time'
 const props = defineProps({
   disabled: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
-
 
 const player = usePlayer()
 const handleChange = (val: any) => {
@@ -21,27 +20,35 @@ player.initMusic()
 </script>
 
 <template>
-  <div class="net-player" :class="{ 'disabled': disabled }">
-    <div class="controller" :class="{ 'active': !disabled }">
+  <div class="net-player" :class="{ disabled: disabled }">
+    <div class="controller" :class="{ active: !disabled }">
       <i-ri-order-play-line />
       <i-carbon-skip-back-filled @click="player.goMusic(-1)" />
       <i class="play-icon">
-        <i-carbon-play-filled-alt text="4" v-if="!player.music.playing"
-                                  @click="!disabled && player.play()" />
+        <i-carbon-play-filled-alt
+          text="4"
+          v-if="!player.music.playing"
+          @click="!disabled && player.play()"
+        />
         <i-carbon-pause-filled v-else text="4" @click="player.pause()" />
       </i>
       <i-carbon-skip-forward-filled @click="player.goMusic(1)" />
       <a href="javascript">词</a>
     </div>
     <div class="range">
-      <span class="cur-time">{{ disabled ? '00:00' :
-          formatTime(player.music.currentTime * 1000,
-            'mm:ss')
+      <span class="cur-time">{{
+        disabled
+          ? '00:00'
+          : formatTime(player.music.currentTime * 1000, 'mm:ss')
       }}</span>
-      <el-slider :show-tooltip="false" v-model="player.music.currentTime"
-                 :max="player.music.totalTime" @change="handleChange" />
-      <span class="total-time">{{ formatTime(player.music.totalTime * 1000,
-          'mm:ss')
+      <el-slider
+        :show-tooltip="false"
+        v-model="player.music.currentTime"
+        :max="player.music.totalTime"
+        @change="handleChange"
+      />
+      <span class="total-time">{{
+        formatTime(player.music.totalTime * 1000, 'mm:ss')
       }}</span>
     </div>
   </div>
@@ -77,8 +84,6 @@ player.initMusic()
     }
   }
 
-
-
   .range {
     display: flex;
     align-items: center;
@@ -100,7 +105,6 @@ player.initMusic()
         top: -2px;
         transform: translate(-50%, -50%);
       }
-
     }
   }
 
@@ -113,4 +117,3 @@ player.initMusic()
   }
 }
 </style>
-

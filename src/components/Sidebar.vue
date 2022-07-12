@@ -58,12 +58,12 @@ const index: Ref<number> = ref(0)
       }
 
       &:hover:not(.item) {
-        background-color: var(--hover-color);
+        background-color: var(--hover-bg-color);
         border-radius: 10px;
       }
 
       &.active {
-        background-color: var(--active-color);
+        background-color: var(--active-bg-color);
         border-radius: 10px;
         font-size: 18px;
         font-weight: 700;

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import useVModel from '@/hooks/useVModel';
+import useVModel from '@/hooks/useVModel'
 
 const props = defineProps<{
   modelValue: string
 }>()
 
 const emit = defineEmits(['tab-click'])
-const activeName = useVModel(props, 'modelValue', emit, { eventName: 'tab-click' })
-
+const activeName = useVModel(props, 'modelValue', emit, {
+  eventName: 'tab-click',
+})
 
 provide('activeName', activeName)
 </script>
@@ -15,11 +16,15 @@ provide('activeName', activeName)
 <template>
   <div class="net-tab">
     <div class="tab-header">
-      <a :class="{ active: activeName === tab.props.name }" class="tab"
-         href="javascript:;" v-for="tab in ($slots as any).default()"
-         :key="tab.props.label" @click="activeName = tab.props.name">{{
-             tab.props.label
-         }}</a>
+      <a
+        :class="{ active: activeName === tab.props.name }"
+        class="tab"
+        href="javascript:;"
+        v-for="tab in ($slots as any).default()"
+        :key="tab.props.label"
+        @click="activeName = tab.props.name"
+        >{{ tab.props.label }}</a
+      >
     </div>
 
     <slot />
@@ -28,7 +33,6 @@ provide('activeName', activeName)
 
 <style lang="less" scoped>
 .net-tab {
-
   .tab-header {
     margin-bottom: 10px;
     min-height: 35px;
@@ -38,7 +42,7 @@ provide('activeName', activeName)
       font-size: 16px;
       margin-right: 20px;
       padding: 5px;
-      transition: all .2s;
+      transition: all 0.2s;
 
       &.active {
         border-bottom: 3px solid var(--theme-color);
@@ -49,4 +53,3 @@ provide('activeName', activeName)
   }
 }
 </style>
-

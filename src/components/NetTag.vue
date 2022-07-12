@@ -3,8 +3,8 @@ const props = defineProps({
   text: {
     type: String,
     default: '',
-    required: true
-  }
+    required: true,
+  },
 })
 </script>
 
@@ -24,4 +24,3 @@ const props = defineProps({
   font-weight: 700;
 }
 </style>
-

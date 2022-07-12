@@ -48,7 +48,7 @@
       "border",
       "border-style",
       "border-width",
-      "border-color",
+      "--border-color",
       "border-top",
       "border-top-style",
       "border-top-width",

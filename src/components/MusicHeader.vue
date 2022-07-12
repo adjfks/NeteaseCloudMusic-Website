@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useUser } from '@/store/user'
+// 主题色切换工具函数
+import { toggleTheme } from '@/utils/theme'
+
 const props = defineProps<{
   height?: string
 }>()
@@ -18,7 +21,7 @@ const profileVisible = ref(false)
 
 // 退出登录
 const quickLogin = () => {
-  console.log('退出登录');
+  console.log('退出登录')
   user.removeLogin()
   profileVisible.value = false
 }
@@ -29,7 +32,7 @@ const quickLogin = () => {
     <div class="header-left">
       <!-- logo -->
       <a href="javascript:;" class="logo">
-        <img src="@/assets/logo.png" alt="网易云音乐" class="logo-image">
+        <img src="@/assets/logo.png" alt="网易云音乐" class="logo-image" />
         <h1 class="logo-text">网易云音乐</h1>
       </a>
       <!-- 中间区域 -->
@@ -38,33 +41,42 @@ const quickLogin = () => {
         <div class="arrow-box">
           <div class="icon-wrapper h-cs" @click="$router.back()">
             <i-ic-round-keyboard-arrow-left
-                                            style="font-size: 1.5em; color: #fff;" />
+              style="font-size: 1.5em; color: #fff"
+            />
           </div>
           <div class="icon-wrapper h-cs" @click="$router.forward()">
             <i-ic-round-keyboard-arrow-right
-                                             style="font-size: 1.5em; color: #ccc;" />
+              style="font-size: 1.5em; color: #ccc"
+            />
           </div>
         </div>
         <!-- 搜索 -->
         <div class="search-box">
           <i-carbon-search class="icon-search" />
-          <input type="text" class="search-input">
+          <input type="text" class="search-input" />
         </div>
       </div>
     </div>
 
     <!-- 右侧区域 -->
     <div class="header-right">
+      <div>
+        <el-button @click="toggleTheme()">切换主题色</el-button>
+      </div>
       <div class="avatar-box">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                   v-if="!user.isLogin" />
+        <el-avatar
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+          v-if="!user.isLogin"
+        />
         <el-avatar :src="user.profile.avatarUrl" v-else />
 
         <span class="username">
-          <span v-if="user.isLogin" text="3"
-                @click="profileVisible = !profileVisible">{{
-                    user.profile.nickname
-                }}</span>
+          <span
+            v-if="user.isLogin"
+            text="3"
+            @click="profileVisible = !profileVisible"
+            >{{ user.profile.nickname }}</span
+          >
           <a href="javascript:;" @click="goLogin" v-else>登录</a>
           <div class="drop-layer" v-if="user.isLogin && profileVisible">
             <ul>
@@ -80,7 +92,6 @@ const quickLogin = () => {
       </div>
     </div>
   </div>
-
 </template>
 
 <style lang="less" scoped>
@@ -133,7 +144,7 @@ const quickLogin = () => {
           align-items: center;
           width: 25px;
           height: 25px;
-          background-color: rgba(234, 234, 234, .5);
+          background-color: rgba(234, 234, 234, 0.5);
           border-radius: 50%;
           margin: 0 0.5em;
         }
@@ -147,7 +158,7 @@ const quickLogin = () => {
           width: 150px;
           height: 1.5em;
           padding: 3px 10px 3px 40px;
-          background-color: rgba(234, 234, 234, .5);
+          background-color: rgba(234, 234, 234, 0.5);
           border-radius: 13px;
         }
 
@@ -156,7 +167,6 @@ const quickLogin = () => {
           top: 6px;
           left: 8px;
         }
-
       }
     }
   }
@@ -184,7 +194,7 @@ const quickLogin = () => {
           width: 200px;
           padding: 30px 10px;
           border-radius: 10px;
-          box-shadow: 0 10px 40px -10px rgba(0, 64, 128, .2);
+          box-shadow: 0 10px 40px -10px rgba(0, 64, 128, 0.2);
         }
       }
     }

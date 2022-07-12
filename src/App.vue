@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUser } from '@/store/user';
+import { useUser } from '@/store/user'
 
 const user = useUser()
 user.setVisitor()
@@ -11,8 +11,10 @@ user.setVisitor()
       <!-- 一级路由 -->
       <main>
         <router-view v-slot="{ Component, route }">
-          <transition :name="(route.meta.transition) as string || ''"
-                      mode="out-in">
+          <transition
+            :name="(route.meta.transition) as string || ''"
+            mode="out-in"
+          >
             <KeepAlive>
               <component :is="Component" />
             </KeepAlive>
@@ -54,7 +56,8 @@ user.setVisitor()
     box-sizing: border-box;
     // border: 1px solid rgba(203, 201, 201, .6);
     border-radius: 8px;
-    box-shadow: 20px 0 20px 2px #e6e6e6, -20px 0 20px 2px #e6e6e6, 0 20px 20px 2px #e6e6e6;
+    box-shadow: 20px 0 20px 2px #e6e6e6, -20px 0 20px 2px #e6e6e6,
+      0 20px 20px 2px #e6e6e6;
 
     main {
       position: relative;

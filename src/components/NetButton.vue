@@ -1,13 +1,9 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-
   <NetAlign class="net-button h-cs">
     <slot />
   </NetAlign>
-
-
 </template>
 
 <style lang="less">
@@ -20,8 +16,7 @@
   &:hover {
     background-color: var(--theme-color);
     color: #fff;
-    border-color: var(--theme-color);
+    --border-color: var(--theme-color);
   }
 }
 </style>
-

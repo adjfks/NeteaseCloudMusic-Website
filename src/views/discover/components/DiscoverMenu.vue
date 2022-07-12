@@ -11,11 +11,13 @@ const index = ref(0)
 <template>
   <div class="discover-header">
     <ul class="discover-menu">
-      <li v-for="(item, idx) in discoverMenu" :key="item.title"
-          @click="index = idx">
-        <router-link :to="(item.link as string)" active-class="active">{{
-            item.title
-        }}
+      <li
+        v-for="(item, idx) in discoverMenu"
+        :key="item.title"
+        @click="index = idx"
+      >
+        <router-link :to="(item.link as string)" active-class="active"
+          >{{ item.title }}
         </router-link>
       </li>
     </ul>
@@ -31,7 +33,7 @@ const index = ref(0)
     align-items: center;
     height: 100%;
 
-    &>li {
+    & > li {
       margin: 10px;
       height: 100%;
       line-height: v-bind(height);
@@ -39,7 +41,7 @@ const index = ref(0)
       a {
         display: block;
         font-size: 16px;
-        transition: all .2s;
+        transition: all 0.2s;
 
         &.active {
           border-bottom: 3px solid var(--theme-color);
