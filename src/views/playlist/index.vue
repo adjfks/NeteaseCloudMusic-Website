@@ -24,7 +24,7 @@ async function getData() {
 getData()
 
 /* tab切换 */
-const { activeName, handleClick } = useToggleTab()
+const { activeName, handleClick } = useToggleTab('song', 'comment')
 </script>
 
 <template>
