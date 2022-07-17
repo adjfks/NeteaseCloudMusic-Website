@@ -3,7 +3,7 @@ export const defaultThemeColor = {
   '--hover-bg-color': 'rgba(246, 246, 246, .5)',
   '--active-bg-color': 'rgba(246, 246, 246, .7)',
   '--theme-color': '#fd726d',
-  '--el-color-primary': 'var(--theme-color) !important',
+  '--el-color-primary': `#fd726d`,
   '--font-gray': '#9b9b9b',
   '--font-black': '#363636',
   '--light-gray': 'rgba(246, 246, 246, .7)',
