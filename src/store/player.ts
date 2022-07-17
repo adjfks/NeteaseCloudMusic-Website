@@ -18,6 +18,8 @@ export interface Player {
 const audioEl = document.createElement('audio')
 audioEl.style.display = 'none'
 audioEl.setAttribute('use-credentials', 'true')
+audioEl.setAttribute('preload', 'auto')
+audioEl.volume = 0.1
 document.body.appendChild(audioEl)
 
 export const usePlayer = defineStore('player', {
@@ -32,6 +34,8 @@ export const usePlayer = defineStore('player', {
         url: '',
         totalTime: 0,
         currentTime: 0, // 以秒为单位
+        // 音量：0 ~ 100 之间
+        volume: 50,
       },
     } as Player
   },
@@ -137,6 +141,10 @@ export const usePlayer = defineStore('player', {
         audioEl.src = this.music.url
         audioEl.currentTime = this.music.currentTime
       }
+    },
+    // 设置音量
+    setVolume(value: number) {
+      audioEl.volume = value
     },
   },
 })

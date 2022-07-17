@@ -1,11 +1,27 @@
 <script setup lang="ts">
-const value = ref(0)
+import { usePlayer } from '@/store/player'
+const player = usePlayer()
+const value = ref(0.1)
+
+watch(
+  () => value.value,
+  (newVal, oldVal) => {
+    player.setVolume(newVal)
+  }
+)
 </script>
 
 <template>
   <div class="net-volume">
     <div class="net-range">
-      <NetSlider v-model="value" vertical height="100px" />
+      <NetSlider
+        v-model="value"
+        vertical
+        height="100px"
+        :min="0"
+        :max="1"
+        :step="0.01"
+      />
     </div>
     <div class="net-icon">
       <i-carbon-volume-down v-if="true" />

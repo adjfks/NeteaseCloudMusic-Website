@@ -20,6 +20,18 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  min: {
+    type: Number,
+    default: 0,
+  },
+  max: {
+    type: Number,
+    default: 100,
+  },
+  step: {
+    type: Number,
+    default: 1,
+  },
 })
 
 const emits = defineEmits(['update:modelValue'])
@@ -35,6 +47,9 @@ const value = useVModel(props, 'modelValue', emits)
       :vertical="props.vertical"
       :height="props.height"
       :show-tooltip="props.showTooltip"
+      :min="0"
+      :max="1"
+      :step="0.01"
     />
   </div>
 </template>
