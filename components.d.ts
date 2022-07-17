@@ -57,6 +57,7 @@ declare module '@vue/runtime-core' {
     NetCarousel: typeof import('./src/components/NetCarousel.vue')['default']
     NetFooter: typeof import('./src/components/NetFooter.vue')['default']
     NetPlayer: typeof import('./src/components/NetPlayer.vue')['default']
+    NetSlider: typeof import('./src/components/NetSlider.vue')['default']
     NetTab: typeof import('./src/components/NetTab.vue')['default']
     NetTable: typeof import('./src/components/NetTable.vue')['default']
     NetTableColumn: typeof import('./src/components/NetTableColumn.vue')['default']

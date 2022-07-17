@@ -40,8 +40,6 @@ const handleRouter = () => {
 
     <div class="footer-right" v-if="currentMusic">
       <div class="volume-controller">
-        <i-carbon-volume-down v-if="true" />
-        <i-carbon-volume-mute v-else />
         <NetVolume />
       </div>
       <i-carbon-playlist />
