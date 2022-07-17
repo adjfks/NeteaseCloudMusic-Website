@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     Filter: typeof import('./src/components/Filter.vue')['default']
     ICarbonAddAlt: typeof import('~icons/carbon/add-alt')['default']
     ICarbonChat: typeof import('~icons/carbon/chat')['default']
+    ICarbonChevronDown: typeof import('~icons/carbon/chevron-down')['default']
     ICarbonChevronUp: typeof import('~icons/carbon/chevron-up')['default']
     ICarbonDownload: typeof import('~icons/carbon/download')['default']
     ICarbonFavorite: typeof import('~icons/carbon/favorite')['default']
