@@ -11,13 +11,15 @@ const user = useUser()
 const ids = ref()
 const songs = ref([])
 
-getLikeIds(user.profile.userId, user.cookie).then(async (res: any) => {
-  ids.value = res.ids
-  const result = await getSongsByIds(ids.value.join(','))
-  if (result.code === 200) songs.value = result.songs
-  else console.log('获取歌曲列表数据失败')
-  console.log(songs.value)
-})
+getLikeIds(user.profile.userId as number, user.cookie).then(
+  async (res: any) => {
+    ids.value = res.ids
+    const result = await getSongsByIds(ids.value.join(','))
+    if (result.code === 200) songs.value = result.songs
+    else console.log('获取歌曲列表数据失败')
+    console.log(songs.value)
+  }
+)
 
 // 双击播放
 const { player, handleDblclick } = useDbPlay()

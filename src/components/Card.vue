@@ -36,7 +36,7 @@ const props = defineProps<Props>()
     :class="{ horizontal: horizontal, 'hover-layer': hoverLayer }"
   >
     <div class="picture">
-      <img :src="coverImgUrl ? coverImgUrl : content.picUrl" alt="" />
+      <img alt="" :src="coverImgUrl ? coverImgUrl : content.picUrl" />
     </div>
     <div class="description">
       <p class="title">{{ content.name }}</p>

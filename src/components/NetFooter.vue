@@ -18,7 +18,7 @@ const handleRouter = () => {
   <div class="net-footer">
     <div class="song-msg" v-if="currentMusic" @click="handleRouter">
       <div class="picture-wrapper">
-        <img :src="currentMusic.al.picUrl" alt="">
+        <img :src="currentMusic.al.picUrl" alt="" />
         <span class="layer">
           <i-carbon-chevron-up text="4 #fff " />
         </span>
@@ -39,8 +39,11 @@ const handleRouter = () => {
     </div>
 
     <div class="footer-right" v-if="currentMusic">
-      <i-carbon-volume-down v-if="true" />
-      <i-carbon-volume-mute v-else />
+      <div class="volume-controller">
+        <i-carbon-volume-down v-if="true" />
+        <i-carbon-volume-mute v-else />
+        <NetVolume />
+      </div>
       <i-carbon-playlist />
     </div>
     <div v-else></div>
@@ -78,7 +81,7 @@ const handleRouter = () => {
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.3);
         opacity: 0;
-        transition: opacity .4s;
+        transition: opacity 0.4s;
 
         &:hover {
           opacity: 1;
@@ -109,10 +112,13 @@ const handleRouter = () => {
     display: flex;
     justify-content: flex-end;
 
+    .volume-controller {
+      position: relative;
+    }
+
     svg {
       padding: 0 10px;
     }
   }
 }
 </style>
-

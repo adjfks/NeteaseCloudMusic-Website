@@ -41,7 +41,7 @@ router.beforeEach((to, from) => {
   // 访问需要登录的接口
   if (to.fullPath.startsWith('/my')) {
     if (user.cookie === '') {
-      user.redirectUrl = from.fullPath
+      user.redirectUrl = to.fullPath
       router.push('/login')
     }
   }

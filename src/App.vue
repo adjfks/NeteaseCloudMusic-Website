@@ -15,9 +15,9 @@ user.setVisitor()
             :name="(route.meta.transition) as string || ''"
             mode="out-in"
           >
-            <KeepAlive>
-              <component :is="Component" />
-            </KeepAlive>
+            <!-- <KeepAlive> -->
+            <component :is="Component" />
+            <!-- </KeepAlive> -->
           </transition>
         </router-view>
       </main>

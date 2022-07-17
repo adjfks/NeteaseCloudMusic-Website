@@ -46,6 +46,8 @@ function check(key: string) {
         console.log(success.data)
 
         console.log('登录成功')
+        console.log(user.redirectUrl)
+
         router.push(user.redirectUrl)
       }
     }

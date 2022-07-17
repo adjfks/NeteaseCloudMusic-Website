@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { Method } from '@/type'
-// import { useUser } from '@/store/user'
 
 const baseURL = __DEV__
-  ? 'http://localhost:4000/'
+  ? 'http://localhost:4003/'
   : 'http://120.25.153.83:4000/'
+
 const instance = axios.create({
   baseURL,
   timeout: 5000,
@@ -22,13 +22,13 @@ instance.interceptors.response.use(
 // 请求拦截器 有权限的接口 /my 携带上cookie
 // instance.interceptors.request.use(
 //   (config) => {
-//     const user = useUser()
-//     if (config.params) {
-//       config.params.cookie = encodeURIComponent(user.cookie)
-//     } else {
-//       config.data = {}
-//       config.data.cookie = user.cookie
+//     if (config.url?.startsWith('my')) {
+//       console.log('需要权限的接口')
+
+//       config.withCredentials = true
 //     }
+//     console.log(config)
+
 //     return config
 //   },
 //   (err) => {

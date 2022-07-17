@@ -7,11 +7,14 @@ interface LyricItem {
   time: number
   rawTime: string
   text: string
+  scrollTop: number
 }
 
 const song = ref(undefined) as any
 const lyric: Ref<LyricItem[]> = ref([])
 const lyricLength = computed(() => lyric.value.length)
+// 歌词DOM引用数组
+const lyricItemsRef: Ref<HTMLLIElement[]> = ref([] as Array<HTMLLIElement>)
 
 const player = usePlayer()
 watch(
@@ -20,13 +23,22 @@ watch(
     song.value = player.playlist[player.currentIdx]
 
     song.value &&
-      getLyric(song.value.id).then((res: any) => {
+      getLyric(song.value.id).then(async (res: any) => {
         console.log(res)
         if (res.uncollected) return console.log('没有歌词')
         lyric.value = parseLrc(res.lrc.lyric)
         console.log(lyric.value)
         // 初始化索引
         activeIndex.value = initActiveIndex()
+
+        // 获取歌词并且更新DOM后计算每句歌词对应的位置
+        await nextTick()
+        for (let i = 0, scrollTop = 0; i < lyricItemsRef.value.length; i++) {
+          const item = lyricItemsRef.value[i]
+          const offsetHeight = item.offsetHeight
+          lyric.value[i].scrollTop = scrollTop + offsetHeight / 2
+          scrollTop += offsetHeight
+        }
       })
   },
   {
@@ -61,14 +73,13 @@ watch(
     console.log('激活歌词更新了----->', activeIndex.value)
 
     // 设置滚动条位置
-    scrollbar.value.setScrollTop(activeIndex.value * 54)
+    scrollbar.value.setScrollTop(lyric.value[activeIndex.value].scrollTop)
   }
 )
 
 // 歌词容器
 const lyricContainer = ref()
 let halfHeight = 0
-let scrollStep = 0
 onMounted(() => {
   // 歌词容器高度的一半
   const { y, bottom } = lyricContainer.value.getBoundingClientRect()
@@ -76,7 +87,7 @@ onMounted(() => {
   console.log(halfHeight)
   // 设置容器上padding使第一句歌词居中
   const view = document.querySelector('.el-scrollbar__view') as HTMLElement
-  view.style.paddingTop = `${halfHeight - 54}px`
+  view.style.paddingTop = `${halfHeight}px`
 })
 
 // 激活对应歌词
@@ -154,6 +165,7 @@ function initActiveIndex() {
               class="lyric-item"
               v-for="(item, idx) in lyric"
               :class="{ active: activeIndex === idx }"
+              ref="lyricItemsRef"
             >
               {{ item.text }}
             </li>
@@ -278,12 +290,13 @@ function initActiveIndex() {
 
         .lyric-item {
           box-sizing: border-box;
-          height: 54px;
-          line-height: 54px;
+          // height: 54px;
+          line-height: 50px;
+          padding: 10px 0;
           text-align: center;
           color: #646261;
           font-size: 14px;
-          transition: all 0.7s;
+          transition: all 1s;
 
           &.active {
             color: #000000;

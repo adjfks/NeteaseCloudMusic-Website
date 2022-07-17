@@ -11,6 +11,8 @@ import localStoragePlugin from '@/store/plugin/localStoragePlugin'
 import 'uno.css'
 // 导入主题色初始化函数
 import { initTheme } from './utils/theme'
+// 导入图片懒加载插件
+import lazyload from '@/utils/lazyLoad'
 initTheme()
 
 const pinia = createPinia()
@@ -21,4 +23,4 @@ pinia.use(
 )
 
 const app = createApp(App)
-app.use(pinia).use(router).mount('#app')
+app.use(pinia).use(router).use(lazyload).mount('#app')

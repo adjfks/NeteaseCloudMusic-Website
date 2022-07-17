@@ -45,6 +45,7 @@ export const useUser = defineStore('user', {
       this.profile = {}
       this.account = null
       this.isLogin = false
+      this.cookie = ''
     },
     setCookie(cookie: string) {
       this.cookie = cookie
