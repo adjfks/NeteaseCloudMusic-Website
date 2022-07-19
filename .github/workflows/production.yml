@@ -4,7 +4,7 @@ name: Production
 on:
   push:
     branches:    
-      - master
+      - main
 
 # 执行所有的 jobs
 jobs:
@@ -15,11 +15,11 @@ jobs:
       # 获取 CICD 中的变量: Context
       # https://docs.github.com/en/actions/learn-github-actions/expressions
       name: Deploy
-      url: https://cra.shanyue.tech
+      url: http://net.swttws.top
     steps:
       # 切出代码，使用该 Action 将可以拉取最新代码
       - uses: actions/checkout@v2
       - name: Deploy
-        run: docker-compose -f domain.docker-compose.yaml up --build -d domain
+        run: docker-compose -f domain.docker-compose.yaml up --build -d net
         env:
           COMMIT_REF_NAME: ${{ github.ref_name }}
