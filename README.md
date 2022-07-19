@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="http://adjfks.github.io/NeteaseCloudMusic-Website/">在线网站</a>
+  <a href="http://net.swttws.top">在线网站</a>
 </p>
 
 <p align="center">
