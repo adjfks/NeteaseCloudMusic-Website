@@ -1,4 +1,4 @@
-FROM lsage/pnpm-circleci-node as builder
+FROM node:14-alpine as builder
 
 WORKDIR /code
 
