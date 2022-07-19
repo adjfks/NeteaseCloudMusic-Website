@@ -1,4 +1,4 @@
-name: Production
+name: production
 
 # 执行 CI 的时机: 当 git push 到 master 分支时
 on:
@@ -14,12 +14,12 @@ jobs:
     environment:
       # 获取 CICD 中的变量: Context
       # https://docs.github.com/en/actions/learn-github-actions/expressions
-      name: Deploy
+      name: deploy
       url: http://net.swttws.top
     steps:
       # 切出代码，使用该 Action 将可以拉取最新代码
       - uses: actions/checkout@v2
-      - name: Deploy
+      - name: deploy
         run: docker-compose -f net.docker-compose.yaml up --build -d net
         env:
           COMMIT_REF_NAME: ${{ github.ref_name }}
