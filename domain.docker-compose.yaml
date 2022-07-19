@@ -1,0 +1,19 @@
+version: "3"
+services:
+  domain:
+    build:
+      context: .
+      dockerfile: deploy.Dockerfile
+    labels:
+      # 配置域名
+       - "traefik.http.routers.net.rule=Host(`net.swttws.top`)"
+
+       # 配置 TLS
+      #  - traefik.http.routers.cra.tls=true
+      #  - traefik.http.routers.cra.tls.certresolver=le
+
+# 一定要与 traefik 在同一网络下
+networks:
+  default:
+    external:
+      name: traefik_default
