@@ -61,7 +61,7 @@ const quickLogin = () => {
     <!-- 右侧区域 -->
     <div class="header-right">
       <div>
-        <el-button @click="toggleTheme()">切换主题色</el-button>
+        <!-- <el-button @click="toggleTheme()">切换主题色</el-button> -->
       </div>
       <div class="avatar-box">
         <el-avatar
