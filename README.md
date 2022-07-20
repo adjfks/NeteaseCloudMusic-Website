@@ -53,6 +53,7 @@
 - 离线播放✅
 - 扫码登录✅
 - 音量调整✅
+- 自动构建和部署✅
 - 随机播放顺序播放
 - 播放列表
 - 手机号密码登录
@@ -60,6 +61,9 @@
 - 歌手详情页
 - MV播放
 - ......
+
+## 自动构建和部署
+使用Github Actions + Docker + Docker Compose + Praefik + Nginx实现了项目的自动构建和部署，并可通过域名访问。
 
 ## Getting Started
 

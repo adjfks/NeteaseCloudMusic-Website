@@ -5,6 +5,8 @@ on:
   push:
     branches:    
       - main
+    paths-ignore:
+      - 'README.md'
 
 # 执行所有的 jobs
 jobs:
