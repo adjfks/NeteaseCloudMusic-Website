@@ -2,8 +2,8 @@ import axios from 'axios'
 import { Method } from '@/type'
 
 const baseURL = __DEV__
-  ? 'http://120.25.153.83:4000/'
-  : 'http://120.25.153.83:4000/'
+  ? 'http://http://43.139.206.205:4001/'
+  : 'http://http://43.139.206.205:4001/'
 
 const instance = axios.create({
   baseURL,
