@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: deploy.Dockerfile
-    labels:
+    # labels:
       # 配置域名
       #  - "traefik.http.routers.net.rule=Host(`net.swttws.top`)"
 
