@@ -6,15 +6,18 @@ services:
       dockerfile: deploy.Dockerfile
     labels:
       # 配置域名
-       - "traefik.http.routers.net.rule=Host(`net.swttws.top`)"
+      #  - "traefik.http.routers.net.rule=Host(`net.swttws.top`)"
 
        # 配置 TLS
       #  - traefik.http.routers.net.tls=true
       
       #  - traefik.http.routers.net.tls.certresolver=le
+    ports:
+      # 将nginx镜像的80端口映射到服务器的4001端口
+     - 4001:80
 
 # 一定要与 traefik 在同一网络下
-networks:
-  default:
-    external:
-      name: traefik_default
+# networks:
+#   default:
+#     external:
+#       name: traefik_default
